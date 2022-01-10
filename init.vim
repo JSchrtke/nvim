@@ -1,0 +1,869 @@
+"### General settings ###
+let mapleader = "\<Space>"
+filetype plugin on
+set number
+set relativenumber
+set updatetime=500
+set ignorecase
+set clipboard=unnamedplus
+set mouse=a
+set showbreak=↪\
+set listchars=tab:-->,eol:↲,nbsp:␣,trail:•,space:•,extends:⟩,precedes:⟨
+set diffopt+=algorithm:histogram
+set colorcolumn=100
+" always having the signcolumn shown avoids the entire buffer content moving whenever there are
+" signs to be displayed
+set signcolumn=yes
+
+" Indentation
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Undo/Redo
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+
+" highlight yanked text
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank{timeout=200}
+augroup END
+
+" only show the cursorline in the currently active window
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
+" NOTE: avoid freezing the vim process forever, see
+" https://github.com/neovim/neovim/issues/6660
+if has('win32')
+    nmap <C-z> <Nop>
+endif
+
+" make sure the file get's reloaded whenever it's changed by an outside
+" program
+autocmd FocusGained,BufEnter,CursorHold * :silent! checktime
+
+" easliy escape from terminal insert mode
+tnoremap <C-Esc> <C-\><C-n>
+
+" quickly navigate through the quickfix list
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-p> :cprevious<CR>
+
+" ### Install plugins ###
+call plug#begin('~/.vim/plugged')
+
+" Performance
+Plug 'lewis6991/impatient.nvim'
+
+" UI
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'onsails/lspkind-nvim'
+Plug 'folke/lsp-trouble.nvim'
+Plug 'folke/which-key.nvim'
+Plug 'folke/todo-comments.nvim'
+Plug 'simeji/winresizer'
+Plug 'kassio/neoterm'
+Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
+" TODO configure this properly
+Plug 'AckslD/nvim-neoclip.lua'
+Plug 'folke/zen-mode.nvim'
+Plug 'sindrets/winshift.nvim'
+
+" Search
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'windwp/nvim-spectre'
+
+" Editing/motions
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'junegunn/vim-easy-align'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
+Plug 'lewis6991/gitsigns.nvim'
+
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'mfussenegger/nvim-jdtls'
+Plug 'williamboman/nvim-lsp-installer'
+
+" Debugging
+Plug 'mfussenegger/nvim-dap'
+
+" Syntax/Languages
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'rkennedy/vim-delphi'
+Plug 'dag/vim-fish'
+Plug 'simrat39/rust-tools.nvim'
+
+" Editor behaviour
+Plug 'Pocco81/AutoSave.nvim'
+Plug 'famiu/bufdelete.nvim'
+Plug 'vim-scripts/BufOnly.vim'
+
+" Colors
+Plug 'JSchrtke/melange'
+Plug 'rktjmp/lush.nvim'
+Plug 'projekt0n/github-nvim-theme'
+Plug 'mcchrish/zenbones.nvim'
+
+call plug#end()
+
+" ### Configure impatient.nvim ###
+lua require('impatient').enable_profile()
+
+" ### Configure treesitter ###
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = true,
+    },
+}
+EOF
+
+" ### Configure nvim-cmp###
+lua << EOF
+local cmp = require 'cmp'
+cmp.setup {
+    experimental = {
+        ghost_text = true
+    },
+
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+
+    completion = {
+        completeopt = 'menu,menuone,noinsert',
+    },
+
+    formatting = {
+        format = function(entry, vim_item)
+            -- fancy icons and a name of kind
+            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+
+            -- set a name for each source
+            vim_item.menu = ({ buffer = "[Buffer]", nvim_lsp = "[LSP]", vsnip = "[VSnip]", })[entry.source.name]
+            return vim_item
+        end,
+    },
+
+    mapping = {
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-q>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+
+    sources = {
+        { name = 'vsnip' },
+        { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'buffer' },
+    },
+}
+EOF
+
+" ### Configure vim-vsnip ###
+imap <expr> <Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
+smap <expr> <Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
+
+" ### Configure nvim diagnostics ###
+lua << EOF
+
+local function lspSymbol(name, icon)
+    vim.fn.sign_define('DiagnosticSign' .. name, {text = icon, texthl = 'Diagnostic' .. name})
+end
+
+lspSymbol('Error', '')
+lspSymbol('Hint', '')
+lspSymbol('Info', '')
+lspSymbol('Warn', '')
+
+vim.diagnostic.config({severity_sort = true})
+
+EOF
+
+" ### Configure LSP ###
+lua << EOF
+
+local on_attach = function(client, bufnr)
+    -- TODO what do these 2 lines do here?
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    require 'lsp_signature'.on_attach()
+end
+
+-- lsp status
+local lsp_status = require("lsp-status")
+lsp_status.config({
+    status_symbol = ' ',
+    indicator_info = ' '
+})
+lsp_status.register_progress()
+
+-- lsp installer
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(
+    function(server)
+        local opts = {}
+        server:setup(opts)
+        vim.cmd([[do User LspAttachBuffers]])
+    end
+)
+
+EOF
+
+" ### Configure lsp_signature.nvim ###
+lua << EOF
+
+require'lsp_signature'.on_attach(
+    {
+        bind = true,
+        doc_lines = 2,
+        floating_window = true,
+        hint_enable = false,
+        hint_prefix = " ■ ",
+        hint_scheme = "String",
+        use_lspsaga = false,
+        hi_parameter = "SpellRare",
+        handler_opts = {border = "single"},
+    }
+)
+
+EOF
+
+" ### Configure telescope.nvim ###
+lua << EOF
+
+local actions = require('telescope.actions')
+local layout = require('telescope.actions.layout')
+require('telescope').setup {
+    defaults = {
+        borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"},
+        path_display = {
+            truncate = 3,
+        },
+        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+        qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+        preview = {
+            timeout = 100,
+            hide_on_startup = true,
+        },
+        mappings = {
+            i = {
+                ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-p>"] = layout.toggle_preview,
+            },
+            n = {
+                ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-p>"] = layout.toggle_preview,
+            },
+        },
+    }
+}
+
+require("telescope").load_extension("file_browser")
+require("telescope").load_extension("todo-comments")
+require('telescope').load_extension('neoclip')
+require('telescope').load_extension('project')
+
+EOF
+
+" ### Configure todo-comments.nvim ###
+lua << EOF
+require('todo-comments').setup {
+    search = {
+        pattern = [[\b(KEYWORDS)\b]],
+    },
+    highlight = {
+        before = "",
+        keyword = "bg",
+        after = "",
+        pattern = [[.*<(KEYWORDS)\s*]],
+        comments_only = true,
+    },
+    keywords = {
+        FIX = {
+            icon = " ",
+            color = "error",
+            alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" },
+
+        },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+    },
+}
+
+EOF
+
+" ### Configure gitsigns.nvim ###
+lua << EOF
+
+require('gitsigns').setup{
+    keymaps = {
+        buffer = true,
+    }
+}
+
+EOF
+
+" ### Configure indent-blankline ###
+let g:indent_blankline_use_treesitter = v:true
+let g:indent_blankline_filetype_exclude = ['help', 'Trouble', 'markdown']
+let g:indent_blankline_buftype_exclude = ['terminal']
+let g:indent_blankline_bufname_exclude = ['README.md', '.*\.txt']
+let g:indent_blankline_show_first_indent_level = v:true
+let g:indentLine_char = '│'
+
+" ### Configure lspkind-nvim ###
+lua << EOF
+require('lspkind').init({
+    with_text = true,
+    symbol_map = {
+        Text = '',
+        Method = 'ƒ',
+        Function = '',
+        Constructor = '',
+        Variable = '',
+        Class = '',
+        Interface = 'ﰮ',
+        Module = '',
+        Property = '',
+        Unit = '',
+        Value = '',
+        Enum = '了',
+        Keyword = '',
+        Snippet = '﬌',
+        Color = '',
+        File = '',
+        Folder = '',
+        EnumMember = '',
+        Constant = '',
+        Struct = ''
+    },
+})
+EOF
+
+" ### Configure which-key.nvim
+lua << EOF
+
+local wk = require("which-key")
+t = require('telescope.builtin')
+t_ext = require('telescope').extensions
+ivy_theme = require('telescope.themes').get_ivy()
+
+-- Normal mode, no <leader> prefix
+wk.register({
+    ["gd"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "go to definition"},
+    ["gt"] = {"next tab"},
+    ["gT"] = {"previous tab"},
+    ["K"] = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
+})
+
+-- Normal mode, <leader> prefix
+wk.register({
+    -- ignored keys
+    ["1"] = "which_key_ignore",
+    ["2"] = "which_key_ignore",
+    ["3"] = "which_key_ignore",
+    ["4"] = "which_key_ignore",
+    ["5"] = "which_key_ignore",
+    ["6"] = "which_key_ignore",
+    ["7"] = "which_key_ignore",
+    ["8"] = "which_key_ignore",
+    ["9"] = "which_key_ignore",
+
+    ["<cr>"] = {"<cmd>Ttoggle<CR>", "toggle terminal"},
+
+    -- open
+    o = {
+        name = "+open",
+        f = {"<cmd>lua t.find_files(ivy_theme)<CR>", "file"},
+        e = {"<cmd>lua t_ext.file_browser.file_browser(ivy_theme)<CR>", "file explorer"},
+        r = {"<cmd>lua t.oldfiles(ivy_theme)<CR>", "recent"},
+        b = {"<cmd>lua t.buffers(ivy_theme)<CR>", "buffer"},
+        p = {"<cmd>lua t_ext.project.project(ivy_theme)<CR>", "project"},
+        gb = {"<cmd>lua t.git_branches(ivy_theme)<CR>", "git branch"},
+        gc = {"<cmd>lua t.git_commits(ivy_theme)<CR>", "git commit"},
+    },
+
+    -- find
+    f = {
+        name = "+find",
+        f = {"<cmd>lua t.current_buffer_fuzzy_find(ivy_theme)<CR>", "in file"},
+        -- for syntax documentation see https://docs.rs/regex/1.5.4/regex/#syntax
+        d = {"<cmd>lua t.live_grep(ivy_theme)<CR>", "in directory"},
+        w = {"<cmd>lua t.grep_string(ivy_theme)<CR>", "word"},
+        s = {"<cmd>lua t.lsp_document_symbols(ivy_theme)<CR>", "document symbols"},
+        S = {"<cmd>lua t.lsp_workspace_symbols(ivy_theme)<CR>", "workspace symbols"},
+        q = {"<cmd>lua t.quickfix(ivy_theme)<CR>", "in quickfix list"},
+        h = {"<cmd>lua t.help_tags(ivy_theme)<CR>", "in help"},
+        r = {"<cmd>lua t.lsp_references(ivy_theme)<CR>", "references"},
+        t = {"<cmd>lua t_ext.todo.todo(ivy_theme)<CR>", "todos"},
+    },
+
+    -- layout
+    l = {
+        name = "+layout",
+        h = {"<cmd>wincmd H<CR>", "drag window left"},
+        j = {"<cmd>wincmd J<CR>", "drag window down"},
+        k = {"<cmd>wincmd K<CR>", "drag window up"},
+        l = {"<cmd>wincmd L<CR>", "drag window right"},
+        H = {"<cmd>vsplit<CR>", "split left"},
+        J = {"<cmd>split<bar>wincmd j<CR>", "split down"},
+        K = {"<cmd>split<CR>", "split up"},
+        L = {"<cmd>vsplit<bar>wincmd l<CR>", "split right"},
+        r = {"<cmd>WinResizerStartResize<CR>", "resize mode"},
+        e = {"<cmd>wincmd =<CR>", "equalize size"},
+        m = { "<cmd>WinShift<CR>", "toggle window move mode"},
+        s = { "<cmd>WinShift swap<CR>", "toggle window swap mode"},
+        z = {"<cmd>ZenMode<CR>", "toggle zen mode"},
+    },
+
+    -- quit
+    q = {
+        name = "+quit",
+        w = {"<cmd>q<CR>", "window"},
+        W = {"<cmd>wincmd o<CR>", "all other windows"},
+        b = {"<cmd>Bdelete<CR>", "buffer"},
+        B = {"<cmd>BufOnly!<CR>", "all other buffers"},
+        t = {"<cmd>tabclose<CR>", "tab"},
+        T = {"<cmd>tabonly<CR>", "all other tabs"},
+    },
+
+    -- go
+    g = {
+        name = "+go",
+        C = {"<cmd>lua require('gitsigns.actions').prev_hunk()<CR>", "previous change"},
+        D = {"<cmd>lua vim.lsp.buf.declaration()<CR>", "declaration"},
+        E = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "previous error"},
+        c = {"<cmd>lua require('gitsigns.actions').next_hunk()<CR>", "next change"},
+        d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "definition"},
+        e = {"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "next error"},
+        h = {"<cmd>wincmd h<CR>", "move left"},
+        i = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "implementation"},
+        j = {"<cmd>wincmd j<CR>", "move down"},
+        k = {"<cmd>wincmd k<CR>", "move up"},
+        l = {"<cmd>wincmd l<CR>", "move right"},
+        t = {"<cmd>lua vim.lsp.buf.type_definition()<CR>", "type definition"},
+        w = {"<cmd>lua require('nvim-window').pick()<CR>", "pick window"},
+        b = {"<cmd>BufferLinePick<CR>", "pick buffer"},
+    },
+
+    -- show
+    s = {
+        name = "+show",
+        E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
+        c = {"<cmd>lua t_ext.neoclip.default(ivy_theme)<CR>", "clipboard"},
+        d = {"<cmd>Gvdiffsplit<bar>wincmd l<CR>", "git diff (current file)"},
+        e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
+        h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
+        i = {"<cmd>lua vim.lsp.buf.signature_help()<CR>", "signature_help"},
+        l = {"<cmd>Flog<CR>", "git log"},
+        q = {"<cmd>copen<CR>", "quickfix list"},
+        s = {"<cmd>G<CR>", "git status"},
+        t = {"<cmd>TodoTrouble<CR>", "todos"},
+        r = {"<cmd>lua vim.lsp.buf.references()<CR>", "lsp references"},
+    },
+
+    -- run
+    r = {
+        name = "+run",
+        R = {"<cmd>lua require('spectre').open()<CR><bar><cmd>wincmd T<CR>", "search & replace"},
+        w = {"<cmd>lua require('spectre').open_visual({select_word=true})<CR><bar><cmd>wincmd T<CR>", "replace word"},
+        a = {"<cmd>lua t.lsp_code_actions(require('telescope.themes').get_cursor({}))<CR>", "code action"},
+        r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "rename"},
+        c = {"<cmd>lua t.commands(ivy_theme)<CR>", "command"},
+    },
+
+    -- terminal
+    t = {
+        name = "+terminal",
+        c = {"<cmd>T clear<CR>", "clear"},
+    },
+
+    -- diff
+    d = {
+        name = "+diff",
+        g = {"<cmd>diffget<cr>", "get"},
+        p = {"<cmd>diffput<cr>", "put"},
+    },
+
+    -- new
+    n = {
+        name = "+new",
+        t = {"<cmd>tabnew<CR>", "tab"},
+        T = {"<cmd>wincmd T<CR>", "tab from current buffer"},
+        b = {"<cmd>enew<CR>", "buffer"},
+        gb = {"<cmd>call nvim_feedkeys(':Git switch -c ', 't',v:true)<cr>", "git branch"},
+    },
+}, { prefix = "<leader>"})
+
+-- visual mode, <leader> prefix
+wk.register({
+    d = {
+        name = "+diff",
+        g = {"<cmd>'<,'>diffget<cr>", "get"},
+        p = {"<cmd>'<,'>diffput<cr>", "put"},
+    },
+}, {prefix = "<leader>", mode = "v"})
+
+EOF
+
+" ### Configure winresizer ###
+let g:winresizer_vert_resize = 1
+let g:winresizer_horiz_resize = 1
+
+" ### Configure rust-tools.nvim ###
+lua << EOF
+
+local opts = {
+    tools = { -- rust-tools options
+        autoSetHints = true,
+        hover_with_actions = true,
+        executor = require("rust-tools/executors").termopen,
+        runnables = {
+            use_telescope = true
+        },
+        inlay_hints = {
+            show_parameter_hints = true,
+            parameter_hints_prefix = "<- ",
+            other_hints_prefix = "=> ",
+            max_len_align = false,
+            max_len_align_padding = 1,
+            right_align = false,
+            right_align_padding = 7
+        },
+        hover_actions = {
+            border = "single",
+            auto_focus = false
+        }
+    },
+
+    server = {
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy"
+                }
+            }
+        }
+    }
+}
+
+require('rust-tools').setup(opts)
+
+EOF
+
+
+" ### Configure AutoSave.nvim ###
+lua << EOF
+
+local autosave = require("autosave")
+autosave.setup(
+    {
+        enabled = true,
+        execution_message = "",
+        events = {"InsertLeave", "TextChanged"},
+        conditions = {
+            exists = true,
+            filename_is_not = {"Cargo.toml"},
+            modifiable = true
+        },
+        write_all_buffers = false,
+        on_off_commands = true,
+        clean_command_line_interval = 2500
+    }
+)
+
+EOF
+
+
+" ### Configure nvim-window ###
+lua << EOF
+
+require("nvim-window").setup{
+    chars = {
+        'a', 's', 'd', 'f', 'j', 'k', 'l'
+    },
+    border = "none",
+    normal_hl = 'PMenuSel'
+}
+
+EOF
+
+
+" ### Configure neoterm ###
+let g:neoterm_default_mod = 'topleft'
+let g:neoterm_autojump = 1
+let g:neoterm_automap_keys = v:false
+
+if has ("win32")
+    " https://github.com/kassio/neoterm/issues/171#issuecomment-344291532
+    let g:neoterm_eof = "\r"
+    let g:neoterm_shell = "pwsh"
+else
+    let g:neoterm_shell = "fish"
+endif
+
+
+" ### Configure guis
+" nvui
+if exists(':NvuiAnimationsEnabled')
+    set guifont=JetBrainsMono\ NF:h13
+    :NvuiCursorAnimationDuration 0.02
+    :NvuiMoveAnimationDuration 0.08
+    :NvuiSnapshotLimit 64
+    :NvuiTitlebarFontFamily BlexMono\ NF
+    :NvuiScrollAnimationDuration 0.06
+endif
+
+" neovide
+set guifont=Fira\ Code:h13
+let g:neovide_refresh_rate = 144
+let g:neovide_cursor_animation_length = 0.025
+let g:neovide_cursor_antialiasing=v:true
+
+" guifont size + 1
+function! s:ZoomIn()
+  let l:fsize = substitute(&guifont, '^.*:h\([^:]*\).*$', '\1', '')
+  let l:fsize += 1
+  let l:guifont = substitute(&guifont, ':h\([^:]*\)', ':h' . l:fsize, '')
+  let &guifont = l:guifont
+endfunction
+
+" guifont size - 1
+function! s:ZoomOut()
+  let l:fsize = substitute(&guifont, '^.*:h\([^:]*\).*$', '\1', '')
+  let l:fsize -= 1
+  let l:guifont = substitute(&guifont, ':h\([^:]*\)', ':h' . l:fsize, '')
+  let &guifont = l:guifont
+endfunction
+
+" command
+command! -narg=0 ZoomIn    :call s:ZoomIn()
+command! -narg=0 ZoomOut   :call s:ZoomOut()
+command! -narg=0 ZoomReset :call s:ZoomReset()
+
+" map
+nmap + :ZoomIn<CR>
+nmap - :ZoomOut<CR>
+
+
+" ### Configure lualine.nvim ###
+lua << EOF
+
+require'lualine'.setup {
+    options = {
+        icons_enabled = true,
+        theme = 'github',
+        component_separators = {left='', right=''},
+        section_separators = {left='', right=''},
+        disabled_filetypes = {'help', 'NvimTree'}
+    },
+    sections = {
+        lualine_a = {
+            {'filename', file_status = true, path = 1},
+        },
+        lualine_b = {
+            {'branch'},
+            {'diff', colored = false},
+        },
+        lualine_c = {
+            "require'lsp-status'.status()",
+        },
+        lualine_x = {
+            'encoding',
+            {'filetype', colored = false, icon_only = true},
+        },
+        lualine_y = {
+            'progress'
+        },
+        lualine_z = {
+            'location'
+        }
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+            {'filename', file_status = true, path = 2},
+        },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    extensions = {}
+}
+
+EOF
+
+
+" ### Configure nvim-neoclip ###
+lua << EOF
+
+require('neoclip').setup({
+    history = 1000,
+    filter = nil,
+    preview = false,
+    default_register = '"',
+    content_spec_column = true,
+    on_paste = {
+        set_reg = false,
+    },
+    keys = {
+        telescope = {
+            i = {
+                select = '<cr>',
+                paste = '<c-p>',
+                paste_behind = '<c-k>',
+            },
+            n = {
+                select = '<cr>',
+                paste = 'p',
+                paste_behind = 'P',
+            },
+        },
+    },
+})
+
+EOF
+
+" ### Configure trouble ###
+lua << EOF
+require("trouble").setup {
+    indent_lines = false, -- add an indent guide below the fold icons
+    auto_open = false, -- automatically open the list when you have diagnostics
+    auto_close = false, -- automatically close the list when you have no diagnostics
+    auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
+    auto_fold = false, -- automatically fold a file trouble list at creation
+}
+EOF
+
+" ### Configure Colors ###
+set t_Co=256
+set termguicolors
+set encoding=utf-8
+
+highlight! link CmpItemAbbrDefault Pmenu
+highlight! link CmpItemMenuDefault Pmenu
+
+let g:github_keyword_style = "italic"
+let g:github_msg_area_style = "bold"
+let g:github_function_style = "bold"
+let g:github_dark_float = v:true
+let g:github_dark_sidebars = v:true
+let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
+
+function! SetLightTheme()
+    colorscheme github_light_default
+    highlight! DiffText ctermbg=225 guifg=#b08800 guibg=#fff5b1
+    highlight! link DiffChange CursorLine
+    highlight! link ColorColumn StatusLine
+    highlight! link NonText Whitespace
+    highlight! link LineNr Comment
+    highlight! link CursorLineNr CursorLine
+lua << EOF
+    require'lualine'.setup {
+        options = {
+            theme = 'github'
+        },
+    }
+EOF
+endfunction
+
+function! SetDarkTheme()
+    colorscheme github_dark_default
+    highlight! DiffText ctermbg=5 guifg=#e3b341 guibg=#341a00
+    highlight! link DiffChange CursorLine
+    highlight! link ColorColumn StatusLine
+    highlight! link NonText Whitespace
+    highlight! link LineNr Comment
+    highlight! link CursorLineNr CursorLine
+lua << EOF
+    require'lualine'.setup {
+        options = {
+            theme = 'github'
+        },
+    }
+EOF
+endfunction
+
+command! Light :call SetLightTheme()
+command! Dark :call SetDarkTheme()
+
+function! CheckWindowsTheme()
+    if system("powershell.exe -NoProfile (Get-ItemProperty  -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\).SystemUsesLightTheme") == 1
+        return "light"
+    else
+        return "dark"
+    endif
+endfunction
+
+function! CheckLinuxTheme()
+    let time = strftime("%H%M")
+    if 821 <= time && time <= 1608
+        return "light"
+    else
+        return "dark"
+    end
+endfunction
+
+function! CheckTheme()
+    if has("win32")
+        return CheckWindowsTheme()
+    else
+        return CheckLinuxTheme()
+    endif
+endfunction
+
+function! CheckAndSetTheme()
+    if CheckTheme() == "dark"
+        call SetDarkTheme()
+    else
+       call SetLightTheme()
+    endif
+endfunction
+
+command! C :call CheckAndSetTheme()
+
+call CheckAndSetTheme()
