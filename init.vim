@@ -660,7 +660,7 @@ if exists(':NvuiAnimationsEnabled')
 endif
 
 " neovide
-set guifont=Fira\ Code:h13
+set guifont=FiraCode\ NF:h13
 let g:neovide_refresh_rate = 144
 let g:neovide_cursor_animation_length = 0.025
 let g:neovide_cursor_antialiasing=v:true
