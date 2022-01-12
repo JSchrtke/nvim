@@ -81,9 +81,9 @@ Plug 'sindrets/winshift.nvim', { 'commit': 'aaa04b97640165eb0877bfc04943f4282887
 
 " Search
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
-Plug 'nvim-telescope/telescope.nvim', { 'commit': 'c54fc1733e440ebe730f68a838c54c7c7e70e6fd' }
+Plug 'nvim-telescope/telescope.nvim', { 'commit': '015a35626d5a293dc9c19dc2bb301f25850961f6' }
 Plug 'nvim-telescope/telescope-project.nvim', { 'commit': 'ad33c9eb67de635ded67069af7552d5162497b1e' }
-Plug 'nvim-telescope/telescope-file-browser.nvim', { 'commit': 'c4674fff199a01d0c476838427572fa3ee632373' }
+Plug 'nvim-telescope/telescope-file-browser.nvim', { 'commit': '6df8b49f5e16cd88817892dc12a1a79062e17856' }
 Plug 'windwp/nvim-spectre', { 'commit': '4a4cf2c981b077055ef7725959d13007e366ba23' }
 
 " Editing/motions
@@ -274,7 +274,14 @@ local actions = require('telescope.actions')
 local layout = require('telescope.actions.layout')
 require('telescope').setup {
     defaults = {
-        borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"},
+        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+        layout_config = {
+            prompt_position = "top",
+            width = 0.95,
+            height = 0.9,
+        },
+        prompt_prefix = " ",
+        sorting_strategy = "ascending",
         path_display = {
             truncate = 3,
         },
@@ -283,18 +290,18 @@ require('telescope').setup {
         qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
         preview = {
             timeout = 100,
-            hide_on_startup = true,
+            hide_on_startup = false,
         },
+        dynamic_preview_title = true,
         mappings = {
             i = {
                 ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                 ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
-                ["<C-p>"] = layout.toggle_preview,
             },
             n = {
                 ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                 ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
-                ["<C-p>"] = layout.toggle_preview,
+                ["<BS>"] = layout.toggle_preview,
             },
         },
     }
