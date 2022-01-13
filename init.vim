@@ -424,6 +424,7 @@ wk.register({
     ["<cr>"] = {"<cmd>Ttoggle<CR>", "toggle terminal"},
 
     -- open
+    c = {"<cmd>lua t.commands()<CR>", "run command"},
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files()<CR>", "file"},
