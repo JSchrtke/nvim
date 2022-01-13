@@ -562,6 +562,7 @@ EOF
 " ### Configure winresizer ###
 let g:winresizer_vert_resize = 1
 let g:winresizer_horiz_resize = 1
+map <C-e> <nop>
 
 " ### Configure rust-tools.nvim ###
 lua << EOF
@@ -877,7 +878,7 @@ endfunction
 
 function! CheckLinuxTheme()
     let time = strftime("%H%M")
-    if 821 <= time && time <= 1608
+    if 855 <= time && time <= 1604
         return "light"
     else
         return "dark"
