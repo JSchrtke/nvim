@@ -14,6 +14,8 @@ set colorcolumn=100
 " always having the signcolumn shown avoids the entire buffer content moving whenever there are
 " signs to be displayed
 set signcolumn=yes
+set t_Co=256
+set termguicolors
 
 " Indentation
 set tabstop=4
@@ -398,7 +400,6 @@ lua << EOF
 local wk = require("which-key")
 t = require('telescope.builtin')
 t_ext = require('telescope').extensions
-ivy_theme = require('telescope.themes').get_ivy()
 
 -- Normal mode, no <leader> prefix
 wk.register({
@@ -503,7 +504,7 @@ wk.register({
     s = {
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
-        c = {"<cmd>lua t_ext.neoclip.default(ivy_theme)<CR>", "clipboard"},
+        c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
         d = {"<cmd>Gvdiffsplit<bar>wincmd l<CR>", "git diff (current file)"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
@@ -522,7 +523,6 @@ wk.register({
         w = {"<cmd>lua require('spectre').open_visual({select_word=true})<CR><bar><cmd>wincmd T<CR>", "replace word"},
         a = {"<cmd>lua t.lsp_code_actions(require('telescope.themes').get_cursor({}))<CR>", "code action"},
         r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "rename"},
-        c = {"<cmd>lua t.commands(ivy_theme)<CR>", "command"},
     },
 
     -- terminal
@@ -792,13 +792,6 @@ require("trouble").setup {
 EOF
 
 " ### Configure Colors ###
-set t_Co=256
-set termguicolors
-set encoding=utf-8
-
-highlight! link CmpItemAbbrDefault Pmenu
-highlight! link CmpItemMenuDefault Pmenu
-
 let g:github_keyword_style = "italic"
 let g:github_msg_area_style = "bold"
 let g:github_function_style = "bold"
@@ -806,27 +799,34 @@ let g:github_dark_float = v:true
 let g:github_dark_sidebars = v:true
 let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
 
-function! SetLightTheme()
-    colorscheme github_light_default
-    highlight! DiffText ctermbg=225 guifg=#b08800 guibg=#fff5b1
+function! SetupHighlightGroups()
+    if &bg == "dark"
+        highlight! DiffText ctermbg=5 guifg=#e3b341 guibg=#341a00
+        highlight! TelescopeNormal guifg=#c9d1d9 guibg=#090C10
+        highlight! TelescopePromptNormal guifg=#c9d1d9 guibg=#161B22
+        highlight! TelescopePromptTitle gui=bold 
+    else
+        highlight! DiffText ctermbg=225 guifg=#b08800 guibg=#fff5b1
+        highlight! TelescopeNormal guibg=#E7E9EB
+        highlight! TelescopePromptNormal guibg=#D5E5F6
+        highlight! TelescopePromptTitle gui=bold 
+    endif
+
+    highlight! link CmpItemAbbrDefault Pmenu
+    highlight! link CmpItemMenuDefault Pmenu
     highlight! link DiffChange CursorLine
     highlight! link ColorColumn StatusLine
     highlight! link NonText Whitespace
     highlight! link LineNr Comment
     highlight! link CursorLineNr CursorLine
-
-    highlight! TelescopeNormal guibg=#E7E9EB
-
-    highlight! TelescopePromptNormal guibg=#D5E5F6
-
+    highlight! link TelescopeResultsBorder TelescopeNormal
     highlight! link TelescopePromptBorder TelescopePromptNormal
-    highlight! TelescopePromptTitle gui=bold 
-
     highlight! link TelescopePreviewBorder TelescopeNormal
     highlight! TelescopePreviewTitle gui=bold,underline
-
-    highlight! link TelescopeResultsBorder TelescopeNormal
     highlight! TelescopeResultsTitle gui=bold,underline
+endfunction
+
+function! SetLuaLineTheme()
 lua << EOF
     require'lualine'.setup {
         options = {
@@ -836,33 +836,16 @@ lua << EOF
 EOF
 endfunction
 
+function! SetLightTheme()
+    colorscheme github_light_default
+    call SetupHighlightGroups()
+    call SetLuaLineTheme()
+endfunction
+
 function! SetDarkTheme()
     colorscheme github_dark_default
-    highlight! DiffText ctermbg=5 guifg=#e3b341 guibg=#341a00
-    highlight! link DiffChange CursorLine
-    highlight! link ColorColumn StatusLine
-    highlight! link NonText Whitespace
-    highlight! link LineNr Comment
-    highlight! link CursorLineNr CursorLine
-
-    highlight! TelescopeNormal guifg=#c9d1d9 guibg=#090C10
-
-    highlight! TelescopePromptNormal guifg=#c9d1d9 guibg=#161B22
-    highlight! link TelescopePromptBorder TelescopePromptNormal
-    highlight! TelescopePromptTitle gui=bold 
-
-    highlight! link TelescopePreviewBorder TelescopeNormal
-    highlight! TelescopePreviewTitle gui=bold,underline
-
-    highlight! link TelescopeResultsBorder TelescopeNormal
-    highlight! TelescopeResultsTitle gui=bold,underline
-lua << EOF
-    require'lualine'.setup {
-        options = {
-            theme = 'github'
-        },
-    }
-EOF
+    call SetupHighlightGroups()
+    call SetLuaLineTheme()
 endfunction
 
 command! Light :call SetLightTheme()
