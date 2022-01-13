@@ -1,8 +1,8 @@
 "### General settings ###
 let mapleader = "\<Space>"
 filetype plugin on
-set nonumber
-set norelativenumber
+set number
+set relativenumber
 set updatetime=500
 set ignorecase
 set clipboard=unnamedplus
