@@ -34,13 +34,6 @@ augroup highlight_yank
     au TextYankPost * silent! lua vim.highlight.on_yank{timeout=200}
 augroup END
 
-" only show the cursorline in the currently active window
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
 " NOTE: avoid freezing the vim process forever, see
 " https://github.com/neovim/neovim/issues/6660
 if has('win32')
