@@ -90,7 +90,6 @@ Plug 'windwp/nvim-spectre', { 'commit': '4a4cf2c981b077055ef7725959d13007e366ba2
 
 " Editing/motions
 Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
-Plug 'tpope/vim-surround', { 'commit': 'aeb933272e72617f7c4d35e1f003be16836b948d' }
 Plug 'michaeljsmith/vim-indent-object', { 'commit': '5c5b24c959478929b54a9e831a8e2e651a465965' }
 Plug 'junegunn/vim-easy-align', { 'commit': '12dd6316974f71ce333e360c0260b4e1f81169c3' }
 Plug 'tpope/vim-repeat', { 'commit': '24afe922e6a05891756ecf331f39a1f6743d3d5a' }
@@ -789,6 +788,18 @@ require("trouble").setup {
     auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
     auto_fold = false, -- automatically fold a file trouble list at creation
 }
+EOF
+
+" ### Configure lightspeed.nvim ###
+omap s <Plug>Lightspeed_s
+omap S <Plug>Lightspeed_S
+omap x <Plug>Lightspeed_x
+omap X <Plug>Lightspeed_X
+lua << EOF
+vim.api.nvim_set_keymap('n', '<leader>;', '<Plug>Lightspeed_;_sx', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>,', '<Plug>Lightspeed_,_sx', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('x', '<leader>;', '<Plug>Lightspeed_;_sx', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('x', '<leader>,', '<Plug>Lightspeed_,_sx', {noremap = false, silent = true})
 EOF
 
 " ### Configure Colors ###
