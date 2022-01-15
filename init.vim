@@ -45,7 +45,7 @@ endif
 autocmd FocusGained,BufEnter,CursorHold * :silent! checktime
 
 " easliy escape from terminal insert mode
-tnoremap <C-Esc> <C-\><C-n>
+tnoremap <C-w>n <C-\><C-n>
 
 " quickly navigate through the quickfix list
 nnoremap <C-n> :cnext<CR>
