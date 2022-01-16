@@ -638,7 +638,7 @@ require("nvim-window").setup{
         'a', 's', 'd', 'f', 'j', 'k', 'l'
     },
     border = "none",
-    normal_hl = 'PMenuSel'
+    normal_hl = 'Search'
 }
 
 EOF
@@ -826,30 +826,28 @@ function! SetupHighlightGroups()
     highlight! link NonText Whitespace
     highlight! link LineNr Comment
     highlight! link CursorLineNr CursorLine
-
-    highlight! LightspeedLabel gui=bold,underline guifg=#f85149
-    highlight! LightspeedShortcut gui=bold,underline guibg=#f85149 guifg=#000000
-    highlight! LightspeedOneCharMatch gui=bold guibg=#f85149 guifg=#000000
 endfunction
 
 function! SetLuaLineTheme()
 lua << EOF
     require'lualine'.setup {
         options = {
-            theme = 'github'
+            theme = 'zenbones'
         },
     }
 EOF
 endfunction
 
 function! SetLightTheme()
-    colorscheme github_light_default
+    set background=light
+    colorscheme zenbones
     call SetupHighlightGroups()
     call SetLuaLineTheme()
 endfunction
 
 function! SetDarkTheme()
-    colorscheme github_dark_default
+    set background=dark
+    colorscheme zenbones
     call SetupHighlightGroups()
     call SetLuaLineTheme()
 endfunction
