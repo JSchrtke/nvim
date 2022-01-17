@@ -813,15 +813,8 @@ let g:github_dark_sidebars = v:true
 let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
 
 function! SetupHighlightGroups()
-    if &bg == "dark"
-        highlight! DiffText ctermbg=5 guifg=#e3b341 guibg=#341a00
-    else
-        highlight! DiffText ctermbg=225 guifg=#b08800 guibg=#fff5b1
-    endif
-
     highlight! link CmpItemAbbrDefault Pmenu
     highlight! link CmpItemMenuDefault Pmenu
-    highlight! link DiffChange CursorLine
     highlight! link ColorColumn StatusLine
     highlight! link NonText Whitespace
     highlight! link LineNr Comment
