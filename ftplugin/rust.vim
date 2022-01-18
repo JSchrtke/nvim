@@ -1,4 +1,4 @@
-setlocal makeprg='cargo'
+setlocal makeprg=cargo
 
 " from https://github.com/rust-lang/rust.vim/blob/4aa69b84c8a58fcec6b6dad6fe244b916b1cf830/syntax_checkers/rust/cargo.vim#L66
 " Ignored patterns, and blank lines
