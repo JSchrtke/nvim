@@ -152,10 +152,12 @@ EOF
 " ### Configure nvim-cmp###
 lua << EOF
 local cmp = require 'cmp'
-cmp.setup {
+cmp.setup({
     experimental = {
         ghost_text = true
     },
+
+    preselect = cmp.PreselectMode.None,
 
     snippet = {
         expand = function(args)
@@ -183,16 +185,27 @@ cmp.setup {
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-q>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
     },
 
     sources = {
-        { name = 'vsnip' },
-        { name = 'nvim_lsp' },
-        { name = 'path' },
-        { name = 'buffer' },
+        {
+            name = 'vsnip',
+            priority = 10
+        },
+        {
+            name = 'nvim_lsp',
+            priority = 100
+        },
+        {
+            name = 'path'
+        },
+        {
+            name = 'buffer'
+        },
     },
-}
+})
+
 EOF
 
 " ### Configure vim-vsnip ###
