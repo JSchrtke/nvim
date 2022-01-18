@@ -42,7 +42,7 @@ endfunction
 
 function! MakeRun()
     :make run
-    :cw
+    :copen
 endfunction
 
 function! MakeFmt()
@@ -57,6 +57,7 @@ endfunction
 
 function! MakeTest()
     :make test
+    :copen
 endfunction
 
 lua << EOF
