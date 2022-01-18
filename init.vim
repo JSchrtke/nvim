@@ -134,6 +134,9 @@ Plug 'rktjmp/lush.nvim', { 'commit': '57e9f310b7ddde27664c3e1a5ec3517df235124b' 
 Plug 'projekt0n/github-nvim-theme', { 'commit': 'd0a4be696adeffe9f41587558ad12fe52dfa7ce5' }
 Plug 'mcchrish/zenbones.nvim', { 'commit': '668ec5d2b7835b16b2b6eebb3a71e31173e5da51' }
 
+" File management
+Plug 'elihunter173/dirbuf.nvim'
+
 call plug#end()
 
 " ### Configure impatient.nvim ###
@@ -512,6 +515,7 @@ wk.register({
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
         c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
         d = {"<cmd>Gvdiffsplit<bar>wincmd l<CR>", "git diff (current file)"},
+        D = {"<cmd>Dirbuf<CR>", "directory buffer"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
         i = {"<cmd>lua vim.lsp.buf.signature_help()<CR>", "signature_help"},
@@ -697,8 +701,10 @@ command! -narg=0 ZoomOut   :call s:ZoomOut()
 command! -narg=0 ZoomReset :call s:ZoomReset()
 
 " map
+if has('gui_running')
 nmap + :ZoomIn<CR>
 nmap - :ZoomOut<CR>
+endif
 
 
 " ### Configure lualine.nvim ###
