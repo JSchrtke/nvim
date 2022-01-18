@@ -54,10 +54,6 @@ autocmd FocusGained,BufEnter,CursorHold * :silent! checktime
 " easliy escape from terminal insert mode
 tnoremap <C-w>n <C-\><C-n>
 
-" quickly navigate through the quickfix list
-nnoremap <C-n> :cnext<CR>
-nnoremap <C-p> :cprevious<CR>
-
 " ### Install plugins ###
 call plug#begin('~/.vim/plugged')
 
@@ -401,6 +397,9 @@ map <C-e> <nop>
 
 " ### Configure which-key.nvim/mappings ###
 nnoremap <C-e> :lua require("telescope").extensions.file_browser.file_browser(require("telescope.themes").get_ivy())<CR>
+nnoremap <C-n> :lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <C-p> :lua vim.lsp.diagnostic.goto_prev()<CR>
+
 lua << EOF
 
 local wk = require("which-key")
@@ -493,10 +492,10 @@ wk.register({
         name = "+go",
         C = {"<cmd>lua require('gitsigns.actions').prev_hunk()<CR>", "previous change"},
         D = {"<cmd>lua vim.lsp.buf.declaration()<CR>", "declaration"},
-        E = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "previous error"},
         c = {"<cmd>lua require('gitsigns.actions').next_hunk()<CR>", "next change"},
         d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "definition"},
         e = {"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "next error"},
+        E = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "previous error"},
         h = {"<cmd>wincmd h<CR>", "move left"},
         i = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "implementation"},
         j = {"<cmd>wincmd j<CR>", "move down"},
