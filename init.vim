@@ -824,6 +824,7 @@ function! SetupHighlightGroups()
     highlight! link NonText Whitespace
     highlight! link LineNr Comment
     highlight! link CursorLineNr CursorLine
+    highlight! link NonText Comment
 endfunction
 
 function! SetLuaLineTheme()
@@ -862,6 +863,7 @@ function! CheckWindowsTheme()
 endfunction
 
 function! CheckLinuxTheme()
+    return "dark"
     let time = strftime("%H%M")
     if 855 <= time && time <= 1604
         return "light"
