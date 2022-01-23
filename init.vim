@@ -245,7 +245,11 @@ end
 local lsp_status = require("lsp-status")
 lsp_status.config({
     status_symbol = ' ',
-    indicator_info = ' '
+    indicator_info = '',
+    indicator_errors = '',
+    indicator_warnings = '',
+    indicator_hint = '',
+    indicator_ok = '',
 })
 lsp_status.register_progress()
 
@@ -734,53 +738,18 @@ nmap - :ZoomOut<CR>
 endif
 
 
-" ### Configure lualine.nvim ###
+" ### Configure statusline ###
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
+endfunction
+
 lua << EOF
-
-require'lualine'.setup {
-    options = {
-        icons_enabled = true,
-        theme = 'github',
-        component_separators = {left='', right=''},
-        section_separators = {left='', right=''},
-        disabled_filetypes = {'help', 'NvimTree'}
-    },
-    sections = {
-        lualine_a = {
-            {'filename', file_status = true, path = 1},
-        },
-        lualine_b = {
-            {'branch'},
-            {'diff', colored = false},
-        },
-        lualine_c = {
-            "require'lsp-status'.status()",
-        },
-        lualine_x = {
-            'encoding',
-            {'filetype', colored = false, icon_only = true},
-        },
-        lualine_y = {
-            'progress'
-        },
-        lualine_z = {
-            'location'
-        }
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {
-            {'filename', file_status = true, path = 2},
-        },
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {}
-    },
-    tabline = {},
-    extensions = {}
-}
-
+vim.opt.statusline =
+" %f  %< %{get(b:,'gitsigns_head','')} %{get(b:,'gitsigns_status','')}  %{LspStatus()} %m %r %w %= Ln %l, Col %c  %{&fileencoding?&fileencoding:&encoding}  "
 EOF
 
 
@@ -836,7 +805,7 @@ let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
 function! SetupHighlightGroups()
     highlight! link CmpItemAbbrDefault Pmenu
     highlight! link CmpItemMenuDefault Pmenu
-    highlight! link ColorColumn StatusLine
+    highlight! link ColorColumn CursorLine
     highlight! link NonText Whitespace
     highlight! link LineNr Comment
     highlight! link CursorLineNr CursorLine
@@ -863,13 +832,11 @@ endfunction
 function! SetLightTheme()
     colorscheme github_light
     call SetupHighlightGroups()
-    call SetLuaLineTheme()
 endfunction
 
 function! SetDarkTheme()
     colorscheme github_dark_default
     call SetupHighlightGroups()
-    call SetLuaLineTheme()
 endfunction
 
 command! Light :call SetLightTheme()
