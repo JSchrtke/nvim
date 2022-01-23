@@ -84,6 +84,6 @@ require("which-key").register({
         u = {"<cmd>T cargo update<cr>", "cargo update"},
         t = {"<cmd>T cargo test<cr>", "cargo test"},
     },
-})
+},  { prefix = "<leader>"})
 EOF
 
