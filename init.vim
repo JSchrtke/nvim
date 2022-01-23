@@ -418,9 +418,11 @@ let g:winresizer_horiz_resize = 1
 map <C-e> <nop>
 
 " ### Configure which-key.nvim/mappings ###
+" quickly navigate quickfix entries
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-p> :cprevious<CR>
+
 nnoremap <C-e> :lua require("telescope").extensions.file_browser.file_browser(require("telescope.themes").get_ivy())<CR>
-nnoremap <C-n> :lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <C-p> :lua vim.lsp.diagnostic.goto_prev()<CR>
 
 lua << EOF
 
@@ -452,6 +454,11 @@ wk.register({
 
     ["<cr>"] = {"<cmd>Ttoggle<CR>", "toggle terminal"},
 
+    h = {"<cmd>wincmd h<CR>", "move left"},
+    j = {"<cmd>wincmd j<CR>", "move down"},
+    k = {"<cmd>wincmd k<CR>", "move up"},
+    l = {"<cmd>wincmd l<CR>", "move right"},
+
     -- open
     c = {"<cmd>lua t.commands(ivy_theme)<CR>", "run command"},
     o = {
@@ -480,17 +487,14 @@ wk.register({
         t = {"<cmd>lua t_ext.todo.todo(ivy_theme)<CR>", "todos"},
     },
 
-    -- layout
-    l = {
-        name = "+layout",
-        h = {"<cmd>wincmd H<CR>", "drag window left"},
-        j = {"<cmd>wincmd J<CR>", "drag window down"},
-        k = {"<cmd>wincmd K<CR>", "drag window up"},
-        l = {"<cmd>wincmd L<CR>", "drag window right"},
-        H = {"<cmd>vsplit<CR>", "split left"},
-        J = {"<cmd>split<bar>wincmd j<CR>", "split down"},
-        K = {"<cmd>split<CR>", "split up"},
-        L = {"<cmd>vsplit<bar>wincmd l<CR>", "split right"},
+    -- window
+    w = {
+        name = "+window",
+        h = {"<cmd>vsplit<CR>", "split left"},
+        j = {"<cmd>split<bar>wincmd j<CR>", "split down"},
+        k = {"<cmd>split<CR>", "split up"},
+        l = {"<cmd>vsplit<bar>wincmd l<CR>", "split right"},
+        p = {"<cmd>lua require('nvim-window').pick()<CR>", "pick window"},
         r = {"<cmd>WinResizerStartResize<CR>", "resize mode"},
         e = {"<cmd>wincmd =<CR>", "equalize size"},
         m = { "<cmd>WinShift<CR>", "toggle window move mode"},
@@ -512,20 +516,10 @@ wk.register({
     -- go
     g = {
         name = "+go",
-        C = {"<cmd>lua require('gitsigns.actions').prev_hunk()<CR>", "previous change"},
         D = {"<cmd>lua vim.lsp.buf.declaration()<CR>", "declaration"},
-        c = {"<cmd>lua require('gitsigns.actions').next_hunk()<CR>", "next change"},
         d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "definition"},
-        e = {"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "next error"},
-        E = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", "previous error"},
-        h = {"<cmd>wincmd h<CR>", "move left"},
         i = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "implementation"},
-        j = {"<cmd>wincmd j<CR>", "move down"},
-        k = {"<cmd>wincmd k<CR>", "move up"},
-        l = {"<cmd>wincmd l<CR>", "move right"},
         t = {"<cmd>lua vim.lsp.buf.type_definition()<CR>", "type definition"},
-        w = {"<cmd>lua require('nvim-window').pick()<CR>", "pick window"},
-        b = {"<cmd>BufferLinePick<CR>", "pick buffer"},
     },
 
     -- show
@@ -567,13 +561,21 @@ wk.register({
         p = {"<cmd>diffput<cr>", "put"},
     },
 
-    -- new
+    -- next
     n = {
-        name = "+new",
-        t = {"<cmd>tabnew<CR>", "tab"},
-        T = {"<cmd>wincmd T<CR>", "tab from current buffer"},
-        b = {"<cmd>enew<CR>", "buffer"},
-        gb = {"<cmd>call nvim_feedkeys(':Git switch -c ', 't',v:true)<cr>", "git branch"},
+        name = "+next",
+        e = {"<cmd>silent lua vim.lsp.diagnostic.goto_next()<cr>", "error"},
+        q = {"<cmd>cnext<cr>", "quickfix item"},
+        t = {"<cmd>require('trouble').next({skip_groups = true, jump = true})<cr>", "trouble"},
+        c = {"<cmd>lua require('gitsigns.actions').next_hunk()<CR>", "change"},
+    },
+    -- previous
+    p = {
+        name = "+previous",
+        e = {"<cmd>silent lua vim.lsp.diagnostic.goto_prev()<cr>", "error"},
+        q = {"<cmd>cprevious<cr>", "quickfix item"},
+        t = {"<cmd>require('trouble').previous({skip_groups = true, jump = true})<cr>", "trouble"},
+        c = {"<cmd>lua require('gitsigns.actions').prev_hunk()<CR>", "change"},
     },
 }, { prefix = "<leader>"})
 
