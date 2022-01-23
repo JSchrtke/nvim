@@ -217,7 +217,7 @@ smap <expr> <Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
 lua << EOF
 
 local function lspSymbol(name, icon)
-    vim.fn.sign_define('DiagnosticSign' .. name, {text = icon, texthl = 'Diagnostic' .. name})
+    vim.fn.sign_define('DiagnosticSign' .. name, {text = icon, texthl = 'DiagnosticSign' .. name, numhl = 'DiagnosticSign' .. name})
 end
 
 lspSymbol('Error', '')
@@ -365,12 +365,12 @@ require('gitsigns').setup{
         buffer = true,
     },
     signs = {
-        add          = {hl = 'GitSignsAdd'   , text = '▉', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-        change       = {hl = 'GitSignsChange', text = '▉', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-        delete       = {hl = 'GitSignsDelete', text = '▂', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-        topdelete    = {hl = 'GitSignsDelete', text = '▀', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-        changedelete = {hl = 'Bold', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    },
+        add          = {hl = 'GitSignsAdd'   , text = '┃', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+        change       = {hl = 'GitSignsChange', text = '┃', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+        delete       = {hl = 'GitSignsDelete', text = '▸', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
 }
 
 EOF
@@ -527,7 +527,13 @@ wk.register({
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
         c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
-        d = {"<cmd>Gvdiffsplit<bar>wincmd l<CR>", "git diff (current file)"},
+        d = {
+            function()
+                require("gitsigns.actions").diffthis()
+                vim.cmd("windo set foldcolumn=0")
+            end,
+            "git diff"
+        },
         D = {"<cmd>Dirbuf<CR>", "directory buffer"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
@@ -663,7 +669,7 @@ require("nvim-window").setup{
         'a', 's', 'd', 'f', 'j', 'k', 'l'
     },
     border = "none",
-    normal_hl = 'Search'
+    normal_hl = 'Visual'
 }
 
 EOF
@@ -835,28 +841,33 @@ function! SetupHighlightGroups()
     highlight! link LineNr Comment
     highlight! link CursorLineNr CursorLine
     highlight! link NonText Comment
+    highlight! link Folded CursorLineNr
+    if &background == 'light'
+        " TODO
+    else
+        highlight! link DiffChange Visual
+        highlight DiffText guibg=#295F9E guifg=#ffffff
+    endif
 endfunction
 
 function! SetLuaLineTheme()
 lua << EOF
     require'lualine'.setup {
         options = {
-            theme = 'zenbones'
+            theme = 'github'
         },
     }
 EOF
 endfunction
 
 function! SetLightTheme()
-    set background=light
-    colorscheme zenbones
+    colorscheme github_light
     call SetupHighlightGroups()
     call SetLuaLineTheme()
 endfunction
 
 function! SetDarkTheme()
-    set background=dark
-    colorscheme zenbones
+    colorscheme github_dark_default
     call SetupHighlightGroups()
     call SetLuaLineTheme()
 endfunction
