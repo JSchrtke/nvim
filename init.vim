@@ -61,7 +61,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'lewis6991/impatient.nvim', { 'commit': '3ea9abedb6941995b05fdad654d9cfd51c38a31f' }
 
 " UI
-Plug 'nvim-lualine/lualine.nvim', { 'commit': 'bc5c2f5658821f98e55013eb3bec9d540c420470' }
 Plug 'kyazdani42/nvim-web-devicons', { 'commit': 'ac71ca88b1136e1ecb2aefef4948130f31aa40d1' }
 Plug 'norcalli/nvim-colorizer.lua', { 'commit': '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6' }
 Plug 'lukas-reineke/indent-blankline.nvim', { 'commit': '0f8df7e43f0cae4c44e0e8383436ad602f333419' }
@@ -817,16 +816,6 @@ function! SetupHighlightGroups()
         highlight! link DiffChange Visual
         highlight DiffText guibg=#295F9E guifg=#ffffff
     endif
-endfunction
-
-function! SetLuaLineTheme()
-lua << EOF
-    require'lualine'.setup {
-        options = {
-            theme = 'github'
-        },
-    }
-EOF
 endfunction
 
 function! SetLightTheme()
