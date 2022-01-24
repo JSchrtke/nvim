@@ -16,6 +16,7 @@ set colorcolumn=100
 set signcolumn=yes
 set t_Co=256
 set termguicolors
+set nowrap
 
 " Indentation
 set tabstop=4
