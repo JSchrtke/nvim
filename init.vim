@@ -799,6 +799,7 @@ let g:github_function_style = "bold"
 let g:github_dark_float = v:true
 let g:github_dark_sidebars = v:true
 let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
+let g:github_hide_inactive_statusline = v:false
 
 function! SetupHighlightGroups()
     highlight! link CmpItemAbbrDefault Pmenu
