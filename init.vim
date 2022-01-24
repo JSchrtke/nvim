@@ -514,6 +514,7 @@ wk.register({
         B = {"<cmd>BufOnly!<CR>", "all other buffers"},
         t = {"<cmd>tabclose<CR>", "tab"},
         T = {"<cmd>tabonly<CR>", "all other tabs"},
+        q = {"<cmd>cclose<CR>", "quickfix list"},
     },
 
     -- go
