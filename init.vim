@@ -118,6 +118,7 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'commit': '9fff379c
 Plug 'rkennedy/vim-delphi', { 'commit': 'f9846b33d4aecfa57bd892097cfe57ecdb7fe618' }
 Plug 'dag/vim-fish', { 'commit': '50b95cbbcd09c046121367d49039710e9dc9c15f' }
 Plug 'simrat39/rust-tools.nvim', { 'commit': '7eb435069b307f55bdc3aa27bd3fe4ad704e66db' }
+Plug 'fladson/vim-kitty', { 'commit': '212be70d5f5205d6e53dbc12e48e8593ba75e2f3' }
 
 " Editor behaviour
 Plug 'Pocco81/AutoSave.nvim', { 'commit': '3d342d6fcebeede15b6511b13a38a522c6f33bf8' }
@@ -818,14 +819,13 @@ function! SetupHighlightGroups()
     highlight! TelescopePreviewTitle gui=bold,underline
     highlight! TelescopeResultsTitle gui=bold,underline
     highlight! TelescopeMultiSelection gui=bold,reverse
+    highlight! TelescopePromptTitle gui=bold
+    highlight! link TelescopeNormal PMenu
     if &background == 'light'
         " TODO
     else
         highlight! link DiffChange Visual
         highlight! DiffText guibg=#295F9E guifg=#ffffff
-        highlight! link TelescopeNormal PMenu
-        highlight! TelescopePromptNormal guifg=#c9d1d9 guibg=#161B22
-        highlight! TelescopePromptTitle gui=bold
     endif
 endfunction
 
@@ -851,7 +851,6 @@ function! CheckWindowsTheme()
 endfunction
 
 function! CheckLinuxTheme()
-    return "dark"
     let time = strftime("%H%M")
     if 855 <= time && time <= 1604
         return "light"
