@@ -843,11 +843,12 @@ command! Light :call SetLightTheme()
 command! Dark :call SetDarkTheme()
 
 function! CheckWindowsTheme()
-    if system("powershell.exe -NoProfile (Get-ItemProperty  -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\).SystemUsesLightTheme") == 1
-        return "light"
-    else
-        return "dark"
-    endif
+    return 'light'
+    " if system("powershell.exe -NoProfile (Get-ItemProperty  -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\).SystemUsesLightTheme") == 1
+    "     return "light"
+    " else
+    "     return "dark"
+    " endif
 endfunction
 
 function! CheckLinuxTheme()
