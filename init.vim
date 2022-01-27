@@ -203,7 +203,10 @@ cmp.setup({
             name = 'path'
         },
         {
-            name = 'buffer'
+            name = 'buffer',
+            option = {
+                keyword_pattern = [[\k\+]]
+            }
         },
     },
 })
