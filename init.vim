@@ -507,6 +507,7 @@ wk.register({
         m = { "<cmd>WinShift<CR>", "toggle window move mode"},
         s = { "<cmd>WinShift swap<CR>", "toggle window swap mode"},
         z = {"<cmd>ZenMode<CR>", "toggle zen mode"},
+        t = {"<cmd>wincmd T<CR>", "breakout into new tab"},
     },
 
     -- quit
