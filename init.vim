@@ -773,12 +773,13 @@ function! SetupHighlightGroups()
     highlight! link NonText Comment
     highlight! link Folded CursorLineNr
     highlight! link TelescopeResultsBorder TelescopeNormal
+    highlight! link TelescopePromptNormal PMenuThumb
     highlight! link TelescopePromptBorder TelescopePromptNormal
     highlight! link TelescopePreviewBorder TelescopeNormal
-    highlight! TelescopePreviewTitle gui=bold,underline
+    highlight! link TelescopePreviewTitle StatusLine
     highlight! TelescopeResultsTitle gui=bold,underline
     highlight! TelescopeMultiSelection gui=bold,reverse
-    highlight! TelescopePromptTitle gui=bold
+    highlight! link TelescopePromptTitle StatusLine
     highlight! link TelescopeNormal PMenu
     if &background == 'light'
         " TODO
