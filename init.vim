@@ -764,6 +764,12 @@ let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
 let g:github_hide_inactive_statusline = v:false
 
 function! SetupHighlightGroups()
+    if &background == 'light'
+        highlight! DiffText guibg=#73bdff guifg=#24292e
+        highlight! Visual guibg=#BBDFFF
+    else
+        highlight! DiffText guibg=#295F9E guifg=#ffffff
+    endif
     highlight! link CmpItemAbbrDefault Pmenu
     highlight! link CmpItemMenuDefault Pmenu
     highlight! link ColorColumn CursorLine
@@ -781,12 +787,7 @@ function! SetupHighlightGroups()
     highlight! TelescopeMultiSelection gui=bold,reverse
     highlight! link TelescopePromptTitle StatusLine
     highlight! link TelescopeNormal PMenu
-    if &background == 'light'
-        " TODO
-    else
-        highlight! link DiffChange Visual
-        highlight! DiffText guibg=#295F9E guifg=#ffffff
-    endif
+    highlight! link DiffChange Visual
 endfunction
 
 function! SetLightTheme()
