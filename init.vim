@@ -609,7 +609,7 @@ EOF
 lua << EOF
 
 local opts = {
-    tools = { -- rust-tools options
+    tools = {
         autoSetHints = true,
         hover_with_actions = true,
         executor = require("rust-tools/executors").termopen,
@@ -812,31 +812,64 @@ function! CheckWindowsTheme()
     " endif
 endfunction
 
-function! CheckLinuxTheme()
-    let time = strftime("%H%M")
-    if 855 <= time && time <= 1604
+lua << EOF
+function split (inputstr, sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t={}
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
+
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+local function ends_with(str, ending)
+   return ending == "" or str:sub(-#ending) == ending
+end
+
+function check_windows_theme()
+    local theme = vim.fn.system("cmd.exe /C reg query HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v AppsUseLightTheme")
+    local is_light_theme = ends_with(split(theme)[4], "1")
+    if is_light_theme then
         return "light"
     else
         return "dark"
     end
-endfunction
+end
 
-function! CheckTheme()
-    if has("win32")
-        return CheckWindowsTheme()
+-- TODO implement this properly
+function check_linux_theme()
+    return "dark"
+end
+
+function set_theme()
+    local theme = ""
+    if vim.fn.has("win32") then
+        theme = check_windows_theme()
     else
-        return CheckLinuxTheme()
-    endif
-endfunction
+        theme = check_linux_theme()
+    end
 
-function! CheckAndSetTheme()
-    if CheckTheme() == "dark"
-        call SetDarkTheme()
+    if theme == "light" then
+        vim.cmd("call SetLightTheme()")
     else
-       call SetLightTheme()
-    endif
-endfunction
+        vim.cmd("call SetDarkTheme()")
+    end
+end
+EOF
 
-command! C :call CheckAndSetTheme()
-
-call CheckAndSetTheme()
+lua set_theme()
