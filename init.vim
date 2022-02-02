@@ -803,15 +803,6 @@ endfunction
 command! Light :call SetLightTheme()
 command! Dark :call SetDarkTheme()
 
-function! CheckWindowsTheme()
-    return 'light'
-    " if system("powershell.exe -NoProfile (Get-ItemProperty  -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\).SystemUsesLightTheme") == 1
-    "     return "light"
-    " else
-    "     return "dark"
-    " endif
-endfunction
-
 lua << EOF
 function split (inputstr, sep)
     if sep == nil then
@@ -822,19 +813,6 @@ function split (inputstr, sep)
         table.insert(t, str)
     end
     return t
-end
-
-function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
 end
 
 local function ends_with(str, ending)
@@ -851,17 +829,24 @@ function check_windows_theme()
     end
 end
 
--- TODO implement this properly
 function check_linux_theme()
-    return "dark"
+    local current_theme = vim.fn.system("bash -c 'gsettings get org.gnome.desktop.interface gtk-theme'")
+    -- '%p' matches all punctuation chars, '%c' matches all control characters and '%s' matches all whitespace characters.
+    current_theme = current_theme:gsub("[%p%c%s]", "")
+    local is_light_theme = ends_with(current_theme, "light")
+    if is_light_theme then
+        return "light"
+    else
+        return "dark"
+    end
 end
 
 function set_theme()
     local theme = ""
-    if vim.fn.has("win32") then
-        theme = check_windows_theme()
-    else
+    if vim.fn.has("unix") then
         theme = check_linux_theme()
+    else
+        theme = check_windows_theme()
     end
 
     if theme == "light" then
@@ -870,6 +855,6 @@ function set_theme()
         vim.cmd("call SetDarkTheme()")
     end
 end
-EOF
 
-lua set_theme()
+set_theme()
+EOF
