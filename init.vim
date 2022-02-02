@@ -763,48 +763,13 @@ let g:github_dark_sidebars = v:true
 let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
 let g:github_hide_inactive_statusline = v:false
 
-function! SetupHighlightGroups()
-    if &background == 'light'
-        highlight! DiffText guibg=#73bdff guifg=#24292e
-        highlight! Visual guibg=#BBDFFF
-    else
-        highlight! DiffText guibg=#295F9E guifg=#ffffff
-    endif
-    highlight! link CmpItemAbbrDefault Pmenu
-    highlight! link CmpItemMenuDefault Pmenu
-    highlight! link ColorColumn CursorLine
-    highlight! link NonText Whitespace
-    highlight! link LineNr Comment
-    highlight! link CursorLineNr CursorLine
-    highlight! link NonText Comment
-    highlight! link Folded CursorLineNr
-    highlight! link TelescopeResultsBorder TelescopeNormal
-    highlight! link TelescopePromptNormal PMenuThumb
-    highlight! link TelescopePromptBorder TelescopePromptNormal
-    highlight! link TelescopePreviewBorder TelescopeNormal
-    highlight! link TelescopePreviewTitle StatusLine
-    highlight! TelescopeResultsTitle gui=bold,underline
-    highlight! TelescopeMultiSelection gui=bold,reverse
-    highlight! link TelescopePromptTitle StatusLine
-    highlight! link TelescopeNormal PMenu
-    highlight! link DiffChange Visual
-endfunction
-
-function! SetLightTheme()
-    colorscheme github_light
-    call SetupHighlightGroups()
-endfunction
-
-function! SetDarkTheme()
-    colorscheme github_dark_default
-    call SetupHighlightGroups()
-endfunction
-
-command! Light :call SetLightTheme()
-command! Dark :call SetDarkTheme()
-
 lua << EOF
-function split (inputstr, sep)
+
+local function ends_with(str, ending)
+   return ending == "" or str:sub(-#ending) == ending
+end
+
+local function split (inputstr, sep)
     if sep == nil then
         sep = "%s"
     end
@@ -815,11 +780,7 @@ function split (inputstr, sep)
     return t
 end
 
-local function ends_with(str, ending)
-   return ending == "" or str:sub(-#ending) == ending
-end
-
-function check_windows_theme()
+local function check_windows_theme()
     local theme = vim.fn.system("cmd.exe /C reg query HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v AppsUseLightTheme")
     local is_light_theme = ends_with(split(theme)[4], "1")
     if is_light_theme then
@@ -829,7 +790,7 @@ function check_windows_theme()
     end
 end
 
-function check_linux_theme()
+local function check_linux_theme()
     local current_theme = vim.fn.system("bash -c 'gsettings get org.gnome.desktop.interface gtk-theme'")
     -- '%p' matches all punctuation chars, '%c' matches all control characters and '%s' matches all whitespace characters.
     current_theme = current_theme:gsub("[%p%c%s]", "")
@@ -841,6 +802,43 @@ function check_linux_theme()
     end
 end
 
+function set_light_theme()
+    local light_theme = "github_light"
+    vim.cmd("colorscheme "..light_theme)
+end
+
+function set_dark_theme()
+    local dark_theme = "github_dark_default"
+    vim.cmd("colorscheme "..dark_theme)
+end
+
+local function setup_highlight_groups()
+    if vim.opt.background:get() == "light" then
+        vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
+        vim.cmd("highlight! Visual guibg=#BBDFFF")
+    else
+        vim.cmd("highlight! DiffText guibg=#295F9E guifg=#ffffff")
+    end
+    vim.cmd("highlight! link CmpItemAbbrDefault Pmenu")
+    vim.cmd("highlight! link CmpItemMenuDefault Pmenu")
+    vim.cmd("highlight! link ColorColumn CursorLine")
+    vim.cmd("highlight! link NonText Whitespace")
+    vim.cmd("highlight! link LineNr Comment")
+    vim.cmd("highlight! link CursorLineNr CursorLine")
+    vim.cmd("highlight! link NonText Comment")
+    vim.cmd("highlight! link Folded CursorLineNr")
+    vim.cmd("highlight! link TelescopeResultsBorder TelescopeNormal")
+    vim.cmd("highlight! link TelescopePromptNormal PMenuThumb")
+    vim.cmd("highlight! link TelescopePromptBorder TelescopePromptNormal")
+    vim.cmd("highlight! link TelescopePreviewBorder TelescopeNormal")
+    vim.cmd("highlight! link TelescopePreviewTitle StatusLine")
+    vim.cmd("highlight! TelescopeResultsTitle gui=bold,underline")
+    vim.cmd("highlight! TelescopeMultiSelection gui=bold,reverse")
+    vim.cmd("highlight! link TelescopePromptTitle StatusLine")
+    vim.cmd("highlight! link TelescopeNormal PMenu")
+    vim.cmd("highlight! link DiffChange Visual")
+end
+
 function set_theme()
     local theme = ""
     if vim.fn.has("unix") then
@@ -850,11 +848,14 @@ function set_theme()
     end
 
     if theme == "light" then
-        vim.cmd("call SetLightTheme()")
+        set_light_theme()
     else
-        vim.cmd("call SetDarkTheme()")
+        set_dark_theme()
     end
+
+    setup_highlight_groups()
 end
 
 set_theme()
+
 EOF
