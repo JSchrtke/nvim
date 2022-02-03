@@ -117,7 +117,7 @@ Plug 'mfussenegger/nvim-dap', { 'commit': '3f1514d020f9d73a458ac04f42d27e5b284c0
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'commit': '9fff379c17729d4643c9ed3b2e0494e2a7bbafe8' }
 Plug 'rkennedy/vim-delphi', { 'commit': 'f9846b33d4aecfa57bd892097cfe57ecdb7fe618' }
 Plug 'dag/vim-fish', { 'commit': '50b95cbbcd09c046121367d49039710e9dc9c15f' }
-Plug 'simrat39/rust-tools.nvim', { 'commit': '7eb435069b307f55bdc3aa27bd3fe4ad704e66db' }
+Plug 'simrat39/rust-tools.nvim', { 'commit': 'dc71e26cc2188c00fd849e1d80fa8a72ac422032' }
 Plug 'fladson/vim-kitty', { 'commit': '212be70d5f5205d6e53dbc12e48e8593ba75e2f3' }
 
 " Editor behaviour
@@ -259,13 +259,52 @@ lsp_status.register_progress()
 
 -- lsp installer
 local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(
-    function(server)
-        local opts = {}
+
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+
+    if server.name == "rust_analyzer" then
+        local rust_opts = {
+            tools = {
+                autoSetHints = true,
+                hover_with_actions = true,
+                executor = require("rust-tools/executors").termopen,
+                runnables = {
+                    use_telescope = true
+                },
+                inlay_hints = {
+                    show_parameter_hints = true,
+                    parameter_hints_prefix = "<- ",
+                    other_hints_prefix = "=> ",
+                    max_len_align = false,
+                    max_len_align_padding = 1,
+                    right_align = false,
+                    right_align_padding = 7
+                },
+                hover_actions = {
+                    border = "single",
+                    auto_focus = false
+                }
+            },
+
+            server = vim.tbl_deep_extend("force", server:get_default_options(), {
+                    settings = {
+                        ["rust-analyzer"] = {
+                            checkOnSave = {
+                                command = "clippy"
+                            }
+                        }
+                    }
+            })
+        }
+
+        require("rust-tools").setup(rust_opts)
+        server:attach_buffers()
+    else
         server:setup(opts)
         vim.cmd([[do User LspAttachBuffers]])
     end
-)
+end)
 
 EOF
 
@@ -604,48 +643,6 @@ wk.register({
 }, {prefix = "<leader>", mode = "v"})
 
 EOF
-
-" ### Configure rust-tools.nvim ###
-lua << EOF
-
-local opts = {
-    tools = {
-        autoSetHints = true,
-        hover_with_actions = true,
-        executor = require("rust-tools/executors").termopen,
-        runnables = {
-            use_telescope = true
-        },
-        inlay_hints = {
-            show_parameter_hints = true,
-            parameter_hints_prefix = "<- ",
-            other_hints_prefix = "=> ",
-            max_len_align = false,
-            max_len_align_padding = 1,
-            right_align = false,
-            right_align_padding = 7
-        },
-        hover_actions = {
-            border = "single",
-            auto_focus = false
-        }
-    },
-
-    server = {
-        settings = {
-            ["rust-analyzer"] = {
-                checkOnSave = {
-                    command = "clippy"
-                }
-            }
-        }
-    }
-}
-
-require('rust-tools').setup(opts)
-
-EOF
-
 
 " ### Configure AutoSave.nvim ###
 lua << EOF
