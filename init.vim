@@ -237,11 +237,7 @@ EOF
 lua << EOF
 
 local on_attach = function(client, bufnr)
-    -- TODO what do these 2 lines do here?
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", {silent = true})
     require 'lsp_signature'.on_attach()
 end
 
@@ -261,7 +257,9 @@ lsp_status.register_progress()
 local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.on_server_ready(function(server)
-    local opts = {}
+    local opts = {
+        on_attach = on_attach,
+    }
 
     if server.name == "rust_analyzer" then
         local rust_opts = {
@@ -287,7 +285,7 @@ lsp_installer.on_server_ready(function(server)
                 }
             },
 
-            server = vim.tbl_deep_extend("force", server:get_default_options(), {
+            server = vim.tbl_deep_extend("force", server:get_default_options(), opts, {
                     settings = {
                         ["rust-analyzer"] = {
                             checkOnSave = {
@@ -482,7 +480,6 @@ wk.register({
     ["gd"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "go to definition"},
     ["gt"] = {"next tab"},
     ["gT"] = {"previous tab"},
-    ["K"] = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
 })
 
 -- Normal mode, <leader> prefix
