@@ -1,8 +1,8 @@
 "### General settings ###
 let mapleader = "\<Space>"
 filetype plugin on
-set number
-set relativenumber
+set nonumber
+set norelativenumber
 set updatetime=500
 set ignorecase
 set clipboard=unnamedplus
@@ -88,9 +88,9 @@ Plug 'windwp/nvim-spectre', { 'commit': '4a4cf2c981b077055ef7725959d13007e366ba2
 " Editing/motions
 Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
 Plug 'tpope/vim-repeat', { 'commit': '24afe922e6a05891756ecf331f39a1f6743d3d5a' }
-Plug 'tpope/vim-surround', { 'commit': 'aeb933272e72617f7c4d35e1f003be16836b948d' }
 Plug 'michaeljsmith/vim-indent-object', { 'commit': '5c5b24c959478929b54a9e831a8e2e651a465965' }
 Plug 'junegunn/vim-easy-align', { 'commit': '12dd6316974f71ce333e360c0260b4e1f81169c3' }
+Plug 'ggandor/lightspeed.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive', { 'commit': '57968b63c266b5d37bb08fa6e3807d230b882781' }
@@ -761,6 +761,18 @@ EOF
 
 " ### Configure bufresize.nvim ###
 lua require("bufresize").setup()
+
+" ### Configure lightspeed.nvim ###
+omap s <Plug>Lightspeed_s
+omap S <Plug>Lightspeed_S
+omap x <Plug>Lightspeed_x
+omap X <Plug>Lightspeed_X
+lua << EOF
+vim.api.nvim_set_keymap('n', '<leader>;', '<Plug>Lightspeed_;_sx', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>,', '<Plug>Lightspeed_,_sx', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('x', '<leader>;', '<Plug>Lightspeed_;_sx', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('x', '<leader>,', '<Plug>Lightspeed_,_sx', {noremap = false, silent = true})
+EOF
 
 " ### Configure Colors ###
 let g:github_keyword_style = "italic"
