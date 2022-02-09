@@ -684,9 +684,12 @@ EOF
 
 
 " ### Configure neoterm ###
-let g:neoterm_default_mod = 'topleft'
-let g:neoterm_autojump = 1
-let g:neoterm_automap_keys = v:false
+lua << EOF
+vim.g.neoterm_default_mod = "vertical botright"
+vim.g.neoterm_autojump = 1
+vim.g.neoterm_automap_keys = false
+vim.g.neoterm_autoscroll = 1
+EOF
 
 if has ("win32")
     " https://github.com/kassio/neoterm/issues/171#issuecomment-344291532

@@ -62,27 +62,27 @@ endfunction
 
 lua << EOF
 require("which-key").register({
+    -- r = {
+    --     name = "+run",
+    --     c = {"<cmd>call MakeCheck()<cr>", "cargo check"},
+    --     C = {"<cmd>call MakeClean()<cr>", "cargo clean"},
+    --     b = {"<cmd>call MakeBuild()<cr>", "cargo build"},
+    --     p = {"<cmd>call MakeRun()<cr>", "cargo run"},
+    --     f = {"<cmd>call MakeFmt()<cr>", "cargo fmt"},
+    --     u = {"<cmd>call MakeUpdate()<cr>", "cargo update"},
+    --     t = {"<cmd>call MakeTest()<cr>", "cargo test"},
+    --     P = {"<cmd>call CargoRunWithArgs('echo')<cr>", "cargo run (with args)"},
+    -- },
     r = {
-        name = "+run",
-        c = {"<cmd>call MakeCheck()<cr>", "cargo check"},
-        C = {"<cmd>call MakeClean()<cr>", "cargo clean"},
-        b = {"<cmd>call MakeBuild()<cr>", "cargo build"},
-        p = {"<cmd>call MakeRun()<cr>", "cargo run"},
-        f = {"<cmd>call MakeFmt()<cr>", "cargo fmt"},
-        u = {"<cmd>call MakeUpdate()<cr>", "cargo update"},
-        t = {"<cmd>call MakeTest()<cr>", "cargo test"},
-        P = {"<cmd>call CargoRunWithArgs('echo')<cr>", "cargo run (with args)"},
-    },
-    t = {
         name = "+run in terminal",
-        c = {"<cmd>T cargo check<cr>", "cargo check"},
-        C = {"<cmd>T cargo clean<cr>", "cargo clean"},
-        b = {"<cmd>T cargo build<cr>", "cargo build"},
-        p = {"<cmd>T cargo run<cr>", "cargo run"},
+        c = {"<cmd>Topen|T cargo check<cr>", "cargo check"},
+        C = {"<cmd>Topen|T cargo clippy<cr>", "cargo clean"},
+        b = {"<cmd>Topen|T cargo build<cr>", "cargo build"},
+        p = {"<cmd>Topen|T cargo run<cr>", "cargo run"},
         P = {"<cmd>call CargoRunWithArgs('term')<cr>", "cargo run (with args)"},
-        f = {"<cmd>T cargo fmt<cr>", "cargo fmt"},
-        u = {"<cmd>T cargo update<cr>", "cargo update"},
-        t = {"<cmd>T cargo test<cr>", "cargo test"},
+        f = {"<cmd>call MakeFmt()<cr>", "cargo fmt"},
+        u = {"<cmd>Topen|T cargo update<cr>", "cargo update"},
+        t = {"<cmd>Topen|T cargo test<cr>", "cargo test"},
     },
 },  { prefix = "<leader>"})
 EOF
