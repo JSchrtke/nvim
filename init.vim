@@ -335,8 +335,8 @@ require('telescope').setup {
         borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
         layout_config = {
             prompt_position = "top",
-            width = 0.95,
-            height = 0.9,
+            width = 0.99,
+            height = 0.99,
         },
         prompt_prefix = " ",
         sorting_strategy = "ascending",
@@ -348,18 +348,19 @@ require('telescope').setup {
         qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
         preview = {
             timeout = 100,
-            hide_on_startup = false,
+            hide_on_startup = true,
         },
         dynamic_preview_title = true,
         mappings = {
             i = {
                 ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                 ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<M-p>"] = layout.toggle_preview,
             },
             n = {
                 ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                 ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
-                ["<BS>"] = layout.toggle_preview,
+                ["<M-p>"] = layout.toggle_preview,
             },
         },
     }
