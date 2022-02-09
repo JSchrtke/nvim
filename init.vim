@@ -622,7 +622,7 @@ wk.register({
         name = "+next",
         e = {"<cmd>silent lua vim.lsp.diagnostic.goto_next()<cr>", "error"},
         q = {"<cmd>cnext<cr>", "quickfix item"},
-        t = {"<cmd>require('trouble').next({skip_groups = true, jump = true})<cr>", "trouble"},
+        t = {"<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>", "trouble"},
         c = {"<cmd>lua require('gitsigns.actions').next_hunk()<CR>", "change"},
     },
     -- previous
@@ -630,7 +630,7 @@ wk.register({
         name = "+previous",
         e = {"<cmd>silent lua vim.lsp.diagnostic.goto_prev()<cr>", "error"},
         q = {"<cmd>cprevious<cr>", "quickfix item"},
-        t = {"<cmd>require('trouble').previous({skip_groups = true, jump = true})<cr>", "trouble"},
+        t = {"<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<cr>", "trouble"},
         c = {"<cmd>lua require('gitsigns.actions').prev_hunk()<CR>", "change"},
     },
 }, { prefix = "<leader>"})
