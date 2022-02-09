@@ -503,8 +503,12 @@ wk.register({
     k = {"<cmd>wincmd k<CR>", "move up"},
     l = {"<cmd>wincmd l<CR>", "move right"},
 
+    c = {
+        name = "+create",
+        t = {"<cmd>tabnew<cr>", "new tab"},
+    },
+
     -- open
-    c = {"<cmd>lua t.commands()<CR>", "run command"},
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files()<CR>", "file"},
