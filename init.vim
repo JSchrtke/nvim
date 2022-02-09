@@ -810,25 +810,11 @@ function set_light_theme()
 end
 
 function set_dark_theme()
-    local dark_theme = "github_dark_default"
+    local dark_theme = "melange"
     vim.cmd("colorscheme "..dark_theme)
 end
 
 local function setup_highlight_groups()
-    if vim.opt.background:get() == "light" then
-        vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
-        vim.cmd("highlight! Visual guibg=#BBDFFF")
-    else
-        vim.cmd("highlight! DiffText guibg=#295F9E guifg=#ffffff")
-    end
-    vim.cmd("highlight! link CmpItemAbbrDefault Pmenu")
-    vim.cmd("highlight! link CmpItemMenuDefault Pmenu")
-    vim.cmd("highlight! link ColorColumn CursorLine")
-    vim.cmd("highlight! link NonText Whitespace")
-    vim.cmd("highlight! link LineNr Comment")
-    vim.cmd("highlight! link CursorLineNr CursorLine")
-    vim.cmd("highlight! link NonText Comment")
-    vim.cmd("highlight! link Folded CursorLineNr")
     vim.cmd("highlight! link TelescopeResultsBorder TelescopeNormal")
     vim.cmd("highlight! link TelescopePromptNormal PMenuThumb")
     vim.cmd("highlight! link TelescopePromptBorder TelescopePromptNormal")
@@ -838,7 +824,10 @@ local function setup_highlight_groups()
     vim.cmd("highlight! TelescopeMultiSelection gui=bold,reverse")
     vim.cmd("highlight! link TelescopePromptTitle StatusLine")
     vim.cmd("highlight! link TelescopeNormal PMenu")
-    vim.cmd("highlight! link DiffChange Visual")
+
+    vim.cmd("highlight GitSignsAdd guifg=#50704F")
+    vim.cmd("highlight GitSignsChange guifg=#704F64")
+    vim.cmd("highlight GitSignsDelete guifg=#9E5C59")
 end
 
 function set_theme()
