@@ -475,6 +475,7 @@ lua << EOF
 local wk = require("which-key")
 t = require('telescope.builtin')
 t_ext = require('telescope').extensions
+ivy_theme = require('telescope.themes').get_ivy()
 
 -- Normal mode, no <leader> prefix
 wk.register({
@@ -511,28 +512,28 @@ wk.register({
     -- open
     o = {
         name = "+open",
-        f = {"<cmd>lua t.find_files()<CR>", "file"},
-        e = {"<cmd>lua t_ext.file_browser.file_browser()<CR>", "file explorer"},
-        r = {"<cmd>lua t.oldfiles()<CR>", "recent"},
-        b = {"<cmd>lua t.buffers()<CR>", "buffer"},
+        f = {"<cmd>lua t.find_files(ivy_theme)<CR>", "file"},
+        e = {"<cmd>lua t_ext.file_browser.file_browser(ivy_theme)<CR>", "file explorer"},
+        r = {"<cmd>lua t.oldfiles(ivy_theme)<CR>", "recent"},
+        b = {"<cmd>lua t.buffers(ivy_theme)<CR>", "buffer"},
         p = {"<cmd>Telescope project<CR>", "project"},
-        gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
-        gc = {"<cmd>lua t.git_commits()<CR>", "git commit"},
+        gb = {"<cmd>lua t.git_branches(ivy_theme)<CR>", "git branch"},
+        gc = {"<cmd>lua t.git_commits(ivy_theme)<CR>", "git commit"},
     },
 
     -- find
     f = {
         name = "+find",
-        f = {"<cmd>lua t.current_buffer_fuzzy_find()<CR>", "in file"},
+        f = {"<cmd>lua t.current_buffer_fuzzy_find(ivy_theme)<CR>", "in file"},
         -- for syntax documentation see https://docs.rs/regex/1.5.4/regex/#syntax
         d = {"<cmd>lua t.live_grep()<CR>", "in directory"},
-        w = {"<cmd>lua t.grep_string()<CR>", "word"},
-        s = {"<cmd>lua t.lsp_document_symbols()<CR>", "document symbols"},
-        S = {"<cmd>lua t.lsp_workspace_symbols()<CR>", "workspace symbols"},
-        q = {"<cmd>lua t.quickfix()<CR>", "in quickfix list"},
-        h = {"<cmd>lua t.help_tags()<CR>", "in help"},
-        r = {"<cmd>lua t.lsp_references()<CR>", "references"},
-        t = {"<cmd>lua t_ext.todo.todo()<CR>", "todos"},
+        w = {"<cmd>lua t.grep_string(ivy_theme)<CR>", "word"},
+        s = {"<cmd>lua t.lsp_document_symbols(ivy_theme)<CR>", "document symbols"},
+        S = {"<cmd>lua t.lsp_workspace_symbols(ivy_theme)<CR>", "workspace symbols"},
+        q = {"<cmd>lua t.quickfix(ivy_theme)<CR>", "in quickfix list"},
+        h = {"<cmd>lua t.help_tags(ivy_theme)<CR>", "in help"},
+        r = {"<cmd>lua t.lsp_references(ivy_theme)<CR>", "references"},
+        t = {"<cmd>lua t_ext.todo.todo(ivy_theme)<CR>", "todos"},
     },
 
     -- window
@@ -576,7 +577,7 @@ wk.register({
     s = {
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
-        c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
+        c = {"<cmd>lua t_ext.neoclip.default(ivy_theme)<CR>", "clipboard"},
         d = {
             function()
                 require("gitsigns.actions").diffthis()
@@ -814,22 +815,6 @@ function set_dark_theme()
     vim.cmd("colorscheme "..dark_theme)
 end
 
-local function setup_highlight_groups()
-    vim.cmd("highlight! link TelescopeResultsBorder TelescopeNormal")
-    vim.cmd("highlight! link TelescopePromptNormal PMenuThumb")
-    vim.cmd("highlight! link TelescopePromptBorder TelescopePromptNormal")
-    vim.cmd("highlight! link TelescopePreviewBorder TelescopeNormal")
-    vim.cmd("highlight! link TelescopePreviewTitle StatusLine")
-    vim.cmd("highlight! TelescopeResultsTitle gui=bold,underline")
-    vim.cmd("highlight! TelescopeMultiSelection gui=bold,reverse")
-    vim.cmd("highlight! link TelescopePromptTitle StatusLine")
-    vim.cmd("highlight! link TelescopeNormal PMenu")
-
-    vim.cmd("highlight GitSignsAdd guifg=#50704F")
-    vim.cmd("highlight GitSignsChange guifg=#704F64")
-    vim.cmd("highlight GitSignsDelete guifg=#9E5C59")
-end
-
 function set_theme()
     local theme = ""
     if vim.fn.has("unix") then
@@ -843,8 +828,6 @@ function set_theme()
     else
         set_dark_theme()
     end
-
-    setup_highlight_groups()
 end
 
 set_theme()
