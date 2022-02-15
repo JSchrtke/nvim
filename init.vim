@@ -130,6 +130,7 @@ Plug 'JSchrtke/melange'
 Plug 'rktjmp/lush.nvim', { 'commit': '57e9f310b7ddde27664c3e1a5ec3517df235124b' }
 Plug 'projekt0n/github-nvim-theme', { 'commit': 'd0a4be696adeffe9f41587558ad12fe52dfa7ce5' }
 Plug 'mcchrish/zenbones.nvim', { 'commit': '668ec5d2b7835b16b2b6eebb3a71e31173e5da51' }
+Plug 'rebelot/kanagawa.nvim'
 
 " File management
 Plug 'elihunter173/dirbuf.nvim'
@@ -811,8 +812,15 @@ function set_light_theme()
 end
 
 function set_dark_theme()
-    local dark_theme = "melange"
+    local dark_theme = "kanagawa"
     vim.cmd("colorscheme "..dark_theme)
+end
+
+function set_highlights()
+    if vim.opt.background:get() == "light" then
+        vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
+        vim.cmd("highlight! Visual guibg=#BBDFFF")
+    end
 end
 
 function set_theme()
@@ -828,6 +836,7 @@ function set_theme()
     else
         set_dark_theme()
     end
+    set_highlights()
 end
 
 set_theme()
