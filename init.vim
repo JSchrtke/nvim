@@ -349,7 +349,7 @@ require('telescope').setup {
         qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
         preview = {
             timeout = 100,
-            hide_on_startup = true,
+            hide_on_startup = false,
         },
         dynamic_preview_title = true,
         mappings = {
