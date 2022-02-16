@@ -527,7 +527,7 @@ wk.register({
         name = "+find",
         f = {"<cmd>lua t.current_buffer_fuzzy_find(ivy_theme)<CR>", "in file"},
         -- for syntax documentation see https://docs.rs/regex/1.5.4/regex/#syntax
-        d = {"<cmd>lua t.live_grep()<CR>", "in directory"},
+        d = {"<cmd>lua t.live_grep(ivy_theme)<CR>", "in directory"},
         w = {"<cmd>lua t.grep_string(ivy_theme)<CR>", "word"},
         s = {"<cmd>lua t.lsp_document_symbols(ivy_theme)<CR>", "document symbols"},
         S = {"<cmd>lua t.lsp_workspace_symbols(ivy_theme)<CR>", "workspace symbols"},
