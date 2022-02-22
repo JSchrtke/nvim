@@ -76,6 +76,7 @@ Plug 'https://gitlab.com/yorickpeterse/nvim-window.git', { 'commit': 'fad12aef46
 Plug 'AckslD/nvim-neoclip.lua', { 'commit': 'bfd6503ce5e2949e17e4053ca00b9e6836fe94e7' }
 Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
 Plug 'sindrets/winshift.nvim', { 'commit': 'aaa04b97640165eb0877bfc04943f4282887470b' }
+Plug 'kwkarlwang/bufresize.nvim', { 'commit': 'fe7d011b02bb0c2ac119af05b42a681ea182ca14' }
 
 " Search
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
@@ -757,6 +758,9 @@ require("trouble").setup {
     auto_fold = false, -- automatically fold a file trouble list at creation
 }
 EOF
+
+" ### Configure bufresize.nvim ###
+lua require("bufresize").setup()
 
 " ### Configure Colors ###
 let g:github_keyword_style = "italic"
