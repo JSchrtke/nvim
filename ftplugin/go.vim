@@ -3,11 +3,11 @@ function GoRunWithArgs()
 endfunction
 lua << EOF
 require("which-key").register({
-  ["<leader>rt"] = {"<cmd>T go test .<cr>", "project"},
-  ["<leader>rb"] = {"<cmd>T go build .<cr>", "project"},
-  ["<leader>rp"] = {"<cmd>T go run .<cr>", "project"},
+  ["<leader>rt"] = {"<cmd>Topen|T go test .<cr>", "project"},
+  ["<leader>rb"] = {"<cmd>Topen|T go build .<cr>", "project"},
+  ["<leader>rp"] = {"<cmd>Topen|T go run .<cr>", "project"},
   ["<leader>rf"] = {"<cmd>!go fmt<cr>", "formatter"},
-  ["<leader>ri"] = {"<cmd>T go install<cr>", "installer"},
+  ["<leader>ri"] = {"<cmd>Topen|T go install<cr>", "installer"},
   ["<leader>rP"] = {"<cmd>call GoRunWithArgs()<cr>", "project (with args)"},
 })
 EOF
