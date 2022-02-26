@@ -824,6 +824,9 @@ function set_highlights()
     if vim.opt.background:get() == "light" then
         vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
         vim.cmd("highlight! Visual guibg=#BBDFFF")
+        vim.cmd("highlight! LineNr guifg=#005CC5")
+    else
+        vim.cmd("highlight! LineNr guifg=#9389A8")
     end
 end
 
