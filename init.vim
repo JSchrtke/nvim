@@ -77,6 +77,7 @@ Plug 'AckslD/nvim-neoclip.lua', { 'commit': 'bfd6503ce5e2949e17e4053ca00b9e6836f
 Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
 Plug 'sindrets/winshift.nvim', { 'commit': 'aaa04b97640165eb0877bfc04943f4282887470b' }
 Plug 'kwkarlwang/bufresize.nvim', { 'commit': 'fe7d011b02bb0c2ac119af05b42a681ea182ca14' }
+Plug 'filipdutescu/renamer.nvim', { 'commit': '80d627372f90660f135862c8a7f8941b28ee5373' }
 
 " Search
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
@@ -472,6 +473,8 @@ nnoremap <C-p> :cprevious<CR>
 
 nnoremap <C-e> :lua require("telescope").extensions.file_browser.file_browser(require("telescope.themes").get_ivy())<CR>
 
+map <silent> <F2> <cmd>lua require('renamer').rename()<cr>
+
 lua << EOF
 
 local wk = require("which-key")
@@ -604,7 +607,7 @@ wk.register({
         R = {"<cmd>lua require('spectre').open()<CR><bar><cmd>wincmd T<CR>", "search & replace"},
         w = {"<cmd>lua require('spectre').open_visual({select_word=true})<CR><bar><cmd>wincmd T<CR>", "replace word"},
         a = {"<cmd>lua t.lsp_code_actions(require('telescope.themes').get_cursor({}))<CR>", "code action"},
-        r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "rename"},
+        n = {"<cmd>lua require('renamer').rename()<CR>", "rename"},
     },
 
     -- terminal
@@ -761,6 +764,13 @@ EOF
 
 " ### Configure bufresize.nvim ###
 lua require("bufresize").setup()
+
+" ### Configure renamer.nvim ###
+lua << EOF
+require("renamer").setup({
+    border = false,
+})
+EOF
 
 " ### Configure Colors ###
 let g:github_keyword_style = "italic"
