@@ -840,7 +840,7 @@ end
 
 function set_theme()
     local theme = ""
-    if vim.fn.has("unix") then
+    if vim.fn.has("unix") == 1 then
         theme = check_linux_theme()
     else
         theme = check_windows_theme()
