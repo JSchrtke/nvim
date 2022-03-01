@@ -1,0 +1,101 @@
+{
+    "begin-end": {
+        "prefix": ["be"],
+        "body": [
+            "begin",
+            "  ${0://TODO}",
+            "end;"
+        ],
+        "description": "begin/end"
+    },
+    "if": {
+        "prefix": ["if"],
+        "body": [
+            "if ${1:condition} then",
+            "begin",
+            "  ${0://TODO}",
+            "end;"
+        ],
+        "description": "if statement"
+    },
+    "if-else": {
+        "prefix": ["ie"],
+        "body": [
+            "if ${1:condition} then",
+            "begin",
+            "  ${2:// TODO}",
+            "end",
+            "else",
+            "begin",
+            "  ${0:// TODO}",
+            "end;"
+        ],
+        "description": "if-else statement"
+    },
+    "if-elif-else" :{
+        "prefix": ["elif"],
+        "body": [
+            "if ${1:condition} then",
+            "begin",
+            "  ${2:// TODO}",
+            "end",
+            "else if ${3:condition2} then",
+            "  ${4:// TODO}",
+            "else",
+            "begin",
+            "  ${0:// TODO}",
+            "end;"
+        ]
+    },
+    "for-loop": {
+        "prefix": ["for"],
+        "body": [
+            "for ${1:I} := 0 to High(${2:Array}) do",
+            "begin",
+            "  ${0:// TODO}",
+            "end;"
+        ]
+    },
+    "test-unit": {
+        "prefix" :["test"],
+        "body": [
+            "unit Test${1:UnitName};",
+            "",
+            "interface",
+            "",
+            "uses",
+            "  TestFramework,",
+            "  $1;",
+            "",
+            "type",
+            "  TTest$1 = class(TTestCase)",
+            "  published",
+            "    procedure TestCanFail;",
+            "  end;",
+            "",
+            "implementation",
+            "",
+            "procedure TTest$1.TestCanFail;",
+            "begin",
+            "  Fail('TTest$1 can fail.');",
+            "end;",
+            "",
+            "initialization",
+            "",
+            "TestFramework.RegisterTest(TTest$1.Suite);",
+            "",
+            "end."
+        ],
+        "description": "A template delphi testing unit"
+    },
+    "function": {
+        "prefix" :["fn", "func"],
+        "body": [
+            "function ${1:FunctionName}",
+            "begin",
+            "  // TODO",
+            "end;"
+        ],
+        "description": "A delphi function"
+    }
+}

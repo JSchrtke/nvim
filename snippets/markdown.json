@@ -1,0 +1,18 @@
+{
+    "Umlaut-ae": {
+        "prefix": ["ae"],
+        "body": ["ä"]
+    }
+},
+{
+    "Umlaut-oe": {
+        "prefix": ["oe"],
+        "body": ["ö"]
+    }
+},
+{
+    "Umlaut-ue": {
+        "prefix": ["ue"],
+        "body": ["ü"]
+    }
+}

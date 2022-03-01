@@ -217,6 +217,7 @@ cmp.setup({
 EOF
 
 " ### Configure vim-vsnip ###
+let g:vsnip_snippet_dir = expand('~/config/nvim/snippets/')
 imap <expr> <Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
 smap <expr> <Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
 
