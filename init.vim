@@ -767,9 +767,7 @@ lua require("bufresize").setup()
 
 " ### Configure renamer.nvim ###
 lua << EOF
-require("renamer").setup({
-    border = false,
-})
+require("renamer").setup()
 EOF
 
 " ### Configure Colors ###
