@@ -133,6 +133,7 @@ Plug 'rktjmp/lush.nvim', { 'commit': '57e9f310b7ddde27664c3e1a5ec3517df235124b' 
 Plug 'projekt0n/github-nvim-theme', { 'commit': 'd0a4be696adeffe9f41587558ad12fe52dfa7ce5' }
 Plug 'mcchrish/zenbones.nvim', { 'commit': '668ec5d2b7835b16b2b6eebb3a71e31173e5da51' }
 Plug 'rebelot/kanagawa.nvim'
+Plug 'tobi-wan-kenobi/zengarden'
 
 " File management
 Plug 'elihunter173/dirbuf.nvim'
@@ -772,14 +773,6 @@ require("renamer").setup()
 EOF
 
 " ### Configure Colors ###
-let g:github_keyword_style = "italic"
-let g:github_msg_area_style = "bold"
-let g:github_function_style = "bold"
-let g:github_dark_float = v:true
-let g:github_dark_sidebars = v:true
-let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
-let g:github_hide_inactive_statusline = v:false
-
 lua << EOF
 
 local function ends_with(str, ending)
@@ -820,11 +813,13 @@ local function check_linux_theme()
 end
 
 function set_light_theme()
-    local light_theme = "github_light"
+    vim.opt.bg = "light"
+    local light_theme = "zengarden"
     vim.cmd("colorscheme "..light_theme)
 end
 
 function set_dark_theme()
+    vim.opt.bg = "dark"
     local dark_theme = "kanagawa"
     vim.cmd("colorscheme "..dark_theme)
 end
