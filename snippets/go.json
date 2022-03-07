@@ -13,6 +13,12 @@
             "fmt.Println($0)"
         ]
     },
+    "printf": {
+        "prefix": ["pf"],
+        "body": [
+            "fmt.Printf($0)"
+        ]
+    },
     "errorf": {
         "prefix": ["erf"],
         "body": [
