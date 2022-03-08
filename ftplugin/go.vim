@@ -11,6 +11,6 @@ require("which-key").register({
   ["<leader>rP"] = {"<cmd>call GoRunWithArgs()<cr>", "project (with args)"},
 })
 EOF
-set colorcolumn=79
+set colorcolumn=80
 setlocal makeprg=go
-setlocal textwidth=79
+setlocal textwidth=80
