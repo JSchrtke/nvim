@@ -195,21 +195,23 @@ cmp.setup({
 
     sources = {
         {
-            name = 'vsnip',
-            priority = 10
+            name = 'nvim_lsp',
+            priority = 1000
         },
         {
-            name = 'nvim_lsp',
+            name = 'vsnip',
             priority = 100
         },
         {
-            name = 'path'
+            name = 'path',
+            priority = 10
         },
         {
             name = 'buffer',
             option = {
                 keyword_pattern = [[\k\+]]
-            }
+            },
+            priority = 1
         },
     },
 })
