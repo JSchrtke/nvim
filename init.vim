@@ -592,13 +592,7 @@ wk.register({
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
         c = {"<cmd>lua t_ext.neoclip.default(ivy_theme)<CR>", "clipboard"},
-        d = {
-            function()
-                require("gitsigns.actions").diffthis()
-                vim.cmd("windo set foldcolumn=0")
-            end,
-            "git diff"
-        },
+        d = {"<cmd>Gdiffsplit|wincmd l<CR>", "git diff"},
         D = {"<cmd>Dirbuf<CR>", "directory buffer"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
