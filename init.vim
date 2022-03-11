@@ -211,13 +211,13 @@ cmp.setup({
             name = 'path',
             priority = 10
         },
-        {
-            name = 'buffer',
-            option = {
-                keyword_pattern = [[\k\+]]
-            },
-            priority = 1
-        },
+--        {
+--            name = 'buffer',
+--            option = {
+--                keyword_pattern = [[\k\+]]
+--            },
+--            priority = 1
+--        },
     },
 })
 
