@@ -79,6 +79,7 @@ Plug 'sindrets/winshift.nvim', { 'commit': 'aaa04b97640165eb0877bfc04943f4282887
 Plug 'kwkarlwang/bufresize.nvim', { 'commit': 'fe7d011b02bb0c2ac119af05b42a681ea182ca14' }
 Plug 'filipdutescu/renamer.nvim', { 'commit': '80d627372f90660f135862c8a7f8941b28ee5373' }
 Plug 'nvim-lua/popup.nvim', { 'commit': 'b7404d35d5d3548a82149238289fa71f7f6de4ac' }
+Plug 'rmagatti/goto-preview', { 'commit': '7f842e981f81cce14f28c49befad9146c18c3931' }
 
 " Search
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
@@ -777,6 +778,14 @@ lua require("bufresize").setup()
 " ### Configure renamer.nvim ###
 lua << EOF
 require("renamer").setup()
+EOF
+
+" ### Configure goto-preview.nvim ###
+lua << EOF
+require("goto-preview").setup {
+    default_mappings = true;
+    border = {"", "", "", "", "", "", "", ""};
+}
 EOF
 
 " ### Configure Colors ###
