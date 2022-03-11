@@ -78,6 +78,7 @@ Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7
 Plug 'sindrets/winshift.nvim', { 'commit': 'aaa04b97640165eb0877bfc04943f4282887470b' }
 Plug 'kwkarlwang/bufresize.nvim', { 'commit': 'fe7d011b02bb0c2ac119af05b42a681ea182ca14' }
 Plug 'filipdutescu/renamer.nvim', { 'commit': '80d627372f90660f135862c8a7f8941b28ee5373' }
+Plug 'nvim-lua/popup.nvim', { 'commit': 'b7404d35d5d3548a82149238289fa71f7f6de4ac' }
 
 " Search
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
@@ -136,6 +137,8 @@ Plug 'rebelot/kanagawa.nvim'
 
 " File management
 Plug 'elihunter173/dirbuf.nvim'
+
+Plug 'jvgrootveld/telescope-zoxide'
 
 call plug#end()
 
@@ -377,10 +380,12 @@ require('telescope').setup {
     }
 }
 
+ -- telescope extensions
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("todo-comments")
 require('telescope').load_extension('neoclip')
 require('telescope').load_extension('project')
+require('telescope').load_extension('zoxide')
 
 EOF
 
@@ -530,7 +535,6 @@ wk.register({
         e = {"<cmd>lua t_ext.file_browser.file_browser(ivy_theme)<CR>", "file explorer"},
         r = {"<cmd>lua t.oldfiles(ivy_theme)<CR>", "recent"},
         b = {"<cmd>lua t.buffers(ivy_theme)<CR>", "buffer"},
-        p = {"<cmd>Telescope project<CR>", "project"},
         gb = {"<cmd>lua t.git_branches(ivy_theme)<CR>", "git branch"},
         gc = {"<cmd>lua t.git_commits(ivy_theme)<CR>", "git commit"},
     },
@@ -585,6 +589,8 @@ wk.register({
         d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "definition"},
         i = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "implementation"},
         t = {"<cmd>lua vim.lsp.buf.type_definition()<CR>", "type definition"},
+        j = {"<cmd>lua t_ext.zoxide.list{}<CR>", "type definition"},
+
     },
 
     -- show
