@@ -438,6 +438,7 @@ let g:indent_blankline_filetype_exclude = ['help', 'Trouble', 'markdown']
 let g:indent_blankline_buftype_exclude = ['terminal']
 let g:indent_blankline_bufname_exclude = ['README.md', '.*\.txt']
 let g:indent_blankline_show_first_indent_level = v:true
+let g:indent_blankline_disable_with_nolist = v:true
 let g:indentLine_char = '│'
 
 " ### Configure lspkind-nvim ###
