@@ -852,24 +852,22 @@ local function system_theme()
 end
 
 function set_light_theme()
-    local light_theme = "github_light"
+    vim.opt.bg = "light"
+    local light_theme = "zenbones"
     vim.cmd("colorscheme "..light_theme)
 end
 
 function set_dark_theme()
-    require("kanagawa").setup({
-        undercurl = true,
-        dimInactive = true,
-    })
-    local dark_theme = "kanagawa"
+    vim.opt.bg = "dark"
+    local dark_theme = "zenbones"
     vim.cmd("colorscheme "..dark_theme)
 end
 
-function set_highlights(theme_style)
-    if theme_style == "light" then
-        vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
-        vim.cmd("highlight! Visual guibg=#BBDFFF")
-        vim.cmd("highlight! LineNr guifg=#005CC5")
+function set_highlights()
+    if vim.opt.background:get() == "light" then
+        vim.cmd("highlight! GitSignsAdd guifg=#A1D07E")
+        vim.cmd("highlight! GitSignsDelete guifg=#C58E94")
+        vim.cmd("highlight! GitSignsChange guifg=#A9BED1")
     else
         vim.cmd("highlight! LineNr guifg=#9389A8")
     end
