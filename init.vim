@@ -102,7 +102,7 @@ Plug 'lewis6991/gitsigns.nvim', { 'commit': 'c18fc65c77abf95ac2e7783b9e7455a7a2f
 
 " LSP
 Plug 'neovim/nvim-lspconfig', { 'commit': '06e54cdfa38c2129bc555b6ee77d4086c3a74e5c' }
-Plug 'hrsh7th/nvim-cmp', { 'commit': '5ddf3732c51587782de24bb717eada8fa0526eb4' }
+Plug 'hrsh7th/nvim-cmp', { 'commit': '1001683bee3a52a7b7e07ba9d391472961739c7b' }
 Plug 'hrsh7th/cmp-buffer', { 'commit': 'f83773e2f433a923997c5faad7ea689ec24d1785' }
 Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'b4251f0fca1daeb6db5d60a23ca81507acf858c2' }
 Plug 'hrsh7th/cmp-path', { 'commit': '4d58224e315426e5ac4c5b218ca86cab85f80c79' }
@@ -196,7 +196,7 @@ cmp.setup({
         ['<C-q>'] = cmp.mapping.close(),
         ["<c-y>"] = cmp.mapping(
             cmp.mapping.confirm {
-                behavior = cmp.ConfirmBehavior.Insert,
+                behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
             }
         )
