@@ -97,5 +97,12 @@
             "end;"
         ],
         "description": "A delphi function"
+    },
+    "debug-out": {
+        "prefix": ["pf", "printf"],
+        "body": [
+            "OutputDebugString(PWideChar(Format('${1:Debug message %s}', [${0:FormatArgs}])));"
+        ],
+        "description": "Output formatted debug string"
     }
 }
