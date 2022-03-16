@@ -87,6 +87,7 @@ Plug 'nvim-telescope/telescope.nvim', { 'commit': '015a35626d5a293dc9c19dc2bb301
 Plug 'nvim-telescope/telescope-project.nvim', { 'commit': 'ad33c9eb67de635ded67069af7552d5162497b1e' }
 Plug 'nvim-telescope/telescope-file-browser.nvim', { 'commit': '6df8b49f5e16cd88817892dc12a1a79062e17856' }
 Plug 'windwp/nvim-spectre', { 'commit': '4a4cf2c981b077055ef7725959d13007e366ba23' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim'
 
 " Editing/motions
 Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
@@ -347,6 +348,14 @@ lua << EOF
 local actions = require('telescope.actions')
 local layout = require('telescope.actions.layout')
 require('telescope').setup {
+     extensions = {
+         fzf = {
+             fuzzy = true,
+             override_generic_sorter = true,
+             override_file_sorter = true,
+             case_mode = "smart_case",
+         }
+    },
     defaults = {
         borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
         layout_config = {
@@ -379,7 +388,7 @@ require('telescope').setup {
                 ["<M-p>"] = layout.toggle_preview,
             },
         },
-    }
+     }
 }
 
  -- telescope extensions
@@ -388,6 +397,7 @@ require("telescope").load_extension("todo-comments")
 require('telescope').load_extension('neoclip')
 require('telescope').load_extension('project')
 require('telescope').load_extension('zoxide')
+require('telescope').load_extension('fzf')
 
 EOF
 
