@@ -123,6 +123,7 @@ Plug 'rkennedy/vim-delphi', { 'commit': 'f9846b33d4aecfa57bd892097cfe57ecdb7fe61
 Plug 'dag/vim-fish', { 'commit': '50b95cbbcd09c046121367d49039710e9dc9c15f' }
 Plug 'simrat39/rust-tools.nvim', { 'commit': 'dc71e26cc2188c00fd849e1d80fa8a72ac422032' }
 Plug 'fladson/vim-kitty', { 'commit': '212be70d5f5205d6e53dbc12e48e8593ba75e2f3' }
+Plug 'lervag/vimtex', { 'commit': '8020e33977f09205e6ed3c8eaeb73557c039b7e9' }
 
 " Editor behaviour
 Plug 'Pocco81/AutoSave.nvim', { 'commit': '3d342d6fcebeede15b6511b13a38a522c6f33bf8' }
