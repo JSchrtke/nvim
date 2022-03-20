@@ -136,7 +136,7 @@ Plug 'JSchrtke/melange'
 Plug 'rktjmp/lush.nvim', { 'commit': '57e9f310b7ddde27664c3e1a5ec3517df235124b' }
 Plug 'projekt0n/github-nvim-theme', { 'commit': 'd0a4be696adeffe9f41587558ad12fe52dfa7ce5' }
 Plug 'mcchrish/zenbones.nvim', { 'commit': '668ec5d2b7835b16b2b6eebb3a71e31173e5da51' }
-Plug 'rebelot/kanagawa.nvim'
+Plug 'rebelot/kanagawa.nvim', { 'commit': '718ea31b8b6a92b99f25c817ac150b44b45f857f' }
 
 " File management
 Plug 'elihunter173/dirbuf.nvim'
@@ -825,7 +825,7 @@ local function split (inputstr, sep)
     return t
 end
 
-local function check_windows_theme()
+local function windows_theme()
     local theme = vim.fn.system("cmd.exe /C reg query HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v AppsUseLightTheme")
     local is_light_theme = ends_with(split(theme)[4], "1")
     if is_light_theme then
@@ -835,7 +835,7 @@ local function check_windows_theme()
     end
 end
 
-local function check_linux_theme()
+local function linux_theme()
     local current_theme = vim.fn.system("bash -c 'gsettings get org.gnome.desktop.interface gtk-theme'")
     -- '%p' matches all punctuation chars, '%c' matches all control characters and '%s' matches all whitespace characters.
     current_theme = current_theme:gsub("[%p%c%s]", "")
@@ -847,18 +847,30 @@ local function check_linux_theme()
     end
 end
 
+local function system_theme() 
+    if vim.fn.has("unix") == 1 then
+        return linux_theme()
+    else
+        return windows_theme()
+    end
+end
+
 function set_light_theme()
     local light_theme = "github_light"
     vim.cmd("colorscheme "..light_theme)
 end
 
 function set_dark_theme()
+    require("kanagawa").setup({
+        undercurl = true,
+        dimInactive = true,
+    })
     local dark_theme = "kanagawa"
     vim.cmd("colorscheme "..dark_theme)
 end
 
-function set_highlights()
-    if vim.opt.background:get() == "light" then
+function set_highlights(theme_style)
+    if theme_style == "light" then
         vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
         vim.cmd("highlight! Visual guibg=#BBDFFF")
         vim.cmd("highlight! LineNr guifg=#005CC5")
@@ -867,22 +879,16 @@ function set_highlights()
     end
 end
 
-function set_theme()
-    local theme = ""
-    if vim.fn.has("unix") == 1 then
-        theme = check_linux_theme()
-    else
-        theme = check_windows_theme()
-    end
-
-    if theme == "light" then
+function set_theme(theme_style)
+    if theme_style == "light" then
         set_light_theme()
     else
         set_dark_theme()
     end
-    set_highlights()
+
+    set_highlights(theme_style)
 end
 
-set_theme()
+set_theme(system_theme())
 
 EOF
