@@ -119,7 +119,7 @@ Plug 'williamboman/nvim-lsp-installer', { 'commit': '57398ee78d055b3fc566092c1a0
 Plug 'mfussenegger/nvim-dap', { 'commit': '3f1514d020f9d73a458ac04f42d27e5b284c0e48' }
 
 " Syntax/Languages
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'commit': '9fff379c17729d4643c9ed3b2e0494e2a7bbafe8' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '9fff379c17729d4643c9ed3b2e0494e2a7bbafe8' }
 Plug 'rkennedy/vim-delphi', { 'commit': 'f9846b33d4aecfa57bd892097cfe57ecdb7fe618' }
 Plug 'dag/vim-fish', { 'commit': '50b95cbbcd09c046121367d49039710e9dc9c15f' }
 Plug 'simrat39/rust-tools.nvim', { 'commit': 'dc71e26cc2188c00fd849e1d80fa8a72ac422032' }
@@ -150,6 +150,8 @@ lua require('impatient').enable_profile()
 
 " ### Configure treesitter ###
 lua <<EOF
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.pascal.used_by = "delphi"
 require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
