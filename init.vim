@@ -83,7 +83,7 @@ Plug 'rmagatti/goto-preview', { 'commit': '7f842e981f81cce14f28c49befad9146c18c3
 
 " Search
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
-Plug 'nvim-telescope/telescope.nvim', { 'commit': '015a35626d5a293dc9c19dc2bb301f25850961f6' }
+Plug 'nvim-telescope/telescope.nvim', { 'commit': '1a72a92b641e1dab42036c07e2571b43c55bfaa1' }
 Plug 'nvim-telescope/telescope-project.nvim', { 'commit': 'ad33c9eb67de635ded67069af7552d5162497b1e' }
 Plug 'nvim-telescope/telescope-file-browser.nvim', { 'commit': '6df8b49f5e16cd88817892dc12a1a79062e17856' }
 Plug 'windwp/nvim-spectre', { 'commit': '4a4cf2c981b077055ef7725959d13007e366ba23' }
