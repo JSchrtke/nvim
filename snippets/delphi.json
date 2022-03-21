@@ -91,9 +91,9 @@
     "function": {
         "prefix" :["fn", "func"],
         "body": [
-            "function ${1:FunctionName}",
+            "function ${1:FunctionName}(${2:Args})${3:: ReturnType};",
             "begin",
-            "  // TODO",
+            "  ${0:// TODO}",
             "end;"
         ],
         "description": "A delphi function"
