@@ -12,8 +12,8 @@ endfunction
 lua << EOF
 require("which-key").register({
     ["<leader>oi"] = {"<cmd>call OpenDelphiProjectInIde()<cr>", "open in rad studio"},
-    ["<leader>rp"] = {"<cmd>T .\\build_and_run.bat<cr>", "project"},
-    ["<leader>rt"] = {"<cmd>T .\\build_and_run_tests.bat<cr>", "tests"},
+    ["<leader>rp"] = {"<cmd>Topen|T .\\build_and_run.bat<cr>", "project"},
+    ["<leader>rt"] = {"<cmd>Topen|T .\\build_and_run_tests.bat<cr>", "tests"},
     ["<leader>rf"] = {"<cmd>call FormatDelphi()<cr>", "formatter"},
 })
 EOF
