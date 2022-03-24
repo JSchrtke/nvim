@@ -390,7 +390,8 @@ require('telescope').setup {
                 ["<M-p>"] = layout.toggle_preview,
             },
         },
-     }
+        tiebreak = function(current_entry, existing_entry, prompt) return false end
+    }
 }
 
  -- telescope extensions
