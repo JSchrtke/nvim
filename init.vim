@@ -293,10 +293,8 @@ lsp_installer.on_server_ready(function(server)
                     show_parameter_hints = true,
                     parameter_hints_prefix = "<- ",
                     other_hints_prefix = "=> ",
-                    max_len_align = false,
-                    max_len_align_padding = 1,
-                    right_align = false,
-                    right_align_padding = 7
+                    only_current_line = true,
+                    only_current_line_autocmd = "CursorMoved"
                 },
                 hover_actions = {
                     border = "single",
