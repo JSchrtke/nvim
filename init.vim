@@ -80,6 +80,7 @@ Plug 'kwkarlwang/bufresize.nvim', { 'commit': 'fe7d011b02bb0c2ac119af05b42a681ea
 Plug 'filipdutescu/renamer.nvim', { 'commit': '80d627372f90660f135862c8a7f8941b28ee5373' }
 Plug 'nvim-lua/popup.nvim', { 'commit': 'b7404d35d5d3548a82149238289fa71f7f6de4ac' }
 Plug 'rmagatti/goto-preview', { 'commit': '7f842e981f81cce14f28c49befad9146c18c3931' }
+Plug 'stevearc/aerial.nvim'
 
 " Search
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
@@ -255,11 +256,6 @@ EOF
 " ### Configure LSP ###
 lua << EOF
 
-local on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", {silent = true})
-    require 'lsp_signature'.on_attach()
-end
-
 -- lsp status
 local lsp_status = require("lsp-status")
 lsp_status.config({
@@ -274,6 +270,14 @@ lsp_status.register_progress()
 
 -- lsp installer
 local lsp_installer = require("nvim-lsp-installer")
+
+require("aerial").setup({})
+
+local on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", {silent = true})
+    require("lsp_signature").on_attach()
+    require("aerial").on_attach(client, bufnr)
+end
 
 lsp_installer.on_server_ready(function(server)
     local opts = {
@@ -712,6 +716,8 @@ EOF
 
 
 " ### Configure neoterm ###
+" TODO configure this such that the terminal opens vertically when there is
+" 'enough' space, and horizontally otherwise
 lua << EOF
 vim.g.neoterm_default_mod = "vertical botright"
 vim.g.neoterm_autojump = 1
