@@ -712,7 +712,7 @@ EOF
 
 " ### Configure neoterm ###
 lua << EOF
-vim.g.neoterm_default_mod = "vertical botright"
+vim.g.neoterm_default_mod = "belowright"
 vim.g.neoterm_autojump = 1
 vim.g.neoterm_automap_keys = false
 vim.g.neoterm_autoscroll = 1
