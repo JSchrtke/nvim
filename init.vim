@@ -85,7 +85,6 @@ Plug 'rmagatti/goto-preview', { 'commit': '7f842e981f81cce14f28c49befad9146c18c3
 Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
 Plug 'nvim-telescope/telescope.nvim', { 'commit': 'cf2d6d34282afd90f0f5d2aba265a23b068494c2' }
 Plug 'nvim-telescope/telescope-project.nvim', { 'commit': 'ad33c9eb67de635ded67069af7552d5162497b1e' }
-Plug 'nvim-telescope/telescope-file-browser.nvim', { 'commit': '6df8b49f5e16cd88817892dc12a1a79062e17856' }
 Plug 'windwp/nvim-spectre', { 'commit': '4a4cf2c981b077055ef7725959d13007e366ba23' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim'
 
@@ -393,7 +392,6 @@ require('telescope').setup {
 }
 
  -- telescope extensions
-require("telescope").load_extension("file_browser")
 require("telescope").load_extension("todo-comments")
 require('telescope').load_extension('neoclip')
 require('telescope').load_extension('project')
@@ -498,8 +496,6 @@ map <C-e> <nop>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprevious<CR>
 
-nnoremap <C-e> :lua require("telescope").extensions.file_browser.file_browser(require("telescope.themes").get_ivy())<CR>
-
 map <silent> <F2> <cmd>lua require('renamer').rename()<cr>
 
 lua << EOF
@@ -544,7 +540,7 @@ wk.register({
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files(require('telescope.themes').get_ivy())<CR>", "file"},
-        e = {"<cmd>lua t_ext.file_browser.file_browser(require('telescope.themes').get_ivy())<CR>", "file explorer"},
+        e = {"<cmd>Dirbuf<CR>", "file explorer"},
         r = {"<cmd>lua t.oldfiles(require('telescope.themes').get_ivy())<CR>", "recent"},
         b = {"<cmd>lua t.buffers(require('telescope.themes').get_ivy())<CR>", "buffer"},
         gb = {"<cmd>lua t.git_branches(require('telescope.themes').get_ivy())<CR>", "git branch"},
