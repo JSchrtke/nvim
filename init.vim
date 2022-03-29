@@ -356,7 +356,7 @@ require('telescope').setup {
          }
     },
     defaults = {
-        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+        borderchars = { "═", "║", "═", "║", "╔", "╗", "╝", "╚" },
         layout_config = {
             prompt_position = "top",
             width = 0.99,
@@ -539,27 +539,27 @@ wk.register({
     -- open
     o = {
         name = "+open",
-        f = {"<cmd>lua t.find_files(require('telescope.themes').get_ivy())<CR>", "file"},
+        f = {"<cmd>lua t.find_files()<CR>", "file"},
         e = {"<cmd>Dirbuf<CR>", "file explorer"},
-        r = {"<cmd>lua t.oldfiles(require('telescope.themes').get_ivy())<CR>", "recent"},
-        b = {"<cmd>lua t.buffers(require('telescope.themes').get_ivy())<CR>", "buffer"},
-        gb = {"<cmd>lua t.git_branches(require('telescope.themes').get_ivy())<CR>", "git branch"},
-        gc = {"<cmd>lua t.git_commits(require('telescope.themes').get_ivy())<CR>", "git commit"},
+        r = {"<cmd>lua t.oldfiles()<CR>", "recent"},
+        b = {"<cmd>lua t.buffers()<CR>", "buffer"},
+        gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
+        gc = {"<cmd>lua t.git_commits()<CR>", "git commit"},
     },
 
     -- find
     f = {
         name = "+find",
-        f = {"<cmd>lua t.current_buffer_fuzzy_find(require('telescope.themes').get_ivy())<CR>", "in file"},
+        f = {"<cmd>lua t.current_buffer_fuzzy_find()<CR>", "in file"},
         -- for syntax documentation see https://docs.rs/regex/1.5.4/regex/#syntax
-        d = {"<cmd>lua t.live_grep(require('telescope.themes').get_ivy())<CR>", "in directory"},
-        w = {"<cmd>lua t.grep_string(require('telescope.themes').get_ivy())<CR>", "word"},
-        s = {"<cmd>lua t.lsp_document_symbols(require('telescope.themes').get_ivy())<CR>", "document symbols"},
-        S = {"<cmd>lua t.lsp_workspace_symbols(require('telescope.themes').get_ivy())<CR>", "workspace symbols"},
-        q = {"<cmd>lua t.quickfix(require('telescope.themes').get_ivy())<CR>", "in quickfix list"},
-        h = {"<cmd>lua t.help_tags(require('telescope.themes').get_ivy())<CR>", "in help"},
-        r = {"<cmd>lua t.lsp_references(require('telescope.themes').get_ivy())<CR>", "references"},
-        t = {"<cmd>lua t_ext.todo.todo(require('telescope.themes').get_ivy())<CR>", "todos"},
+        d = {"<cmd>lua t.live_grep()<CR>", "in directory"},
+        w = {"<cmd>lua t.grep_string()<CR>", "word"},
+        s = {"<cmd>lua t.lsp_document_symbols()<CR>", "document symbols"},
+        S = {"<cmd>lua t.lsp_workspace_symbols()<CR>", "workspace symbols"},
+        q = {"<cmd>lua t.quickfix()<CR>", "in quickfix list"},
+        h = {"<cmd>lua t.help_tags()<CR>", "in help"},
+        r = {"<cmd>lua t.lsp_references()<CR>", "references"},
+        t = {"<cmd>lua t_ext.todo.todo()<CR>", "todos"},
     },
 
     -- window
@@ -605,7 +605,7 @@ wk.register({
     s = {
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
-        c = {"<cmd>lua t_ext.neoclip.default(require('telescope.themes').get_ivy())<CR>", "clipboard"},
+        c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
         d = {"<cmd>Gdiffsplit|wincmd l<CR>", "git diff"},
         D = {"<cmd>Dirbuf<CR>", "directory buffer"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
