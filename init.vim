@@ -795,15 +795,8 @@ require("goto-preview").setup {
 }
 EOF
 
-" ### Configure Colors ###
-let g:github_keyword_style = "italic"
-let g:github_msg_area_style = "bold"
-let g:github_function_style = "bold"
-let g:github_dark_float = v:true
-let g:github_dark_sidebars = v:true
-let g:github_sidebars = ["qf", "terminal", "neoterm", "Trouble"]
-let g:github_hide_inactive_statusline = v:false
 
+" ### Configure Colors ###
 lua << EOF
 
 local function ends_with(str, ending)
@@ -864,13 +857,7 @@ function set_dark_theme()
 end
 
 function set_highlights()
-    if vim.opt.background:get() == "light" then
-        vim.cmd("highlight! GitSignsAdd guifg=#A1D07E")
-        vim.cmd("highlight! GitSignsDelete guifg=#C58E94")
-        vim.cmd("highlight! GitSignsChange guifg=#A9BED1")
-    else
-        vim.cmd("highlight! LineNr guifg=#9389A8")
-    end
+    vim.cmd("highlight! link ColorColumn StatusLine")
 end
 
 function set_theme(theme_style)
