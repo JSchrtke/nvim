@@ -510,6 +510,10 @@ wk.register({
     ["gd"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "go to definition"},
     ["gt"] = {"next tab"},
     ["gT"] = {"previous tab"},
+    ["]e"] = {"<cmd>silent lua vim.lsp.diagnostic.goto_next()<cr>", "next error"},
+    ["[e"] = {"<cmd>silent lua vim.lsp.diagnostic.goto_prev()<cr>", "previous error"},
+    ["]q"] = {"<cmd>cnext<cr>", "next quickfix item"},
+    ["[q"] = {"<cmd>cprevious<cr>", "previous quickfix item"},
 })
 
 -- Normal mode, <leader> prefix
