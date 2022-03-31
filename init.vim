@@ -129,6 +129,7 @@ Plug 'lervag/vimtex', { 'commit': '8020e33977f09205e6ed3c8eaeb73557c039b7e9' }
 Plug 'Pocco81/AutoSave.nvim', { 'commit': '3d342d6fcebeede15b6511b13a38a522c6f33bf8' }
 Plug 'famiu/bufdelete.nvim', { 'commit': '1c59b784c53afaf7b9ca63186da99e5d46e3e429' }
 Plug 'vim-scripts/BufOnly.vim', { 'commit': '43dd92303979bdb234a3cb2f5662847f7a3affe7' }
+Plug 'ethanholz/nvim-lastplace'
 
 " Colors
 Plug 'JSchrtke/melange'
@@ -795,6 +796,8 @@ require("goto-preview").setup {
 }
 EOF
 
+" ### Configure nvim-lastplace ###
+lua require("nvim-lastplace").setup{}
 
 " ### Configure Colors ###
 lua << EOF
