@@ -846,12 +846,14 @@ end
 
 function set_light_theme()
     vim.opt.bg = "light"
+    vim.g.zenbones_lightness = "bright"
     local light_theme = "zenbones"
     vim.cmd("colorscheme "..light_theme)
 end
 
 function set_dark_theme()
     vim.opt.bg = "dark"
+    vim.g.zenbones_darkness = "stark"
     local dark_theme = "zenbones"
     vim.cmd("colorscheme "..dark_theme)
 end
