@@ -859,9 +859,7 @@ function set_light_theme()
 end
 
 function set_dark_theme()
-    vim.opt.bg = "dark"
-    vim.g.zenbones_darkness = "stark"
-    local dark_theme = "zenbones"
+    local dark_theme = "kanagawa"
     vim.cmd("colorscheme "..dark_theme)
 end
 
