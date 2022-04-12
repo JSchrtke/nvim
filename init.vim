@@ -139,7 +139,8 @@ Plug 'mcchrish/zenbones.nvim', { 'commit': '668ec5d2b7835b16b2b6eebb3a71e31173e5
 Plug 'rebelot/kanagawa.nvim', { 'commit': '718ea31b8b6a92b99f25c817ac150b44b45f857f' }
 
 " File management
-Plug 'elihunter173/dirbuf.nvim'
+Plug 'tamago324/lir.nvim'
+Plug 'tamago324/lir-git-status.nvim'
 
 Plug 'jvgrootveld/telescope-zoxide'
 
@@ -545,7 +546,7 @@ wk.register({
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files()<CR>", "file"},
-        e = {"<cmd>Dirbuf<CR>", "file explorer"},
+        e = {"<cmd>e .<CR>", "file explorer"},
         r = {"<cmd>lua t.oldfiles()<CR>", "recent"},
         b = {"<cmd>lua t.buffers()<CR>", "buffer"},
         gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
@@ -612,7 +613,6 @@ wk.register({
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
         c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
         d = {"<cmd>Gdiffsplit|wincmd l<CR>", "git diff"},
-        D = {"<cmd>Dirbuf<CR>", "directory buffer"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
         i = {"<cmd>lua vim.lsp.buf.signature_help()<CR>", "signature_help"},
@@ -802,6 +802,88 @@ EOF
 
 " ### Configure nvim-lastplace ###
 lua require("nvim-lastplace").setup{}
+
+" ### Configure lir.nvim ###
+lua << EOF
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+local actions = require'lir.actions'
+local mark_actions = require 'lir.mark.actions'
+local clipboard_actions = require'lir.clipboard.actions'
+
+local lir = require("lir")
+lir.setup {
+    show_hidden_files = false,
+    devicons_enable = true,
+    mappings = {
+        ['l']     = actions.edit,
+        ['<CR>']     = actions.edit,
+        ['<C-s>'] = actions.split,
+        ['<C-v>'] = actions.vsplit,
+        ['<C-t>'] = actions.tabedit,
+
+        ['h']     = actions.up,
+        ['q']     = actions.quit,
+
+        ['ad']     = actions.mkdir,
+        ['af']     = actions.newfile,
+        ['r']     = actions.rename,
+        ['@']     = actions.cd,
+        ['yy']     = actions.yank_path,
+        ['.']     = actions.toggle_show_hidden,
+        ['dd']     = actions.delete,
+
+        ['o'] = function()
+            local ctx = lir.get_context()
+            local current = ctx:current()
+            if vim.fn.has("win32") == 1 then
+                vim.fn.system('start ' .. current.fullpath)
+            else
+                vim.fn.system('xdg-open ' .. current.fullpath)
+            end
+        end,
+
+        ['J'] = function()
+            mark_actions.toggle_mark()
+            vim.cmd('normal! j')
+        end,
+
+        ['C'] = clipboard_actions.copy,
+        ['X'] = clipboard_actions.cut,
+        ['P'] = clipboard_actions.paste,
+    },
+
+    float = {
+        winblend = 0,
+        curdir_window = {
+            enable = false,
+            highlight_dirname = false
+        },
+    },
+    hide_cursor = true,
+    on_init = function()
+        vim.api.nvim_buf_set_keymap(
+            0,
+            "x",
+            "J",
+            ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
+            { noremap = true, silent = true }
+        )
+
+        vim.api.nvim_echo({ { vim.fn.expand("%:p"), "Normal" } }, false, {})
+    end,
+}
+
+require'nvim-web-devicons'.set_icon({
+    lir_folder_icon = {
+        icon = "",
+        color = "#7ebae4",
+        name = "LirFolderNode"
+    }
+})
+EOF
 
 " ### Configure Colors ###
 lua << EOF
