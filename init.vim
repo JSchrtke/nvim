@@ -2,8 +2,8 @@ if has("nvim")
 "### General settings ###
 let mapleader = "\<Space>"
 filetype plugin on
-set nonumber
-set norelativenumber
+set number
+set relativenumber
 set updatetime=500
 set ignorecase
 set clipboard=unnamedplus
@@ -95,7 +95,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'junegunn/vim-easy-align'
-Plug 'ggandor/lightspeed.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -847,9 +846,6 @@ require'nvim-web-devicons'.set_icon({
     }
 })
 EOF
-
-" ### Configure lightspeed.nvim ###
-lua require("lightspeed").setup({})
 
 " ### Configure Colors ###
 lua << EOF
