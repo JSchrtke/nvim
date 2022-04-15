@@ -1018,6 +1018,12 @@ function set_light_theme()
 end
 
 function set_dark_theme()
+    require("kanagawa").setup({
+        undercurl = true,
+        functionStyle = "bold",
+        globalStatus = true,
+        dimInactive = true,
+    })
     local dark_theme = "kanagawa"
     vim.cmd("colorscheme "..dark_theme)
 end
