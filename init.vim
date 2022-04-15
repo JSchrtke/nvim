@@ -1,3 +1,4 @@
+if has("nvim")
 "### General settings ###
 let mapleader = "\<Space>"
 filetype plugin on
@@ -962,3 +963,4 @@ end
 set_theme(system_theme())
 
 EOF
+endif
