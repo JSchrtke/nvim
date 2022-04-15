@@ -56,5 +56,12 @@
             "    ${0:// TODO}",
             "}"
         ]
+    },
+    "errprintf": {
+        "prefix": ["epf"],
+        "body": [
+            "fmt.Fprintln(os.Stderr, fmt.Sprintf(\"%s: %s\", ${1:msg}, ${0:err}))"
+        ],
+        "description": "Print formatted error to stderr"
     }
 }
