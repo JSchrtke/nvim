@@ -1,17 +1,7 @@
-" nvui
-if exists(':NvuiAnimationsEnabled')
-    set guifont=JetBrainsMono\ NF:h13
-    :NvuiCursorAnimationDuration 0.02
-    :NvuiMoveAnimationDuration 0.08
-    :NvuiSnapshotLimit 64
-    :NvuiTitlebarFontFamily BlexMono\ NF
-    :NvuiScrollAnimationDuration 0.06
-endif
-
 " neovide
 set guifont=JetBrainsMono\ NF:h13
 let g:neovide_refresh_rate = 144
-let g:neovide_cursor_animation_length = 0.025
+let g:neovide_cursor_animation_length = 0.01
 let g:neovide_cursor_antialiasing=v:true
 
 " guifont size + 1
@@ -38,3 +28,4 @@ command! -narg=0 ZoomReset :call s:ZoomReset()
 " map
 nmap + :ZoomIn<CR>
 nmap - :ZoomOut<CR>
+nmap ^ <C-^>
