@@ -2,8 +2,8 @@ if has("nvim")
 "### General settings ###
 let mapleader = "\<Space>"
 filetype plugin on
-set number
-set relativenumber
+set nonumber
+set norelativenumber
 set updatetime=500
 set ignorecase
 set clipboard=unnamedplus
@@ -95,6 +95,7 @@ Plug 'tpope/vim-repeat', { 'commit': '24afe922e6a05891756ecf331f39a1f6743d3d5a' 
 Plug 'tpope/vim-surround', { 'commit': 'aeb933272e72617f7c4d35e1f003be16836b948d' }
 Plug 'michaeljsmith/vim-indent-object', { 'commit': '5c5b24c959478929b54a9e831a8e2e651a465965' }
 Plug 'junegunn/vim-easy-align', { 'commit': '12dd6316974f71ce333e360c0260b4e1f81169c3' }
+Plug 'ggandor/lightspeed.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive', { 'commit': '57968b63c266b5d37bb08fa6e3807d230b882781' }
@@ -885,6 +886,9 @@ require'nvim-web-devicons'.set_icon({
     }
 })
 EOF
+
+" ### Configure lightspeed.nvim ###
+lua require("lightspeed").setup({})
 
 " ### Configure Colors ###
 lua << EOF
