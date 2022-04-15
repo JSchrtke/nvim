@@ -18,6 +18,7 @@ set signcolumn=yes:2
 set t_Co=256
 set termguicolors
 set nowrap
+set scrolloff=3
 
 " Indentation
 set tabstop=4
@@ -620,7 +621,7 @@ wk.register({
         i = {"<cmd>lua vim.lsp.buf.signature_help()<CR>", "signature_help"},
         l = {"<cmd>Flog<CR>", "git log"},
         q = {"<cmd>copen<CR>", "quickfix list"},
-        s = {"<cmd>G<CR>", "git status"},
+        s = {"<cmd>tabnew|G<CR>", "git status"},
         t = {"<cmd>TodoTrouble<CR>", "todos"},
         r = {"<cmd>lua vim.lsp.buf.references()<CR>", "lsp references"},
     },
