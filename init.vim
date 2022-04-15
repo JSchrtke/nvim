@@ -61,85 +61,84 @@ tnoremap <C-w>n <C-\><C-n>
 call plug#begin('~/.vim/plugged')
 
 " Performance
-Plug 'lewis6991/impatient.nvim', { 'commit': '3ea9abedb6941995b05fdad654d9cfd51c38a31f' }
+Plug 'lewis6991/impatient.nvim'
 
 " UI
-Plug 'kyazdani42/nvim-web-devicons', { 'commit': 'ac71ca88b1136e1ecb2aefef4948130f31aa40d1' }
-Plug 'norcalli/nvim-colorizer.lua', { 'commit': '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6' }
-Plug 'lukas-reineke/indent-blankline.nvim', { 'commit': '0f8df7e43f0cae4c44e0e8383436ad602f333419' }
-Plug 'onsails/lspkind-nvim', { 'commit': 'f0d1552890e384f15b47ea88bd1b8a077cddc24a' }
-Plug 'folke/trouble.nvim', { 'commit': '20469be985143d024c460d95326ebeff9971d714' }
-Plug 'folke/which-key.nvim', { 'commit': '312c386ee0eafc925c27869d2be9c11ebdb807eb' }
-Plug 'folke/todo-comments.nvim', { 'commit': '672cd22bd15928434374ac52d0cf38dd250231df' }
-Plug 'simeji/winresizer', { 'commit': '9dc9899cedf84d78b93263b1fdb105b37c54c7b5' }
-Plug 'kassio/neoterm', { 'commit': '6851a447bcbc5b6450b4f7ea1e248188a53ef487' }
-Plug 'https://gitlab.com/yorickpeterse/nvim-window.git', { 'commit': 'fad12aef4640a01c75f64ec47bf082e4a750e873' }
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'folke/which-key.nvim'
+Plug 'folke/todo-comments.nvim'
+Plug 'simeji/winresizer'
+Plug 'kassio/neoterm'
+Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 " TODO configure this properly
-Plug 'AckslD/nvim-neoclip.lua', { 'commit': 'bfd6503ce5e2949e17e4053ca00b9e6836fe94e7' }
-Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
-Plug 'sindrets/winshift.nvim', { 'commit': 'aaa04b97640165eb0877bfc04943f4282887470b' }
-Plug 'kwkarlwang/bufresize.nvim', { 'commit': 'fe7d011b02bb0c2ac119af05b42a681ea182ca14' }
-Plug 'filipdutescu/renamer.nvim', { 'commit': '80d627372f90660f135862c8a7f8941b28ee5373' }
-Plug 'nvim-lua/popup.nvim', { 'commit': 'b7404d35d5d3548a82149238289fa71f7f6de4ac' }
-Plug 'rmagatti/goto-preview', { 'commit': '7f842e981f81cce14f28c49befad9146c18c3931' }
+Plug 'AckslD/nvim-neoclip.lua'
+Plug 'folke/zen-mode.nvim'
+Plug 'sindrets/winshift.nvim'
+Plug 'kwkarlwang/bufresize.nvim'
+Plug 'filipdutescu/renamer.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'rmagatti/goto-preview'
 
 " Search
-Plug 'nvim-lua/plenary.nvim', { 'commit': '563d9f6d083f0514548f2ac4ad1888326d0a1c66' }
-Plug 'nvim-telescope/telescope.nvim', { 'commit': 'cf2d6d34282afd90f0f5d2aba265a23b068494c2' }
-Plug 'nvim-telescope/telescope-project.nvim', { 'commit': 'ad33c9eb67de635ded67069af7552d5162497b1e' }
-Plug 'windwp/nvim-spectre', { 'commit': '4a4cf2c981b077055ef7725959d13007e366ba23' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'windwp/nvim-spectre'
 Plug 'nvim-telescope/telescope-fzf-native.nvim'
 
 " Editing/motions
-Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
-Plug 'tpope/vim-repeat', { 'commit': '24afe922e6a05891756ecf331f39a1f6743d3d5a' }
-Plug 'tpope/vim-surround', { 'commit': 'aeb933272e72617f7c4d35e1f003be16836b948d' }
-Plug 'michaeljsmith/vim-indent-object', { 'commit': '5c5b24c959478929b54a9e831a8e2e651a465965' }
-Plug 'junegunn/vim-easy-align', { 'commit': '12dd6316974f71ce333e360c0260b4e1f81169c3' }
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'junegunn/vim-easy-align'
 Plug 'ggandor/lightspeed.nvim'
 
 " Git
-Plug 'tpope/vim-fugitive', { 'commit': '57968b63c266b5d37bb08fa6e3807d230b882781' }
-Plug 'rbong/vim-flog', { 'commit': '2358b199117900d3e36eada1de1f2a12556a5506' }
-Plug 'lewis6991/gitsigns.nvim', { 'commit': 'c18fc65c77abf95ac2e7783b9e7455a7a2fab26c' }
+Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
+Plug 'lewis6991/gitsigns.nvim'
 
 " LSP
-Plug 'neovim/nvim-lspconfig', { 'commit': '06e54cdfa38c2129bc555b6ee77d4086c3a74e5c' }
-Plug 'hrsh7th/nvim-cmp', { 'commit': '1001683bee3a52a7b7e07ba9d391472961739c7b' }
-Plug 'hrsh7th/cmp-buffer', { 'commit': 'f83773e2f433a923997c5faad7ea689ec24d1785' }
-Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'b4251f0fca1daeb6db5d60a23ca81507acf858c2' }
-Plug 'hrsh7th/cmp-path', { 'commit': '4d58224e315426e5ac4c5b218ca86cab85f80c79' }
-Plug 'hrsh7th/vim-vsnip', { 'commit': '7fde9c0b6878a62bcc6d2d29f9a85a6616032f02' }
-Plug 'hrsh7th/cmp-vsnip', { 'commit': '0abfa1860f5e095a07c477da940cfcb0d273b700' }
-Plug 'ray-x/lsp_signature.nvim', { 'commit': '31149835df7a183eb1fcc4dc82cae2dbd326ce4e' }
-Plug 'nvim-lua/lsp-status.nvim', { 'commit': '4073f766f1303fb602802075e558fe43e382cc92' }
-Plug 'mfussenegger/nvim-jdtls', { 'commit': 'eda96facfd46abdae960a4040840124a40664903' }
-Plug 'williamboman/nvim-lsp-installer', { 'commit': '57398ee78d055b3fc566092c1a09ca8df9df1d71' }
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'mfussenegger/nvim-jdtls'
+Plug 'williamboman/nvim-lsp-installer'
 
 " Debugging
 " TODO actually set this up
-Plug 'mfussenegger/nvim-dap', { 'commit': '3f1514d020f9d73a458ac04f42d27e5b284c0e48' }
+Plug 'mfussenegger/nvim-dap'
 
 " Syntax/Languages
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '9fff379c17729d4643c9ed3b2e0494e2a7bbafe8' }
-Plug 'rkennedy/vim-delphi', { 'commit': 'f9846b33d4aecfa57bd892097cfe57ecdb7fe618' }
-Plug 'dag/vim-fish', { 'commit': '50b95cbbcd09c046121367d49039710e9dc9c15f' }
-Plug 'simrat39/rust-tools.nvim', { 'commit': 'dc71e26cc2188c00fd849e1d80fa8a72ac422032' }
-Plug 'fladson/vim-kitty', { 'commit': '212be70d5f5205d6e53dbc12e48e8593ba75e2f3' }
-Plug 'lervag/vimtex', { 'commit': '8020e33977f09205e6ed3c8eaeb73557c039b7e9' }
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'rkennedy/vim-delphi'
+Plug 'dag/vim-fish'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'fladson/vim-kitty'
+Plug 'lervag/vimtex'
 
 " Editor behaviour
-Plug 'Pocco81/AutoSave.nvim', { 'commit': '3d342d6fcebeede15b6511b13a38a522c6f33bf8' }
-Plug 'famiu/bufdelete.nvim', { 'commit': '1c59b784c53afaf7b9ca63186da99e5d46e3e429' }
-Plug 'vim-scripts/BufOnly.vim', { 'commit': '43dd92303979bdb234a3cb2f5662847f7a3affe7' }
+Plug 'Pocco81/AutoSave.nvim'
+Plug 'famiu/bufdelete.nvim'
+Plug 'vim-scripts/BufOnly.vim'
 Plug 'ethanholz/nvim-lastplace'
 
 " Colors
 Plug 'JSchrtke/melange'
-Plug 'rktjmp/lush.nvim', { 'commit': '57e9f310b7ddde27664c3e1a5ec3517df235124b' }
-Plug 'projekt0n/github-nvim-theme', { 'commit': 'd0a4be696adeffe9f41587558ad12fe52dfa7ce5' }
-Plug 'mcchrish/zenbones.nvim', { 'commit': '668ec5d2b7835b16b2b6eebb3a71e31173e5da51' }
-Plug 'rebelot/kanagawa.nvim', { 'commit': '718ea31b8b6a92b99f25c817ac150b44b45f857f' }
+Plug 'rktjmp/lush.nvim'
+Plug 'projekt0n/github-nvim-theme'
+Plug 'mcchrish/zenbones.nvim'
+Plug 'rebelot/kanagawa.nvim'
 
 " File management
 Plug 'tamago324/lir.nvim'
@@ -154,16 +153,7 @@ lua require('impatient').enable_profile()
 
 " ### Configure treesitter ###
 lua <<EOF
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.pascal.used_by = "delphi"
-require'nvim-treesitter.configs'.setup {
-    highlight = {
-        enable = true,
-    },
-    indent = {
-        enable = true,
-    },
-}
+require'nvim-treesitter.configs'.setup {}
 EOF
 
 " ### Configure nvim-cmp###
@@ -189,7 +179,6 @@ cmp.setup({
     formatting = {
         format = function(entry, vim_item)
             -- fancy icons and a name of kind
-            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
 
             -- set a name for each source
             vim_item.menu = ({ buffer = "[Buffer]", nvim_lsp = "[LSP]", vsnip = "[VSnip]", })[entry.source.name]
@@ -461,35 +450,6 @@ let g:indent_blankline_bufname_exclude = ['README.md', '.*\.txt']
 let g:indent_blankline_show_first_indent_level = v:true
 let g:indent_blankline_disable_with_nolist = v:false
 let g:indentLine_char = '│'
-
-" ### Configure lspkind-nvim ###
-lua << EOF
-require('lspkind').init({
-    with_text = true,
-    symbol_map = {
-        Text = '',
-        Method = 'ƒ',
-        Function = '',
-        Constructor = '',
-        Variable = '',
-        Class = '',
-        Interface = 'ﰮ',
-        Module = '',
-        Property = '',
-        Unit = '',
-        Value = '',
-        Enum = '了',
-        Keyword = '',
-        Snippet = '﬌',
-        Color = '',
-        File = '',
-        Folder = '',
-        EnumMember = '',
-        Constant = '',
-        Struct = ''
-    },
-})
-EOF
 
 " ### Configure winresizer ###
 let g:winresizer_vert_resize = 1
