@@ -792,8 +792,6 @@ require('lualine').setup {
         source = { 'nvim' },
         sections = { 'warn' },
       },
-      { 'filename', file_status = false, path = 1 },
-      { modified },
       { location },
       {
         '%w',
@@ -822,6 +820,18 @@ require('lualine').setup {
   inactive_sections = {
     lualine_c = { '%f %y %m' },
     lualine_x = {},
+  },
+  tabline = {
+    lualine_a = {
+      { 'filename', file_status = false, path = 1 },
+      { modified },
+    },
+    lualine_y = {
+        { 'buffers' },
+    },
+    lualine_z = { 
+        { 'tabs'  },
+    },
   },
 }
 EOF
