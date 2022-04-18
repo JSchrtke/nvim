@@ -2,10 +2,30 @@
 set guifont=JetBrainsMono\ NF:h13
 let g:neovide_refresh_rate = 144
 let g:neovide_cursor_animation_length = 0.02
+let g:neovide_cursor_trail_length=2
 let g:neovide_cursor_antialiasing=v:true
 let g:neovide_touch_deadzone=6.0
 let g:neovide_touch_drag_timeout=0.17
 let g:neovide_cursor_unfocused_outline_width=0.125
+let g:neovide_floating_opacity=1
+lua << EOF
+    vim.g.terminal_color_0 = "#090618"
+    vim.g.terminal_color_1 = "#c34043"
+    vim.g.terminal_color_2 = "#76946a"
+    vim.g.terminal_color_3 = "#c0a36e"
+    vim.g.terminal_color_4 = "#7e9cd8"
+    vim.g.terminal_color_5 = "#957fb8"
+    vim.g.terminal_color_6 = "#6a9589"
+    vim.g.terminal_color_7 = "#c8c093"
+    vim.g.terminal_color_8 = "#727169"
+    vim.g.terminal_color_9 = "#e82424"
+    vim.g.terminal_color_10 = "#98bb6c"
+    vim.g.terminal_color_11 = "#e6c384"
+    vim.g.terminal_color_12 = "#7fb4ca"
+    vim.g.terminal_color_13 = "#938aa9"
+    vim.g.terminal_color_14 = "#7aa89f"
+    vim.g.terminal_color_15 = "#dcd7ba"
+EOF
 
 " guifont size + 1
 function! s:ZoomIn()
@@ -31,4 +51,3 @@ command! -narg=0 ZoomReset :call s:ZoomReset()
 " map
 nmap + :ZoomIn<CR>
 nmap - :ZoomOut<CR>
-nmap ^ <C-^>
