@@ -365,7 +365,7 @@ require('telescope').setup {
          }
     },
     defaults = {
-        borderchars = { "═", "║", "═", "║", "╔", "╗", "╝", "╚" },
+        borderchars = { "━", "┃", "━", "┃", "┏", "┓", "┛", "┗" },
         layout_config = {
             prompt_position = "top",
             width = 0.99,
