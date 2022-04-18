@@ -787,7 +787,6 @@ require('lualine').setup {
         source = { 'nvim' },
         sections = { 'warn' },
       },
-      { location },
       {
         '%w',
         cond = function()
@@ -807,7 +806,9 @@ require('lualine').setup {
         end,
       },
     },
-    lualine_c = {},
+    lualine_c = {
+      { location },
+    },
     lualine_x = {},
     lualine_y = { search_result, 'filetype' },
     lualine_z = { '%l:%c', '%p%%/%L' },
