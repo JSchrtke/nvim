@@ -91,6 +91,7 @@ Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/dressing.nvim'
 Plug 'lukas-reineke/virt-column.nvim'
 Plug 'notomo/cmdbuf.nvim'
+Plug 'stevearc/aerial.nvim'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
@@ -267,7 +268,8 @@ lua << EOF
 
 local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", {silent = true})
-    require 'lsp_signature'.on_attach()
+    require('lsp_signature').on_attach()
+    require("aerial").on_attach(client, bufnr)
 end
 
 -- lsp status
@@ -599,6 +601,7 @@ wk.register({
         l = {"<cmd>Flog<CR>", "git log"},
         q = {"<cmd>copen<CR>", "quickfix list"},
         s = {"<cmd>tabnew|G<CR>", "git status"},
+        S = {"<cmd>AerialToggle!<CR>", "lsp symbols"},
         t = {"<cmd>TodoTrouble<CR>", "todos"},
         r = {"<cmd>lua vim.lsp.buf.references()<CR>", "lsp references"},
     },
@@ -632,6 +635,7 @@ wk.register({
         q = {"<cmd>cnext<cr>", "quickfix item"},
         t = {"<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>", "trouble"},
         c = {"<cmd>lua require('gitsigns.actions').next_hunk()<CR>", "change"},
+        s = {"<cmd>AerialNext<CR>", "symbol"},
     },
     -- previous
     p = {
@@ -640,6 +644,7 @@ wk.register({
         q = {"<cmd>cprevious<cr>", "quickfix item"},
         t = {"<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<cr>", "trouble"},
         c = {"<cmd>lua require('gitsigns.actions').prev_hunk()<CR>", "change"},
+        s = {"<cmd>AerialPrev<CR>", "symbol"},
     },
 }, { prefix = "<leader>"})
 
@@ -1030,6 +1035,14 @@ EOF
 " ### Configure leap.nvim ###
 lua << EOF
 require("leap").set_default_keymaps()
+EOF
+
+" ### Configure aerial.nvim ###
+lua << EOF
+require("aerial").setup({
+    min_width = 20,
+    default_direction = "prefer_left",
+})
 EOF
 
 " ### Configure Colors ###
