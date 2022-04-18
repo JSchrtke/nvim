@@ -151,7 +151,7 @@ Plug 'JSchrtke/melange'
 Plug 'rktjmp/lush.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'mcchrish/zenbones.nvim'
-Plug 'rebelot/kanagawa.nvim'
+Plug 'JSchrtke/kanagawa.nvim', { 'branch': 'light-mode' }
 
 " File management
 Plug 'tamago324/lir.nvim'
@@ -1090,6 +1090,7 @@ function set_light_theme()
     vim.g.zenbones_lightness = "bright"
     local light_theme = "zenbones"
     vim.cmd("colorscheme "..light_theme)
+    vim.cmd("highlight! ColorColumn guibg=#f8f6f5")
 end
 
 function set_dark_theme()
@@ -1098,13 +1099,26 @@ function set_dark_theme()
         functionStyle = "bold",
         globalStatus = true,
         dimInactive = true,
+        theme = "default",
     })
     local dark_theme = "kanagawa"
     vim.cmd("colorscheme "..dark_theme)
+    vim.cmd("highlight! ColorColumn guibg=#1f1f28")
+end
+
+function set_test_theme()
+    require("kanagawa").setup({
+        undercurl = true,
+        functionStyle = "bold",
+        globalStatus = true,
+        dimInactive = true,
+        theme = "light",
+    })
+    local light_theme = "kanagawa"
+    vim.cmd("colorscheme "..light_theme)
 end
 
 function set_highlights()
-    vim.cmd("highlight! link ColorColumn StatusLine")
 end
 
 function set_theme(theme_style)
