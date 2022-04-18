@@ -98,7 +98,7 @@ Plug 'windwp/nvim-spectre'
 Plug 'nvim-telescope/telescope-fzf-native.nvim'
 
 " Editing/motions
-Plug 'tpope/vim-commentary'
+Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
@@ -978,6 +978,11 @@ require("dressing").setup({
         relative = "cursor",
     },
 })
+EOF
+
+" ### Configure Comment.nvim ###
+lua << EOF
+require("Comment").setup()
 EOF
 
 " ### Configure yanky.nvim ###
