@@ -107,6 +107,7 @@ Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'ggandor/leap.nvim'
+Plug 'jvgrootveld/telescope-zoxide'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -155,8 +156,6 @@ Plug 'rebelot/kanagawa.nvim'
 " File management
 Plug 'tamago324/lir.nvim'
 Plug 'tamago324/lir-git-status.nvim'
-
-Plug 'jvgrootveld/telescope-zoxide'
 
 call plug#end()
 
@@ -230,13 +229,6 @@ cmp.setup({
             name = 'path',
             priority = 10
         },
---        {
---            name = 'buffer',
---            option = {
---                keyword_pattern = [[\k\+]]
---            },
---            priority = 1
---        },
     },
 })
 
@@ -712,7 +704,7 @@ else
     let g:neoterm_shell = "fish"
 endif
 
-" ### Configure statusline ###
+" ### Configure lualine ###
 lua << EOF
 local empty = require('lualine.component'):extend()
 function empty:draw(default_highlight)
