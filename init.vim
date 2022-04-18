@@ -353,6 +353,8 @@ lua << EOF
 
 local actions = require('telescope.actions')
 local layout = require('telescope.actions.layout')
+local trouble = require("trouble.providers.telescope")
+
 require('telescope').setup {
      extensions = {
          fzf = {
@@ -384,17 +386,14 @@ require('telescope').setup {
         dynamic_preview_title = true,
         mappings = {
             i = {
-                ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-                ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-q>"] = trouble.open_with_trouble,
                 ["<M-p>"] = layout.toggle_preview,
             },
             n = {
-                ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-                ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-q>"] = trouble.open_with_trouble,
                 ["<M-p>"] = layout.toggle_preview,
             },
         },
-        tiebreak = function(current_entry, existing_entry, prompt) return false end
     }
 }
 
@@ -470,11 +469,7 @@ let g:winresizer_horiz_resize = 1
 map <C-e> <nop>
 
 " ### Configure which-key.nvim/mappings ###
-" quickly navigate quickfix entries
-nnoremap <C-n> :cnext<CR>
-nnoremap <C-p> :cprevious<CR>
-
-map <silent> <F2> <cmd>lua require('renamer').rename()<cr>
+map <silent> <F2> <cmd>lua vim.lsp.buf.rename()<CR>
 
 lua << EOF
 
@@ -491,6 +486,8 @@ wk.register({
     ["[e"] = {"<cmd>silent lua vim.lsp.diagnostic.goto_prev()<cr>", "previous error"},
     ["]q"] = {"<cmd>cnext<cr>", "next quickfix item"},
     ["[q"] = {"<cmd>cprevious<cr>", "previous quickfix item"},
+    ["]t"] = {"<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>", "next trouble"},
+    ["[t"] = {"<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<cr>", "previous trouble"},
 })
 
 -- Normal mode, <leader> prefix
@@ -597,7 +594,7 @@ wk.register({
         s = {"<cmd>tabnew|G<CR>", "git status"},
         S = {"<cmd>AerialToggle!<CR>", "lsp symbols"},
         t = {"<cmd>TodoTrouble<CR>", "todos"},
-        r = {"<cmd>lua vim.lsp.buf.references()<CR>", "lsp references"},
+        r = {"<cmd>Trouble lsp_references<CR>", "lsp references"},
     },
 
     -- run
