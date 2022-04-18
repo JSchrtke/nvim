@@ -89,6 +89,7 @@ Plug 'rmagatti/goto-preview'
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/dressing.nvim'
+Plug 'lukas-reineke/virt-column.nvim'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
@@ -978,6 +979,11 @@ require("dressing").setup({
         relative = "cursor",
     },
 })
+EOF
+
+" ### Configure virt-column.nvim ###
+lua << EOF
+require("virt-column").setup{}
 EOF
 
 " ### Configure Comment.nvim ###
