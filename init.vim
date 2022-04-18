@@ -2,8 +2,8 @@ if has("nvim")
 "### General settings ###
 let mapleader = "\<Space>"
 filetype plugin on
-set number
-set relativenumber
+set nonumber
+set norelativenumber
 set updatetime=500
 set ignorecase
 set clipboard=unnamedplus
@@ -109,6 +109,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'junegunn/vim-easy-align'
+Plug 'ggandor/leap.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -976,6 +977,11 @@ require'nvim-web-devicons'.set_icon({
         name = "LirFolderNode"
     }
 })
+EOF
+
+" ### Configure leap.nvim ###
+lua << EOF
+require("leap").set_default_keymaps()
 EOF
 
 " ### Configure Colors ###
