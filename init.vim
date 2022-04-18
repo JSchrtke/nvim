@@ -84,11 +84,11 @@ Plug 'AckslD/nvim-neoclip.lua'
 Plug 'folke/zen-mode.nvim'
 Plug 'sindrets/winshift.nvim'
 Plug 'kwkarlwang/bufresize.nvim'
-Plug 'filipdutescu/renamer.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'rmagatti/goto-preview'
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
+Plug 'stevearc/dressing.nvim'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
@@ -607,7 +607,7 @@ wk.register({
         R = {"<cmd>lua require('spectre').open()<CR><bar><cmd>wincmd T<CR>", "search & replace"},
         w = {"<cmd>lua require('spectre').open_visual({select_word=true})<CR><bar><cmd>wincmd T<CR>", "replace word"},
         a = {"<cmd>lua t.lsp_code_actions(require('telescope.themes').get_cursor({}))<CR>", "code action"},
-        n = {"<cmd>lua require('renamer').rename()<CR>", "rename"},
+        n = {"<cmd>lua vim.lsp.buf.rename()<CR>", "rename"},
     },
 
     -- terminal
@@ -876,10 +876,6 @@ EOF
 " ### Configure bufresize.nvim ###
 lua require("bufresize").setup()
 
-" ### Configure renamer.nvim ###
-lua << EOF
-require("renamer").setup()
-EOF
 
 " ### Configure goto-preview.nvim ###
 lua << EOF
@@ -971,6 +967,16 @@ require'nvim-web-devicons'.set_icon({
         color = "#7ebae4",
         name = "LirFolderNode"
     }
+})
+EOF
+
+" ### Configure dressing.nvim ###
+lua << EOF
+require("dressing").setup({
+    input = {
+        enabled = true,
+        relative = "cursor",
+    },
 })
 EOF
 
