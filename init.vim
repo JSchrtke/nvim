@@ -43,12 +43,6 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 
-" highlight yanked text
-augroup highlight_yank
-    autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank{timeout=200}
-augroup END
-
 " only show the cursorline in the currently active window
 augroup CursorLine
     au!
@@ -146,6 +140,7 @@ Plug 'Pocco81/AutoSave.nvim'
 Plug 'famiu/bufdelete.nvim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'ethanholz/nvim-lastplace'
+Plug 'gbprod/yanky.nvim'
 
 " Colors
 Plug 'JSchrtke/melange'
@@ -977,6 +972,34 @@ require'nvim-web-devicons'.set_icon({
         name = "LirFolderNode"
     }
 })
+EOF
+
+" ### Configure yanky.nvim ###
+lua << EOF
+require("yanky").setup({
+    highlight = {
+        on_put = true,
+        on_yank = true,
+        timer = 200,
+    },
+    preserve_cursor_position = {
+        enabled = true,
+    }
+})
+
+local map = vim.api.nvim_set_keymap
+map("n", "y", "<Plug>(YankyYank)", {})
+map("x", "y", "<Plug>(YankyYank)", {})
+map("n", "p", "<Plug>(YankyPutAfter)", {})
+map("n", "P", "<Plug>(YankyPutBefore)", {})
+map("x", "p", "<Plug>(YankyPutAfter)", {})
+map("x", "P", "<Plug>(YankyPutBefore)", {})
+map("n", "gp", "<Plug>(YankyGPutAfter)", {})
+map("n", "gP", "<Plug>(YankyGPutBefore)", {})
+map("x", "gp", "<Plug>(YankyGPutAfter)", {})
+map("x", "gP", "<Plug>(YankyGPutBefore)", {})
+map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
+map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
 EOF
 
 " ### Configure leap.nvim ###
