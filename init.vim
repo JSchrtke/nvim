@@ -585,7 +585,7 @@ wk.register({
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
         c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
-        d = {"<cmd>Gdiffsplit|wincmd l<CR>", "git diff"},
+        d = {"<cmd>Gvdiffsplit|wincmd l<CR>", "git diff"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
         i = {"<cmd>lua vim.lsp.buf.signature_help()<CR>", "signature_help"},
