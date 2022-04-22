@@ -577,7 +577,6 @@ wk.register({
         i = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "implementation"},
         t = {"<cmd>lua vim.lsp.buf.type_definition()<CR>", "type definition"},
         j = {"<cmd>lua t_ext.zoxide.list{}<CR>", "type definition"},
-
     },
 
     -- show
@@ -1086,39 +1085,31 @@ local function system_theme()
 end
 
 function set_light_theme()
-    vim.opt.bg = "light"
-    vim.g.zenbones_lightness = "bright"
-    local light_theme = "zenbones"
-    vim.cmd("colorscheme "..light_theme)
-    vim.cmd("highlight! ColorColumn guibg=#f8f6f5")
+    require("github-theme").setup({
+        theme_style = "light",
+        function_style = "bold",
+        dark_float = true,
+    })
+    vim.cmd("colorscheme github_light")
 end
 
 function set_dark_theme()
-    require("kanagawa").setup({
-        undercurl = true,
-        functionStyle = "bold",
-        globalStatus = true,
-        dimInactive = true,
-        theme = "default",
+    require("github-theme").setup({
+        theme_style = "dark",
+        function_style = "bold",
+        dark_float = true,
     })
-    local dark_theme = "kanagawa"
-    vim.cmd("colorscheme "..dark_theme)
-    vim.cmd("highlight! ColorColumn guibg=#1f1f28")
+    vim.cmd("colorscheme github_dark")
 end
 
-function set_test_theme()
-    require("kanagawa").setup({
-        undercurl = true,
-        functionStyle = "bold",
-        globalStatus = true,
-        dimInactive = true,
-        theme = "light",
-    })
-    local light_theme = "kanagawa"
-    vim.cmd("colorscheme "..light_theme)
-end
-
-function set_highlights()
+function set_highlights(theme_style)
+    if theme_style == "light" then
+        vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
+        vim.cmd("highlight! Visual guibg=#BBDFFF")
+        vim.cmd("highlight! ColorColumn guifg=#e1e4e8 guibg=#ffffff")
+    else
+        vim.cmd("highlight! DiffText guibg=#295F9E guifg=#ffffff")
+    end
 end
 
 function set_theme(theme_style)
