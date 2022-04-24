@@ -91,6 +91,7 @@ Plug 'stevearc/dressing.nvim'
 Plug 'lukas-reineke/virt-column.nvim'
 Plug 'notomo/cmdbuf.nvim'
 Plug 'stevearc/aerial.nvim'
+Plug 'echasnovski/mini.nvim', {'branch': 'stable'}
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
@@ -1002,6 +1003,11 @@ require("aerial").setup({
     min_width = 20,
     default_direction = "prefer_left",
 })
+EOF
+
+" ### Configure mini.nvim ###
+lua << EOF
+require('mini.pairs').setup({})
 EOF
 
 " ### Configure Colors ###
