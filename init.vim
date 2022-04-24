@@ -75,7 +75,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'folke/which-key.nvim'
-Plug 'folke/todo-comments.nvim'
 Plug 'simeji/winresizer'
 Plug 'kassio/neoterm'
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
@@ -398,41 +397,10 @@ require('telescope').setup {
 }
 
  -- telescope extensions
-require("telescope").load_extension("todo-comments")
 require('telescope').load_extension('neoclip')
 require('telescope').load_extension('project')
 require('telescope').load_extension('zoxide')
 require('telescope').load_extension('fzf')
-
-EOF
-
-" ### Configure todo-comments.nvim ###
-lua << EOF
-require('todo-comments').setup {
-    search = {
-        pattern = [[\b(KEYWORDS)\b]],
-    },
-    highlight = {
-        before = "",
-        keyword = "bg",
-        after = "",
-        pattern = [[.*<(KEYWORDS)\s*]],
-        comments_only = true,
-    },
-    keywords = {
-        FIX = {
-            icon = " ",
-            color = "error",
-            alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" },
-
-        },
-        TODO = { icon = " ", color = "info" },
-        HACK = { icon = " ", color = "warning" },
-        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-    },
-}
 
 EOF
 
