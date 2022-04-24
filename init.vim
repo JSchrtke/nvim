@@ -139,7 +139,6 @@ Plug 'rkennedy/vim-delphi'
 Plug 'dag/vim-fish'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'fladson/vim-kitty'
-Plug 'lervag/vimtex'
 
 " Editor behaviour
 Plug 'Pocco81/AutoSave.nvim'
