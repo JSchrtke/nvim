@@ -116,16 +116,18 @@ Plug 'lewis6991/gitsigns.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'mfussenegger/nvim-jdtls'
+Plug 'williamboman/nvim-lsp-installer'
+
+" Autocompletion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-vsnip'
-Plug 'ray-x/lsp_signature.nvim'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'mfussenegger/nvim-jdtls'
-Plug 'williamboman/nvim-lsp-installer'
 
 " Debugging
 " TODO actually set this up
