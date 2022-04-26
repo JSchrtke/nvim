@@ -117,7 +117,7 @@ Plug 'lewis6991/gitsigns.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'ray-x/lsp_signature.nvim'
+Plug 'mjlbach/lsp_signature.nvim'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'williamboman/nvim-lsp-installer'
@@ -269,7 +269,7 @@ lua << EOF
 
 local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", {silent = true})
-    require('lsp_signature').on_attach()
+    require('lsp_signature').attach(client, bufnr)
     require("aerial").on_attach(client, bufnr)
 end
 
@@ -333,25 +333,6 @@ lsp_installer.on_server_ready(function(server)
         vim.cmd([[do User LspAttachBuffers]])
     end
 end)
-
-EOF
-
-" ### Configure lsp_signature.nvim ###
-lua << EOF
-
-require'lsp_signature'.on_attach(
-    {
-        bind = true,
-        doc_lines = 2,
-        floating_window = true,
-        hint_enable = false,
-        hint_prefix = " ■ ",
-        hint_scheme = "String",
-        use_lspsaga = false,
-        hi_parameter = "SpellRare",
-        handler_opts = {border = "single"},
-    }
-)
 
 EOF
 
