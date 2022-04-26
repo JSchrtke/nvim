@@ -92,6 +92,7 @@ Plug 'lukas-reineke/virt-column.nvim'
 Plug 'notomo/cmdbuf.nvim'
 Plug 'stevearc/aerial.nvim'
 Plug 'echasnovski/mini.nvim', {'branch': 'stable'}
+Plug 'j-hui/fidget.nvim'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
@@ -1015,6 +1016,9 @@ EOF
 lua << EOF
 require('mini.pairs').setup({})
 EOF
+
+" ### Configure fidget.nvim ###
+lua require("fidget").setup()
 
 " ### Configure Colors ###
 lua << EOF
