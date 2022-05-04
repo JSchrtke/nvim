@@ -1080,5 +1080,7 @@ end
 
 set_theme(system_theme())
 
+vim.keymap.set('n', '<F12>', function() set_theme(system_theme()) end, {})
+
 EOF
 endif
