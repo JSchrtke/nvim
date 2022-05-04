@@ -89,7 +89,6 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/dressing.nvim'
 Plug 'lukas-reineke/virt-column.nvim'
-Plug 'notomo/cmdbuf.nvim'
 Plug 'stevearc/aerial.nvim'
 Plug 'echasnovski/mini.nvim', {'branch': 'stable'}
 Plug 'j-hui/fidget.nvim'
@@ -957,13 +956,6 @@ EOF
 " ### Configure virt-column.nvim ###
 lua << EOF
 require("virt-column").setup{}
-EOF
-
-" ### Configure cmdbuf.nvim ###
-lua << EOF
-vim.keymap.set("n", "q:", function()
-  require("cmdbuf").split_open(vim.o.cmdwinheight)
-end)
 EOF
 
 " ### Configure Comment.nvim ###
