@@ -90,7 +90,6 @@ Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/dressing.nvim'
 Plug 'lukas-reineke/virt-column.nvim'
 Plug 'stevearc/aerial.nvim'
-Plug 'echasnovski/mini.nvim', {'branch': 'stable'}
 Plug 'j-hui/fidget.nvim'
 
 " Search
@@ -658,7 +657,7 @@ else
     let g:neoterm_shell = "fish"
 endif
 
-" ### Configure lualine ###
+" ### Configure statusline (lualine) ###
 lua << EOF
 local empty = require('lualine.component'):extend()
 function empty:draw(default_highlight)
@@ -983,11 +982,6 @@ require("aerial").setup({
     min_width = 20,
     default_direction = "prefer_left",
 })
-EOF
-
-" ### Configure mini.nvim ###
-lua << EOF
-require('mini.pairs').setup({})
 EOF
 
 " ### Configure fidget.nvim ###
