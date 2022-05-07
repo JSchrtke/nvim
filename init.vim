@@ -10,7 +10,7 @@ set smartcase
 set clipboard=unnamedplus
 set mouse=a
 set showbreak=↪\
-set listchars=tab:-->,eol:↲,nbsp:␣,trail:•,space:•,extends:⟩,precedes:⟨
+set listchars=tab:-->,eol:↲,nbsp:␣,trail:⣿,space:•,extends:⟩,precedes:⟨
 set diffopt+=algorithm:histogram
 set colorcolumn=100
 " always having the signcolumn shown avoids the entire buffer content moving whenever there are
