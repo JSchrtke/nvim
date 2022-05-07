@@ -90,9 +90,7 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/dressing.nvim'
 Plug 'lukas-reineke/virt-column.nvim'
-Plug 'notomo/cmdbuf.nvim'
 Plug 'stevearc/aerial.nvim'
-Plug 'echasnovski/mini.nvim', {'branch': 'stable'}
 Plug 'j-hui/fidget.nvim'
 
 " Search
@@ -660,7 +658,7 @@ else
     let g:neoterm_shell = "fish"
 endif
 
-" ### Configure lualine ###
+" ### Configure statusline (lualine) ###
 lua << EOF
 local empty = require('lualine.component'):extend()
 function empty:draw(default_highlight)
@@ -941,13 +939,6 @@ lua << EOF
 require("virt-column").setup{}
 EOF
 
-" ### Configure cmdbuf.nvim ###
-lua << EOF
-vim.keymap.set("n", "q:", function()
-  require("cmdbuf").split_open(vim.o.cmdwinheight)
-end)
-EOF
-
 " ### Configure Comment.nvim ###
 lua << EOF
 require("Comment").setup()
@@ -992,11 +983,6 @@ require("aerial").setup({
     min_width = 20,
     default_direction = "prefer_left",
 })
-EOF
-
-" ### Configure mini.nvim ###
-lua << EOF
-require('mini.pairs').setup({})
 EOF
 
 " ### Configure fidget.nvim ###
@@ -1094,6 +1080,8 @@ function set_theme(theme_style)
 end
 
 set_theme(system_theme())
+
+vim.keymap.set('n', '<F12>', function() set_theme(system_theme()) end, {})
 
 EOF
 endif
