@@ -295,8 +295,13 @@ EOF
 lua << EOF
 
 local on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", {silent = true})
-    require('lsp_signature').attach(client, bufnr)
+    local opts = { silent = true; }
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
+    if client.resolved_capabilities['document_highlight'] then
+        vim.cmd(string.format('au CursorHold  <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
+        vim.cmd(string.format('au CursorHoldI <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
+        vim.cmd(string.format('au CursorMoved <buffer=%d> lua vim.lsp.buf.clear_references()', bufnr))
+    end
     require("aerial").on_attach(client, bufnr)
 end
 
