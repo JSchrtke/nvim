@@ -181,6 +181,35 @@ EOF
 
 " ### Configure nvim-cmp###
 lua << EOF
+
+vim.lsp.protocol.CompletionItemKind = {
+    Text = " [text]",
+    Method = " [method]",
+    Function = " [function]",
+    Constructor = " [constructor]",
+    Field = "ﰠ [field]",
+    Variable = " [variable]",
+    Class = " [class]",
+    Interface = " [interface]",
+    Module = " [module]",
+    Property = " [property]",
+    Unit = " [unit]",
+    Value = " [value]",
+    Enum = " [enum]",
+    Keyword = " [key]",
+    Snippet = "﬌ [snippet]",
+    Color = " [color]",
+    File = " [file]",
+    Reference = " [reference]",
+    Folder = " [folder]",
+    EnumMember = " [enum member]",
+    Constant = " [constant]",
+    Struct = " [struct]",
+    Event = "⌘ [event]",
+    Operator = " [operator]",
+    TypeParameter = " [type]",
+}
+
 local cmp = require 'cmp'
 cmp.setup({
     experimental = {
@@ -201,10 +230,9 @@ cmp.setup({
 
     formatting = {
         format = function(entry, vim_item)
-            -- fancy icons and a name of kind
+            vim_item.menu = string.format("[%s]", entry.source.name)
 
-            -- set a name for each source
-            vim_item.menu = ({ buffer = "[Buffer]", nvim_lsp = "[LSP]", vsnip = "[VSnip]", })[entry.source.name]
+            vim_item.kind = vim.lsp.protocol.CompletionItemKind[vim_item.kind]
             return vim_item
         end,
     },
