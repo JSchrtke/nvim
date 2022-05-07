@@ -6,6 +6,7 @@ set number
 set relativenumber
 set updatetime=500
 set ignorecase
+set smartcase
 set clipboard=unnamedplus
 set mouse=a
 set showbreak=↪\
