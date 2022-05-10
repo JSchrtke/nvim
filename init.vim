@@ -6,10 +6,11 @@ set number
 set relativenumber
 set updatetime=500
 set ignorecase
+set smartcase
 set clipboard=unnamedplus
 set mouse=a
 set showbreak=↪\
-set listchars=tab:-->,eol:↲,nbsp:␣,trail:•,space:•,extends:⟩,precedes:⟨
+set listchars=tab:-->,eol:↲,nbsp:␣,trail:⣿,space:•,extends:⟩,precedes:⟨
 set diffopt+=algorithm:histogram
 set colorcolumn=100
 " always having the signcolumn shown avoids the entire buffer content moving whenever there are
@@ -180,6 +181,35 @@ EOF
 
 " ### Configure nvim-cmp###
 lua << EOF
+
+vim.lsp.protocol.CompletionItemKind = {
+    Text = " [text]",
+    Method = " [method]",
+    Function = " [function]",
+    Constructor = " [constructor]",
+    Field = "ﰠ [field]",
+    Variable = " [variable]",
+    Class = " [class]",
+    Interface = " [interface]",
+    Module = " [module]",
+    Property = " [property]",
+    Unit = " [unit]",
+    Value = " [value]",
+    Enum = " [enum]",
+    Keyword = " [key]",
+    Snippet = "﬌ [snippet]",
+    Color = " [color]",
+    File = " [file]",
+    Reference = " [reference]",
+    Folder = " [folder]",
+    EnumMember = " [enum member]",
+    Constant = " [constant]",
+    Struct = " [struct]",
+    Event = "⌘ [event]",
+    Operator = " [operator]",
+    TypeParameter = " [type]",
+}
+
 local cmp = require 'cmp'
 cmp.setup({
     experimental = {
@@ -200,10 +230,9 @@ cmp.setup({
 
     formatting = {
         format = function(entry, vim_item)
-            -- fancy icons and a name of kind
+            vim_item.menu = string.format("[%s]", entry.source.name)
 
-            -- set a name for each source
-            vim_item.menu = ({ buffer = "[Buffer]", nvim_lsp = "[LSP]", vsnip = "[VSnip]", })[entry.source.name]
+            vim_item.kind = vim.lsp.protocol.CompletionItemKind[vim_item.kind]
             return vim_item
         end,
     },
@@ -266,8 +295,13 @@ EOF
 lua << EOF
 
 local on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", {silent = true})
-    require('lsp_signature').attach(client, bufnr)
+    local opts = { silent = true; }
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
+    if client.resolved_capabilities['document_highlight'] then
+        vim.cmd(string.format('au CursorHold  <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
+        vim.cmd(string.format('au CursorHoldI <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
+        vim.cmd(string.format('au CursorMoved <buffer=%d> lua vim.lsp.buf.clear_references()', bufnr))
+    end
     require("aerial").on_attach(client, bufnr)
 end
 
@@ -343,12 +377,12 @@ local trouble = require("trouble.providers.telescope")
 
 require('telescope').setup {
      extensions = {
-         fzf = {
-             fuzzy = true,
-             override_generic_sorter = true,
-             override_file_sorter = true,
-             case_mode = "smart_case",
-         }
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+        }
     },
     defaults = {
         borderchars = { "━", "┃", "━", "┃", "┏", "┓", "┛", "┗" },
