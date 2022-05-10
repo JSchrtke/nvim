@@ -98,6 +98,16 @@
         ],
         "description": "A delphi function"
     },
+    "procedure": {
+        "prefix" :["pr", "proc"],
+        "body": [
+            "procedure ${1:ProcedureName};",
+            "begin",
+            "  ${0:// TODO}",
+            "end;"
+        ],
+        "description": "A delphi procedure"
+    },
     "debug-out": {
         "prefix": ["pf", "printf"],
         "body": [
