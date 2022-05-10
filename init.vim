@@ -1070,20 +1070,35 @@ local function system_theme()
 end
 
 function set_light_theme()
-    vim.o.bg = "light"
-    vim.g.zenbones_lightness = "bright"
-    vim.g.zenbones_darken_noncurrent_window = true
-    vim.cmd("colorscheme zenbones")
+    require("github-theme").setup({
+        theme_style = "light",
+        function_style = "bold",
+        dark_float = true,
+    })
+    vim.cmd("colorscheme github_light")
 end
 
 function set_dark_theme()
-    vim.o.bg = "dark"
-    vim.g.zenbones_darkness = "stark"
-    vim.g.zenbones_lighten_noncurrent_window = true
-    vim.cmd("colorscheme zenbones")
+    require("kanagawa").setup({
+        undercurl = true,
+        functionStyle = "bold",
+        globalStatus = true,
+        dimInactive = true,
+        theme = "default",
+    })
+    local dark_theme = "kanagawa"
+    vim.cmd("colorscheme "..dark_theme)
+    vim.cmd("highlight! ColorColumn guibg=#1f1f28")
 end
 
 function set_highlights(theme_style)
+    if theme_style == "light" then
+        vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
+        vim.cmd("highlight! Visual guibg=#BBDFFF")
+        vim.cmd("highlight! LineNr guifg=#6E7781 guibg=#ffffff")
+        vim.cmd("highlight! CursorLineNr gui=bold")
+    end
+
     vim.cmd("highlight! link ColorColumn Normal")
 end
 
