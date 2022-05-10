@@ -3,7 +3,7 @@
         "prefix": ["be"],
         "body": [
             "begin",
-            "  ${0://TODO}",
+            "  ${0:// TODO}",
             "end;"
         ],
         "description": "begin/end"
@@ -13,7 +13,7 @@
         "body": [
             "if ${1:condition} then",
             "begin",
-            "  ${0://TODO}",
+            "  ${0:// TODO}",
             "end;"
         ],
         "description": "if statement"
@@ -109,7 +109,7 @@
         "description": "A delphi procedure"
     },
     "debug-out": {
-        "prefix": ["pf", "printf"],
+        "prefix": ["prl", "printf"],
         "body": [
             "OutputDebugString(PWideChar(Format('${1:Debug message %s}', [${0:FormatArgs}])));"
         ],
