@@ -604,6 +604,7 @@ wk.register({
         S = {"<cmd>AerialToggle!<CR>", "lsp symbols"},
         t = {"<cmd>TodoTrouble<CR>", "todos"},
         r = {"<cmd>Trouble lsp_references<CR>", "lsp references"},
+        B = {"<cmd>Gitsigns toggle_current_line_blame<CR>", "git blame"},
     },
 
     -- run
