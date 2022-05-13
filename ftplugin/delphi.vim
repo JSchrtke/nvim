@@ -24,7 +24,7 @@ endif
 function! FormatDelphi()
     let l:current_file = expand('%:p')
     execute 'write '.current_file
-    silent execute '!Formatter -config C:\\Users\\js\\AppData\\Roaming\\Embarcadero\\BDS\\11.0\\Formatter.config "'.current_file.'"'
+    silent execute '!Formatter -config .\\formatter.config "'.current_file.'"'
     silent execute '!fix_delphi_format.exe "'.current_file'"'
     execute 'edit '.current_file
 endfunction
