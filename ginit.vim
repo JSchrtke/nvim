@@ -8,6 +8,7 @@ let g:neovide_touch_deadzone=6.0
 let g:neovide_touch_drag_timeout=0.17
 let g:neovide_cursor_unfocused_outline_width=0.125
 let g:neovide_floating_opacity=1
+let g:neovide_fullscreen=v:true
 lua << EOF
     vim.g.terminal_color_0 = "#090618"
     vim.g.terminal_color_1 = "#c34043"
