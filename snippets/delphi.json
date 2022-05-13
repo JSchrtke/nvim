@@ -91,7 +91,7 @@
     "function": {
         "prefix" :["fn", "func"],
         "body": [
-            "function ${1:FunctionName}(${2:Args})${3:: ReturnType};",
+            "function ${1:FunctionName}(${2:Args}): ${3:ReturnType};",
             "begin",
             "  ${0:// TODO}",
             "end;"
