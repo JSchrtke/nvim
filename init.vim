@@ -106,7 +106,6 @@ Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'ggandor/leap.nvim'
-Plug 'jvgrootveld/telescope-zoxide'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -419,7 +418,6 @@ require('telescope').setup {
  -- telescope extensions
 require('telescope').load_extension('neoclip')
 require('telescope').load_extension('project')
-require('telescope').load_extension('zoxide')
 require('telescope').load_extension('fzf')
 
 EOF
@@ -534,6 +532,7 @@ wk.register({
         b = {"<cmd>lua t.buffers()<CR>", "buffer"},
         gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
         gc = {"<cmd>lua t.git_commits()<CR>", "git commit"},
+        p = {"<cmd>lua require('telescope').extensions.project.project{}<CR>", "project"},
     },
 
     -- find
@@ -586,7 +585,6 @@ wk.register({
         d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "definition"},
         i = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "implementation"},
         t = {"<cmd>lua vim.lsp.buf.type_definition()<CR>", "type definition"},
-        j = {"<cmd>lua t_ext.zoxide.list{}<CR>", "type definition"},
     },
 
     -- show
