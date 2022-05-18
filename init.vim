@@ -111,6 +111,7 @@ Plug 'ggandor/leap.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -1036,6 +1037,9 @@ EOF
 
 " ### Configure fidget.nvim ###
 lua require("fidget").setup()
+
+" ### Configure diffview.nvim ###
+lua require("diffview").setup()
 
 " ### Configure Colors ###
 lua << EOF
