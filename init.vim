@@ -135,6 +135,7 @@ Plug 'mfussenegger/nvim-dap'
 
 " Syntax/Languages
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'rkennedy/vim-delphi'
 Plug 'dag/vim-fish'
 Plug 'simrat39/rust-tools.nvim'
@@ -177,6 +178,8 @@ require("nvim-treesitter.configs").setup{
         enable = true,
     },
 }
+require("treesitter-context").setup{}
+
 EOF
 
 " ### Configure nvim-cmp###
@@ -1119,9 +1122,8 @@ function set_highlights(theme_style)
         vim.cmd("highlight! Visual guibg=#BBDFFF")
         vim.cmd("highlight! LineNr guifg=#6E7781 guibg=#ffffff")
         vim.cmd("highlight! CursorLineNr gui=bold")
+        vim.cmd("highlight! TreesitterContext guibg=#e1e4e8")
     end
-
-    vim.cmd("highlight! link ColorColumn Normal")
 end
 
 function set_theme(theme_style)
