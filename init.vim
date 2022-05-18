@@ -98,6 +98,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'windwp/nvim-spectre'
 Plug 'nvim-telescope/telescope-fzf-native.nvim'
+Plug 'nvim-telescope/telescope-rg.nvim'
 
 " Editing/motions
 Plug 'numToStr/Comment.nvim'
@@ -420,6 +421,7 @@ require('telescope').setup {
 require('telescope').load_extension('neoclip')
 require('telescope').load_extension('project')
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('live_grep_raw')
 
 EOF
 
