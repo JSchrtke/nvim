@@ -1098,7 +1098,6 @@ function set_dark_theme()
     })
     local dark_theme = "kanagawa"
     vim.cmd("colorscheme "..dark_theme)
-    vim.cmd("highlight! ColorColumn guibg=#1f1f28")
 end
 
 function set_highlights(theme_style)
@@ -1108,6 +1107,8 @@ function set_highlights(theme_style)
         vim.cmd("highlight! LineNr guifg=#6E7781 guibg=#ffffff")
         vim.cmd("highlight! CursorLineNr gui=bold")
         vim.cmd("highlight! TreesitterContext guibg=#e1e4e8")
+    else
+        vim.cmd("highlight! TreesitterContext guibg=#363646")
     end
 end
 
