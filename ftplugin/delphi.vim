@@ -2,7 +2,6 @@ setlocal shiftwidth=2 tabstop=2 expandtab
 setlocal textwidth=90 formatoptions-=t
 setlocal commentstring=//\ %s
 set colorcolumn=90
-setlocal nowrap
 
 function! OpenDelphiProjectInIde()
     call nvim_feedkeys(join([':T start ', fnamemodify(getcwd(), ':t'), "andtests.groupproj"], ''), 't', v:true)
