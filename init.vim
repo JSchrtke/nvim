@@ -18,7 +18,7 @@ set colorcolumn=100
 set signcolumn=yes:2
 set t_Co=256
 set termguicolors
-set nowrap
+set wrap
 set scrolloff=3
 lua << EOF
 vim.opt.laststatus = 3
