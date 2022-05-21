@@ -621,6 +621,8 @@ wk.register({
     s = {
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
+        c = {"<cmd>Gitsigns preview_hunk<CR>", "change"},
+        C = {"<cmd>Gitsigns setqflist<CR>", "all changes"},
         d = {"<cmd>Gvdiffsplit|wincmd l<CR>", "git diff"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
