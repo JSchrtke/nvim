@@ -80,7 +80,6 @@ Plug 'simeji/winresizer'
 Plug 'kassio/neoterm'
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 " TODO configure this properly
-Plug 'AckslD/nvim-neoclip.lua'
 Plug 'folke/zen-mode.nvim'
 Plug 'sindrets/winshift.nvim'
 Plug 'kwkarlwang/bufresize.nvim'
@@ -445,7 +444,6 @@ require('telescope').setup {
 }
 
  -- telescope extensions
-require('telescope').load_extension('neoclip')
 require('telescope').load_extension('project')
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('live_grep_raw')
@@ -622,7 +620,6 @@ wk.register({
     s = {
         name = "+show",
         E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
-        c = {"<cmd>lua t_ext.neoclip.default()<CR>", "clipboard"},
         d = {"<cmd>Gvdiffsplit|wincmd l<CR>", "git diff"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
         h = {"<cmd>lua vim.lsp.buf.hover()<CR>", "hover"},
