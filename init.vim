@@ -766,7 +766,7 @@ local function process_sections(sections)
         comp = { comp }
         section[id] = comp
       end
-      comp.separator = left and { right = '' } or { left = '' }
+      comp.separator = left and { right = '' } or { left = '' }
     end
   end
   return sections
@@ -808,12 +808,14 @@ end
 require('lualine').setup {
   options = {
     component_separators = '',
-    section_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     globalstatus = true,
   },
   sections = process_sections {
     lualine_a = { 'mode' },
     lualine_b = {
+      { 'filename', file_status = false, path = 1 },
+      { modified },
       'branch',
       'diff',
       {
@@ -856,49 +858,7 @@ require('lualine').setup {
     lualine_c = { '%f %y %m' },
     lualine_x = {},
   },
-  tabline = {
-    lualine_a = {
-      { 'filename', file_status = false, path = 1 },
-      { modified },
-    },
-    lualine_y = {
-        { 'buffers' },
-    },
-    lualine_z = { 
-        { 'tabs'  },
-    },
-  },
 }
-EOF
-
-" ### Configure nvim-neoclip ###
-lua << EOF
-
-require('neoclip').setup({
-    history = 1000,
-    filter = nil,
-    preview = false,
-    default_register = '"',
-    content_spec_column = true,
-    on_paste = {
-        set_reg = false,
-    },
-    keys = {
-        telescope = {
-            i = {
-                select = '<cr>',
-                paste = '<c-p>',
-                paste_behind = '<c-k>',
-            },
-            n = {
-                select = '<cr>',
-                paste = 'p',
-                paste_behind = 'P',
-            },
-        },
-    },
-})
-
 EOF
 
 " ### Configure trouble ###
