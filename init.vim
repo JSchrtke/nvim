@@ -432,11 +432,11 @@ require('telescope').setup {
         dynamic_preview_title = true,
         mappings = {
             i = {
-                ["<C-q>"] = trouble.open_with_trouble,
+                ["<C-q>"] = trouble.smart_open_with_trouble,
                 ["<M-p>"] = layout.toggle_preview,
             },
             n = {
-                ["<C-q>"] = trouble.open_with_trouble,
+                ["<C-q>"] = trouble.smart_open_with_trouble,
                 ["<M-p>"] = layout.toggle_preview,
             },
         },
