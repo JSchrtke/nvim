@@ -454,6 +454,7 @@ EOF
 lua << EOF
 
 require('gitsigns').setup{
+    trouble = true,
     keymaps = {
         buffer = true,
     },
