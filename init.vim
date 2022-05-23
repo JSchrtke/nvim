@@ -165,19 +165,22 @@ call plug#end()
 lua require('impatient').enable_profile()
 
 " ### Configure treesitter ###
-lua <<EOF
+lua << EOF
 local ft_to_parser = require("nvim-treesitter.parsers").filetype_to_parsername
 ft_to_parser.delphi = "pascal"
-require'nvim-treesitter.configs'.setup{
+
+require("nvim-treesitter.configs").setup{
     highlight = {
         enable = true,
     }
 }
+
 require("nvim-treesitter.configs").setup{
     indent = {
         enable = true,
     },
 }
+
 require("treesitter-context").setup{}
 
 require'nvim-treesitter.configs'.setup {
@@ -374,13 +377,13 @@ lsp_installer.on_server_ready(function(server)
             },
 
             server = vim.tbl_deep_extend("force", server:get_default_options(), opts, {
-                    settings = {
-                        ["rust-analyzer"] = {
-                            checkOnSave = {
-                                command = "clippy"
-                            }
+                settings = {
+                    ["rust-analyzer"] = {
+                        checkOnSave = {
+                            command = "clippy"
                         }
                     }
+                }
             })
         }
 
@@ -569,7 +572,6 @@ wk.register({
     f = {
         name = "+find",
         f = {"<cmd>lua t.current_buffer_fuzzy_find()<CR>", "in file"},
-        -- for syntax documentation see https://docs.rs/regex/1.5.4/regex/#syntax
         d = {"<cmd>lua t.live_grep()<CR>", "in directory"},
         w = {"<cmd>lua t.grep_string()<CR>", "word"},
         s = {"<cmd>lua t.lsp_document_symbols()<CR>", "document symbols"},
@@ -678,7 +680,6 @@ wk.register({
     },
 }, { prefix = "<leader>"})
 
--- visual mode, <leader> prefix
 wk.register({
     d = {
         name = "+diff",
