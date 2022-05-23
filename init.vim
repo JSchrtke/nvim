@@ -115,7 +115,6 @@ Plug 'sindrets/diffview.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'mjlbach/lsp_signature.nvim'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'williamboman/nvim-lsp-installer'
@@ -127,6 +126,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 " Debugging
 " TODO actually set this up
@@ -284,6 +284,10 @@ cmp.setup({
     sources = {
         {
             name = 'nvim_lsp',
+            priority = 1000
+        },
+        {
+            name = 'nvim_lsp_signature_help',
             priority = 1000
         },
         {
