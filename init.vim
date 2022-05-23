@@ -149,7 +149,7 @@ Plug 'ethanholz/nvim-lastplace'
 Plug 'gbprod/yanky.nvim'
 
 " Colors
-Plug 'JSchrtke/melange'
+Plug 'savq/melange'
 Plug 'rktjmp/lush.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'mcchrish/zenbones.nvim'
@@ -1089,14 +1089,7 @@ function set_light_theme()
 end
 
 function set_dark_theme()
-    require("kanagawa").setup({
-        undercurl = true,
-        functionStyle = "bold",
-        globalStatus = true,
-        dimInactive = true,
-        theme = "default",
-    })
-    local dark_theme = "kanagawa"
+    local dark_theme = "melange"
     vim.cmd("colorscheme "..dark_theme)
 end
 
@@ -1108,7 +1101,11 @@ function set_highlights(theme_style)
         vim.cmd("highlight! CursorLineNr gui=bold")
         vim.cmd("highlight! TreesitterContext guibg=#e1e4e8")
     else
-        vim.cmd("highlight! TreesitterContext guibg=#363646")
+        vim.cmd("highlight! TreesitterContext guibg=#352f2a")
+        vim.cmd("highlight GitSignsAdd guifg=#50704F")
+        vim.cmd("highlight GitSignsChange guifg=#704F64")
+        vim.cmd("highlight GitSignsDelete guifg=#9E5C59")
+        vim.cmd("highlight! link LineNr Comment")
     end
 end
 
