@@ -175,12 +175,6 @@ require("nvim-treesitter.configs").setup{
     }
 }
 
-require("nvim-treesitter.configs").setup{
-    indent = {
-        enable = true,
-    },
-}
-
 require("treesitter-context").setup{}
 
 EOF
