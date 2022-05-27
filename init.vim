@@ -709,7 +709,7 @@ vim.g.neoterm_default_mod = "botright"
 vim.g.neoterm_autojump = 0
 vim.g.neoterm_automap_keys = false
 vim.g.neoterm_autoscroll = 1
-vim.g.neoterm_size = 8
+vim.g.neoterm_size = 10
 EOF
 
 if has ("win32")
