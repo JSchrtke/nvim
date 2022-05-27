@@ -183,29 +183,6 @@ require("nvim-treesitter.configs").setup{
 
 require("treesitter-context").setup{}
 
-require'nvim-treesitter.configs'.setup {
-  refactor = {
-    highlight_definitions = {
-      enable = true,
-      -- Set to false if you have an `updatetime` of ~100.
-      clear_on_cursor_move = true,
-    },
-  },
-}
-require'nvim-treesitter.configs'.setup {
-  refactor = {
-    navigation = {
-      enable = true,
-      keymaps = {
-        goto_definition_lsp_fallback = "gd",
-        list_definitions = "gD",
-        list_definitions_toc = "gO",
-        goto_next_usage = "<leader>nu",
-        goto_previous_usage = "<leader>pu",
-      },
-    },
-  },
-}
 EOF
 
 " ### Configure nvim-cmp###
