@@ -443,7 +443,7 @@ require('gitsigns').setup{
         topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
         changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
     },
-    current_line_blame = true,
+    current_line_blame = false,
     on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
@@ -611,6 +611,7 @@ wk.register({
         t = {"<cmd>TodoTrouble<CR>", "todos"},
         r = {"<cmd>Trouble lsp_references<CR>", "lsp references"},
         B = {"<cmd>Gitsigns toggle_current_line_blame<CR>", "git blame"},
+        b = {"<cmd>Gitsigns toggle_current_line_blame<CR>", "git blame"},
     },
 
     -- run
