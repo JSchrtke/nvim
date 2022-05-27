@@ -626,7 +626,7 @@ wk.register({
     -- terminal
     t = {
         name = "+terminal",
-        c = {"<cmd>T clear<CR>", "clear"},
+        c = {"<cmd>Tclear<CR>", "clear"},
     },
 
     -- diff
