@@ -1066,6 +1066,7 @@ function set_light_theme()
 end
 
 function set_dark_theme()
+    vim.o.bg = "dark"
     local dark_theme = "melange"
     vim.cmd("colorscheme "..dark_theme)
 end
@@ -1078,11 +1079,15 @@ function set_highlights(theme_style)
         vim.cmd("highlight! CursorLineNr gui=bold")
         vim.cmd("highlight! TreesitterContext guibg=#e1e4e8")
     else
-        vim.cmd("highlight! TreesitterContext guibg=#352f2a")
+        vim.cmd("highlight! link TreesitterContext DiffText")
+        vim.cmd("highlight! link TreesitterContextLineNumber DiffText")
         vim.cmd("highlight GitSignsAdd guifg=#50704F")
         vim.cmd("highlight GitSignsChange guifg=#704F64")
         vim.cmd("highlight GitSignsDelete guifg=#9E5C59")
         vim.cmd("highlight! link LineNr Comment")
+        vim.cmd("highlight! LspReferenceRead guibg=#3a332e gui=bold")
+        vim.cmd("highlight! LspReferenceWrite guibg=#3a332e gui=bold")
+        vim.cmd("highlight! LspReferenceText guibg=#3a332e gui=bold")
     end
 end
 
