@@ -768,18 +768,6 @@ local function modified()
   return ''
 end
 
--- Lua
-local gps = require("nvim-gps")
-gps.setup()
-
-local function location()
-    if gps.is_available() then
-        return gps.get_location()
-    else
-        return ""
-    end
-end
-
 require('lualine').setup {
   options = {
     component_separators = '',
@@ -789,8 +777,8 @@ require('lualine').setup {
   sections = process_sections {
     lualine_a = { 'mode' },
     lualine_b = {
-      { 'filename', file_status = false, path = 1 },
-      { modified },
+      -- { 'filename', file_status = false, path = 1 },
+      -- { modified },
       'branch',
       'diff',
       {
@@ -823,7 +811,6 @@ require('lualine').setup {
       },
     },
     lualine_c = {
-      { location },
     },
     lualine_x = {},
     lualine_y = { search_result, 'filetype' },
@@ -834,6 +821,67 @@ require('lualine').setup {
     lualine_x = {},
   },
 }
+EOF
+
+" ### Configure winbar ###
+lua << EOF
+
+-- TODO debug function, remove this
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+require("nvim-gps").setup()
+
+function gps_location()
+    local location = ""
+    local gps = require("nvim-gps")
+    if gps.is_available() then
+        location = gps.get_location()
+    end
+
+    return location
+end
+
+function current_line_diagnostic_message()
+    local line_nr = vim.fn.line(".") - 1
+    local diagnostics = vim.diagnostic.get(0, { lnum = line_nr })
+    local msg = ""
+    if next(diagnostics) == 1 then
+        msg = diagnostics[1]["message"]
+    end
+
+    return msg
+end
+
+if vim.fn.has("nvim-0.8.0") == 1 then
+    _G.winbar_func = function()
+        local location = gps_location()
+        local line_diagnostic_message = current_line_diagnostic_message()
+
+        if location ~= "" then
+            vim.cmd("highlight! WinBar cterm=bold gui=bold")
+            return "%f > "..location
+        elseif line_diagnostic_message ~= "" then
+            vim.cmd("highlight! link WinBar DiffDelete")
+            return line_diagnostic_message
+        else
+            vim.cmd("highlight! WinBar cterm=bold gui=bold")
+            return "%f"
+        end
+    end
+
+   vim.opt.winbar = "%{%v:lua.winbar_func()%}"
+end
 EOF
 
 " ### Configure trouble ###
