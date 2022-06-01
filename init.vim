@@ -1076,6 +1076,7 @@ function set_highlights(theme_style)
         vim.cmd("highlight! LineNr guifg=#6E7781 guibg=#ffffff")
         vim.cmd("highlight! CursorLineNr gui=bold")
         vim.cmd("highlight! TreesitterContext guibg=#e1e4e8")
+        vim.cmd("highlight! TreesitterContextLineNumber guibg=#e1e4e8")
     else
         vim.cmd("highlight! link TreesitterContext DiffText")
         vim.cmd("highlight! link TreesitterContextLineNumber DiffText")
