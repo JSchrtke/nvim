@@ -1,11 +1,11 @@
-function GoRunWithArgs()
+function! GoRunWithArgs()
     call nvim_feedkeys(':T go run . ', 't', v:true)
 endfunction
 lua << EOF
 require("which-key").register({
-  ["<leader>rt"] = {"<cmd>Topen|T go test .<cr>", "project"},
-  ["<leader>rb"] = {"<cmd>Topen|T go build .<cr>", "project"},
-  ["<leader>rp"] = {"<cmd>Topen|T go run .<cr>", "project"},
+  ["<leader>rt"] = {"<cmd>TroubleClose<CR>|<cmd>Topen|T go test .<cr>", "test project"},
+  ["<leader>rb"] = {"<cmd>Topen|T go build .<cr>", "build project"},
+  ["<leader>rp"] = {"<cmd>TroubleClose<CR>|<cmd>Topen|T go run .<cr>", "run project"},
   ["<leader>rf"] = {"<cmd>!go fmt<cr>", "formatter"},
   ["<leader>ri"] = {"<cmd>Topen|T go install<cr>", "installer"},
   ["<leader>rP"] = {"<cmd>call GoRunWithArgs()<cr>", "project (with args)"},
