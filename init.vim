@@ -90,6 +90,7 @@ Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/dressing.nvim'
 Plug 'stevearc/aerial.nvim'
 Plug 'j-hui/fidget.nvim'
+Plug 'echasnovski/mini.nvim', {'branch': 'stable'}
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
@@ -1007,6 +1008,11 @@ lua require("fidget").setup()
 
 " ### Configure diffview.nvim ###
 lua require("diffview").setup()
+
+" ### Configure mini.nvim ###
+lua << EOF
+require('mini.pairs').setup({})
+EOF
 
 " ### Configure Colors ###
 lua << EOF
