@@ -106,7 +106,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'junegunn/vim-easy-align'
-Plug 'ggandor/leap.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -988,11 +987,6 @@ map("x", "gp", "<Plug>(YankyGPutAfter)", {})
 map("x", "gP", "<Plug>(YankyGPutBefore)", {})
 map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
-EOF
-
-" ### Configure leap.nvim ###
-lua << EOF
-require("leap").set_default_keymaps()
 EOF
 
 " ### Configure aerial.nvim ###
