@@ -519,7 +519,7 @@ wk.register({
     ["8"] = "which_key_ignore",
     ["9"] = "which_key_ignore",
 
-    ["<cr>"] = {"<cmd>Ttoggle<CR>", "toggle terminal"},
+    ["<cr>"] = {"<cmd>TroubleClose<CR>|<cmd>Ttoggle<CR>", "toggle terminal"},
 
     h = {"<cmd>wincmd h<CR>", "move left"},
     j = {"<cmd>wincmd j<CR>", "move down"},
@@ -597,7 +597,7 @@ wk.register({
     -- show
     s = {
         name = "+show",
-        E = {"<cmd>Trouble workspace_diagnostics<CR>", "workspace errors"},
+        E = {"<cmd>Tclose|Trouble workspace_diagnostics<CR>", "workspace errors"},
         c = {"<cmd>Gitsigns preview_hunk<CR>", "change"},
         C = {"<cmd>Gitsigns setqflist<CR>", "all changes"},
         d = {"<cmd>Gvdiffsplit|wincmd l<CR>", "git diff"},
@@ -608,9 +608,7 @@ wk.register({
         q = {"<cmd>copen<CR>", "quickfix list"},
         s = {"<cmd>tabnew|G<CR>", "git status"},
         S = {"<cmd>AerialToggle!<CR>", "lsp symbols"},
-        t = {"<cmd>TodoTrouble<CR>", "todos"},
-        r = {"<cmd>Trouble lsp_references<CR>", "lsp references"},
-        B = {"<cmd>Gitsigns toggle_current_line_blame<CR>", "git blame"},
+        r = {"<cmd>Tclose|Trouble lsp_references<CR>", "lsp references"},
         b = {"<cmd>Gitsigns toggle_current_line_blame<CR>", "git blame"},
     },
 
