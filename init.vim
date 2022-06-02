@@ -718,172 +718,6 @@ else
     let g:neoterm_shell = "fish"
 endif
 
-" ### Configure statusline (lualine) ###
-lua << EOF
-local empty = require('lualine.component'):extend()
-function empty:draw(default_highlight)
-  self.status = ''
-  self.applied_separator = ''
-  self:apply_highlights(default_highlight)
-  self:apply_section_separators()
-  return self.status
-end
-
--- Put proper separators and gaps between components in sections
-local function process_sections(sections)
-  for name, section in pairs(sections) do
-    local left = name:sub(9, 10) < 'x'
-    for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
-      table.insert(section, pos * 2, { empty })
-    end
-    for id, comp in ipairs(section) do
-      if type(comp) ~= 'table' then
-        comp = { comp }
-        section[id] = comp
-      end
-      comp.separator = left and { right = '' } or { left = '' }
-    end
-  end
-  return sections
-end
-
-local function search_result()
-  if vim.v.hlsearch == 0 then
-    return ''
-  end
-  local last_search = vim.fn.getreg('/')
-  if not last_search or last_search == '' then
-    return ''
-  end
-  local searchcount = vim.fn.searchcount { maxcount = 9999 }
-  return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
-end
-
-local function modified()
-  if vim.bo.modified then
-    return '+'
-  elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-    return '-'
-  end
-  return ''
-end
-
-require('lualine').setup {
-  options = {
-    component_separators = '',
-    section_separators = { left = '', right = '' },
-    globalstatus = true,
-  },
-  sections = process_sections {
-    lualine_a = { 'mode' },
-    lualine_b = {
-      -- { 'filename', file_status = false, path = 1 },
-      -- { modified },
-      'branch',
-      'diff',
-      {
-        'diagnostics',
-        source = { 'nvim' },
-        sections = { 'error' },
-      },
-      {
-        'diagnostics',
-        source = { 'nvim' },
-        sections = { 'warn' },
-      },
-      {
-        '%w',
-        cond = function()
-          return vim.wo.previewwindow
-        end,
-      },
-      {
-        '%r',
-        cond = function()
-          return vim.bo.readonly
-        end,
-      },
-      {
-        '%q',
-        cond = function()
-          return vim.bo.buftype == 'quickfix'
-        end,
-      },
-    },
-    lualine_c = {
-    },
-    lualine_x = {},
-    lualine_y = { search_result, 'filetype' },
-    lualine_z = { '%l:%c', '%p%%/%L' },
-  },
-  inactive_sections = {
-    lualine_c = { '%f %y %m' },
-    lualine_x = {},
-  },
-}
-EOF
-
-" ### Configure winbar ###
-lua << EOF
-
--- TODO debug function, remove this
-function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
-end
-
-require("nvim-gps").setup()
-
-function gps_location()
-    local location = ""
-    local gps = require("nvim-gps")
-    if gps.is_available() then
-        location = gps.get_location()
-    end
-
-    return location
-end
-
-function current_line_diagnostic_message()
-    local line_nr = vim.fn.line(".") - 1
-    local diagnostics = vim.diagnostic.get(0, { lnum = line_nr })
-    local msg = ""
-    if next(diagnostics) == 1 then
-        msg = diagnostics[1]["message"]
-    end
-
-    return msg
-end
-
-if vim.fn.has("nvim-0.8.0") == 1 then
-    _G.winbar_func = function()
-        local location = gps_location()
-        local line_diagnostic_message = current_line_diagnostic_message()
-
-        if location ~= "" then
-            vim.cmd("highlight! WinBar cterm=bold gui=bold")
-            return "%f > "..location
-        elseif line_diagnostic_message ~= "" then
-            vim.cmd("highlight! link WinBar DiffDelete")
-            return line_diagnostic_message
-        else
-            vim.cmd("highlight! WinBar cterm=bold gui=bold")
-            return "%f"
-        end
-    end
-
-   vim.opt.winbar = "%{%v:lua.winbar_func()%}"
-end
-EOF
-
 " ### Configure trouble ###
 lua << EOF
 require("trouble").setup {
@@ -1153,4 +987,172 @@ set_theme(system_theme())
 vim.keymap.set('n', '<F12>', function() set_theme(system_theme()) end, {})
 
 EOF
+
+" ### Configure statusline (lualine) ###
+lua << EOF
+local empty = require('lualine.component'):extend()
+function empty:draw(default_highlight)
+  self.status = ''
+  self.applied_separator = ''
+  self:apply_highlights(default_highlight)
+  self:apply_section_separators()
+  return self.status
+end
+
+-- Put proper separators and gaps between components in sections
+local function process_sections(sections)
+  for name, section in pairs(sections) do
+    local left = name:sub(9, 10) < 'x'
+    for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
+      table.insert(section, pos * 2, { empty })
+    end
+    for id, comp in ipairs(section) do
+      if type(comp) ~= 'table' then
+        comp = { comp }
+        section[id] = comp
+      end
+      comp.separator = left and { right = '' } or { left = '' }
+    end
+  end
+  return sections
+end
+
+local function search_result()
+  if vim.v.hlsearch == 0 then
+    return ''
+  end
+  local last_search = vim.fn.getreg('/')
+  if not last_search or last_search == '' then
+    return ''
+  end
+  local searchcount = vim.fn.searchcount { maxcount = 9999 }
+  return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
+end
+
+local function modified()
+  if vim.bo.modified then
+    return '+'
+  elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+    return '-'
+  end
+  return ''
+end
+
+require('lualine').setup {
+  options = {
+    component_separators = '',
+    section_separators = { left = '', right = '' },
+    globalstatus = true,
+    theme = "auto",
+  },
+  sections = process_sections {
+    lualine_a = { 'mode' },
+    lualine_b = {
+      -- { 'filename', file_status = false, path = 1 },
+      -- { modified },
+      'branch',
+      'diff',
+      {
+        'diagnostics',
+        source = { 'nvim' },
+        sections = { 'error' },
+      },
+      {
+        'diagnostics',
+        source = { 'nvim' },
+        sections = { 'warn' },
+      },
+      {
+        '%w',
+        cond = function()
+          return vim.wo.previewwindow
+        end,
+      },
+      {
+        '%r',
+        cond = function()
+          return vim.bo.readonly
+        end,
+      },
+      {
+        '%q',
+        cond = function()
+          return vim.bo.buftype == 'quickfix'
+        end,
+      },
+    },
+    lualine_c = {
+    },
+    lualine_x = {},
+    lualine_y = { search_result, 'filetype' },
+    lualine_z = { '%l:%c', '%p%%/%L' },
+  },
+  inactive_sections = {
+    lualine_c = { '%f %y %m' },
+    lualine_x = {},
+  },
+}
+EOF
+
+" ### Configure winbar ###
+lua << EOF
+
+-- TODO debug function, remove this
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+require("nvim-gps").setup()
+
+function gps_location()
+    local location = ""
+    local gps = require("nvim-gps")
+    if gps.is_available() then
+        location = gps.get_location()
+    end
+
+    return location
+end
+
+function current_line_diagnostic_message()
+    local line_nr = vim.fn.line(".") - 1
+    local diagnostics = vim.diagnostic.get(0, { lnum = line_nr })
+    local msg = ""
+    if next(diagnostics) == 1 then
+        msg = diagnostics[1]["message"]
+    end
+
+    return msg
+end
+
+if vim.fn.has("nvim-0.8.0") == 1 then
+    _G.winbar_func = function()
+        local location = gps_location()
+        local line_diagnostic_message = current_line_diagnostic_message()
+
+        if location ~= "" then
+            vim.cmd("highlight! WinBar cterm=bold gui=bold")
+            return "%f > "..location
+        elseif line_diagnostic_message ~= "" then
+            vim.cmd("highlight! link WinBar DiffDelete")
+            return line_diagnostic_message
+        else
+            vim.cmd("highlight! WinBar cterm=bold gui=bold")
+            return "%f"
+        end
+    end
+
+   vim.opt.winbar = "%{%v:lua.winbar_func()%}"
+end
+EOF
+
 endif
