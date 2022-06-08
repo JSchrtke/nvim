@@ -12,9 +12,27 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 EOF
 
-" Make it easier to escape from terminal insert mode
+" Keymaps
+let mapleader = "\<Space>"
 lua << EOF
-vim.api.nvim_set_keymap("t", "<C-w>n", "<C-\\><C-n>", {})
+local map = function(mode, left, right, options)
+    local opts = options or {}
+    vim.api.nvim_set_keymap(mode, left, right, opts)
+end
+
+map("t", "<C-w>n", "<C-\\><C-n>", {})
+map("n", "<leader>l", "<C-w>l", {})
+map("n", "<leader>h", "<C-w>h", {})
+map("n", "<leader>k", "<C-w>k", {})
+map("n", "<leader>j", "<C-w>j", {})
+map("n", "<leader>L", "<C-w>L", {})
+map("n", "<leader>H", "<C-w>H", {})
+map("n", "<leader>K", "<C-w>K", {})
+map("n", "<leader>J", "<C-w>J", {})
+map("n", "<leader>q", "<C-w>q", {})
+map("n", "<leader>o", "<C-w>o", {})
+map("n", "<leader>v", "<C-w>v", {})
+map("n", "<leader>s", "<C-w>s", {})
 EOF
 
 " Install plugins
