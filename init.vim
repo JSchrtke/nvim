@@ -6,6 +6,7 @@ vim.o.ignorecase = true
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undofile = true
+vim.o.termguicolors = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
@@ -14,4 +15,14 @@ EOF
 " Make it easier to escape from terminal insert mode
 lua << EOF
 vim.api.nvim_set_keymap("t", "<C-w>n", "<C-\\><C-n>", {})
+EOF
+
+" Install plugins
+call plug#begin('~/.vim/plugged')
+Plug 'phha/zenburn.nvim'
+call plug#end()
+
+" Colors
+lua << EOF
+vim.cmd("colorscheme zenburn")
 EOF
