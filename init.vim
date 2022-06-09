@@ -39,9 +39,11 @@ map("n", "<leader>sj", "<C-w>s<C-w>j")
 
 map("n", "<leader>qw", "<C-w>q")
 map("n", "<leader>qW", "<C-w>o")
+map("n", "<leader>qt", "<cmd>tabclose<cr>")
+map("n", "<leader>qT", "<cmd>tabonly<cr>")
 
 -- Git
-map("n", "<leader>gs", "<cmd>G<cr>")
+map("n", "<leader>gs", "<cmd>tabnew<cr><cmd>G<cr>")
 map("n", "<leader>dp", "<cmd>diffput<cr>")
 map("n", "<leader>dg", "<cmd>diffget<cr>")
 
