@@ -13,7 +13,7 @@ vim.o.expandtab = true
 vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
 
--- Keymaps
+-- keymaps
 vim.g.mapleader = " "
 local map = function(mode, left, right, options)
     local opts = options or {}
@@ -22,6 +22,7 @@ end
 
 -- navigation and layout
 map("t", "<C-w>n", "<C-\\><C-n>")
+
 map("n", "<leader>l", "<C-w>l")
 map("n", "<leader>h", "<C-w>h")
 map("n", "<leader>k", "<C-w>k")
@@ -30,10 +31,14 @@ map("n", "<leader>L", "<C-w>L")
 map("n", "<leader>H", "<C-w>H")
 map("n", "<leader>K", "<C-w>K")
 map("n", "<leader>J", "<C-w>J")
+
+map("n", "<leader>sl", "<C-w>v<C-w>l")
+map("n", "<leader>sh", "<C-w>v")
+map("n", "<leader>sk", "<C-w>s<C-w>k")
+map("n", "<leader>sj", "<C-w>s<C-w>j")
+
 map("n", "<leader>qw", "<C-w>q")
 map("n", "<leader>qW", "<C-w>o")
-map("n", "<leader>v", "<C-w>v")
-map("n", "<leader>s", "<C-w>s")
 
 -- Git
 map("n", "<leader>gs", "<cmd>G<cr>")
