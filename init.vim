@@ -47,6 +47,7 @@ EOF
 call plug#begin('~/.vim/plugged')
 Plug 'phha/zenburn.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'tpope/vim-fugitive'
 call plug#end()
 
