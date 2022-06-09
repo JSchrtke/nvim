@@ -56,6 +56,7 @@ map("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
 -- search
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+map("n", "<leader>ff", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
 
 -- open things
 map("n", "<leader>of", "<cmd>Telescope find_files<cr>")
