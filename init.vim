@@ -39,9 +39,20 @@ EOF
 " Install plugins
 call plug#begin('~/.vim/plugged')
 Plug 'phha/zenburn.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
 call plug#end()
 
 " Colors
 lua << EOF
 vim.cmd("colorscheme zenburn")
+EOF
+
+" Configure nvim-treesitter
+lua << EOF
+require("nvim-treesitter.configs").setup({
+    ensure_installed = {"c", "cpp", "lua", "vim", "go", "rust", "java", "markdown"},
+    highlight = {
+        enable = true,
+    },
+})
 EOF
