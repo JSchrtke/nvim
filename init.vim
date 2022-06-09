@@ -1,5 +1,5 @@
-" Basic settings
 lua << EOF
+-- Basic settings
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.ignorecase = true
@@ -12,11 +12,9 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
-EOF
 
-" Keymaps
-let mapleader = "\<Space>"
-lua << EOF
+-- Keymaps
+vim.g.mapleader = " "
 local map = function(mode, left, right, options)
     local opts = options or {}
     vim.api.nvim_set_keymap(mode, left, right, opts)
@@ -41,27 +39,57 @@ map("n", "<leader>s", "<C-w>s")
 map("n", "<leader>gs", "<cmd>G<cr>")
 map("n", "<leader>dp", "<cmd>diffput<cr>")
 map("n", "<leader>dg", "<cmd>diffget<cr>")
-EOF
 
-" Install plugins
-call plug#begin('~/.vim/plugged')
-Plug 'phha/zenburn.nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'tpope/vim-fugitive'
-call plug#end()
+-- yanky
+map("n", "y", "<Plug>(YankyYank)", {})
+map("x", "y", "<Plug>(YankyYank)", {})
+map("n", "p", "<Plug>(YankyPutAfter)", {})
+map("n", "P", "<Plug>(YankyPutBefore)", {})
+map("x", "p", "<Plug>(YankyPutAfter)", {})
+map("x", "P", "<Plug>(YankyPutBefore)", {})
+map("n", "gp", "<Plug>(YankyGPutAfter)", {})
+map("n", "gP", "<Plug>(YankyGPutBefore)", {})
+map("x", "gp", "<Plug>(YankyGPutAfter)", {})
+map("x", "gP", "<Plug>(YankyGPutBefore)", {})
+map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
+map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
 
-" Colors
-lua << EOF
+-- Install plugins
+vim.cmd([[
+    call plug#begin('~/.vim/plugged')
+    Plug 'phha/zenburn.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'tpope/vim-fugitive'
+    Plug 'gbprod/yanky.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    call plug#end()
+]])
+
+-- Colors
 vim.cmd("colorscheme zenburn")
-EOF
 
-" Configure nvim-treesitter
-lua << EOF
+-- Configure nvim-treesitter
 require("nvim-treesitter.configs").setup({
-    ensure_installed = {"c", "cpp", "lua", "vim", "go", "rust", "java", "markdown"},
+    ensure_installed = {"c", "cpp", "lua", "vim", "go", "rust", "java", "markdown", "pascal"},
     highlight = {
         enable = true,
     },
 })
+
+-- Configure yanky
+require("yanky").setup({
+    highlight = {
+        on_put = true,
+        on_yank = true,
+        timer = 200,
+    },
+    preserve_cursor_position = {
+        enabled = true,
+    }
+})
+
+-- Configure telescope.nvim
+require("telescope").setup({})
 EOF
