@@ -54,6 +54,12 @@ map("x", "gP", "<Plug>(YankyGPutBefore)")
 map("n", "<c-n>", "<Plug>(YankyCycleForward)")
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
+-- search
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+
+-- open things
+map("n", "<leader>of", "<cmd>Telescope find_files<cr>")
+
 -- Install plugins
 vim.cmd([[
     call plug#begin('~/.vim/plugged')
