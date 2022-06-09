@@ -44,6 +44,7 @@ map("n", "<leader>qT", "<cmd>tabonly<cr>")
 
 -- Git
 map("n", "<leader>gs", "<cmd>tabnew<cr><cmd>G<cr>")
+map("n", "<leader>gl", "<cmd>tabnew<cr><cmd>Flog<cr>")
 map("n", "<leader>dp", "<cmd>diffput<cr>")
 map("n", "<leader>dg", "<cmd>diffget<cr>")
 
@@ -78,6 +79,7 @@ vim.cmd([[
     Plug 'gbprod/yanky.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    Plug 'rbong/vim-flog'
     call plug#end()
 ]])
 
