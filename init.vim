@@ -68,6 +68,7 @@ map("n", "<leader>ff", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
 
 -- open things
 map("n", "<leader>of", "<cmd>Telescope find_files<cr>")
+map("n", "<leader>ob", "<cmd>Telescope buffers<cr>")
 
 -- Install plugins
 vim.cmd([[
