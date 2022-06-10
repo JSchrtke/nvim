@@ -97,7 +97,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'windwp/nvim-spectre'
-Plug 'nvim-telescope/telescope-fzf-native.nvim'
 Plug 'nvim-telescope/telescope-rg.nvim'
 
 " Editing/motions
@@ -380,14 +379,6 @@ local layout = require('telescope.actions.layout')
 local trouble = require("trouble.providers.telescope")
 
 require('telescope').setup {
-     extensions = {
-        fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-        }
-    },
     defaults = {
         borderchars = { "━", "┃", "━", "┃", "┏", "┓", "┛", "┗" },
         layout_config = {
@@ -423,8 +414,6 @@ require('telescope').setup {
 
  -- telescope extensions
 require('telescope').load_extension('project')
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('live_grep_raw')
 
 EOF
 
