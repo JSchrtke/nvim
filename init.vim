@@ -15,7 +15,7 @@ vim.o.cursorline = true
 vim.o.laststatus = 3
 vim.o.mouse = "a"
 
--- keymaps
+-- Configure keymaps
 vim.g.mapleader = " "
 local map = function(mode, left, right, options)
     local opts = options or {}
@@ -46,6 +46,7 @@ map("n", "<leader>qT", "<cmd>tabonly<cr>")
 
 -- Git
 map("n", "<leader>gs", "<cmd>tabnew<cr><cmd>G<cr>")
+map("n", "<leader>gd", "<cmd>Gvdiffsplit<bar>wincmd l<cr>")
 map("n", "<leader>gl", "<cmd>Flog<cr>")
 map("n", "<leader>dp", "<cmd>diffput<cr>")
 map("n", "<leader>dg", "<cmd>diffget<cr>")
@@ -73,6 +74,7 @@ map("n", "<leader>fq", "<cmd>Telescope quickfix<cr>")
 -- open things
 map("n", "<leader>of", "<cmd>Telescope find_files<cr>")
 map("n", "<leader>ob", "<cmd>Telescope buffers<cr>")
+map("n", "<leader>or", "<cmd>Telescope oldfiles<cr>")
 
 -- Install plugins
 vim.cmd([[
