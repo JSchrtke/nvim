@@ -13,6 +13,7 @@ vim.o.expandtab = true
 vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
 vim.o.laststatus = 3
+vim.o.signcolumn = "yes"
 vim.o.mouse = "a"
 
 -- Configure keymaps
@@ -87,6 +88,15 @@ vim.cmd([[
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'rbong/vim-flog'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'williamboman/nvim-lsp-installer'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     call plug#end()
 ]])
 
@@ -133,7 +143,7 @@ require("yanky").setup({
 })
 
 -- Configure telescope.nvim
-require "telescope".setup({
+require("telescope").setup({
     defaults = {
         borderchars = { "━", "┃", "━", "┃", "┏", "┓", "┛", "┗" },
         layout_strategy = "vertical",
@@ -148,4 +158,138 @@ require "telescope".setup({
         sorting_strategy = "ascending",
     },
 })
+
+-- Configure LSP
+
+ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+   vim.lsp.diagnostic.on_publish_diagnostics, {
+     update_in_insert = true,
+   }
+ )
+
+require("nvim-lsp-installer").setup()
+
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>t', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+end
+
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
+}
+require('lspconfig')['gopls'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+
+-- Configure nvim-cmp
+vim.lsp.protocol.CompletionItemKind = {
+    Text = " [text]",
+    Method = " [method]",
+    Function = " [function]",
+    Constructor = " [constructor]",
+    Field = "ﰠ [field]",
+    Variable = " [variable]",
+    Class = " [class]",
+    Interface = " [interface]",
+    Module = " [module]",
+    Property = " [property]",
+    Unit = " [unit]",
+    Value = " [value]",
+    Enum = " [enum]",
+    Keyword = " [key]",
+    Snippet = "﬌ [snippet]",
+    Color = " [color]",
+    File = " [file]",
+    Reference = " [reference]",
+    Folder = " [folder]",
+    EnumMember = " [enum member]",
+    Constant = " [constant]",
+    Struct = " [struct]",
+    Event = "⌘ [event]",
+    Operator = " [operator]",
+    TypeParameter = " [type]",
+}
+
+local cmp = require 'cmp'
+cmp.setup({
+    experimental = {
+        ghost_text = true
+    },
+
+    preselect = cmp.PreselectMode.None,
+
+    completion = {
+        completeopt = 'menu,menuone,noinsert',
+    },
+
+    formatting = {
+        format = function(entry, vim_item)
+            vim_item.menu = string.format("[%s]", entry.source.name)
+
+            vim_item.kind = vim.lsp.protocol.CompletionItemKind[vim_item.kind]
+            return vim_item
+        end,
+    },
+
+    mapping = {
+        ["<C-d>"] = cmp.mapping.scroll_docs(4),
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-q>"] = cmp.mapping.close(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<cr>"] = cmp.mapping(
+            cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            }
+        )
+    },
+
+    sources = {
+        {
+            name = 'nvim_lsp',
+            priority = 1000
+        },
+        {
+            name = 'nvim_lsp_signature_help',
+            priority = 1000
+        },
+        {
+            name = 'vsnip',
+            priority = 100
+        },
+        {
+            name = 'path',
+            priority = 10
+        },
+    },
+})
+
 EOF
