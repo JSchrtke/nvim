@@ -76,7 +76,7 @@ map("n", "<leader>ob", "<cmd>Telescope buffers<cr>")
 -- Install plugins
 vim.cmd([[
     call plug#begin('~/.vim/plugged')
-    Plug 'phha/zenburn.nvim'
+    Plug 'projekt0n/github-nvim-theme'
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'tpope/vim-fugitive'
@@ -88,7 +88,26 @@ vim.cmd([[
 ]])
 
 -- Colors
-vim.cmd("colorscheme zenburn")
+function set_light_theme()
+    require("github-theme").setup({
+        theme_style = "light",
+        function_style = "bold",
+        dark_float = true,
+    })
+    vim.cmd("highlight! LineNr guifg=#6E7781 guibg=#ffffff")
+    vim.cmd("highlight! CursorLineNr gui=bold")
+    vim.cmd("highlight! DiffText guibg=#d5e5f6")
+end
+
+function set_dark_theme()
+    require("github-theme").setup({
+        theme_style = "dark_default",
+        function_style = "bold",
+        dark_float = true,
+    })
+end
+
+set_light_theme()
 
 -- Configure nvim-treesitter
 require("nvim-treesitter.configs").setup({
