@@ -45,7 +45,7 @@ map("n", "<leader>qT", "<cmd>tabonly<cr>")
 
 -- Git
 map("n", "<leader>gs", "<cmd>tabnew<cr><cmd>G<cr>")
-map("n", "<leader>gl", "<cmd>tabnew<cr><cmd>Flog<cr>")
+map("n", "<leader>gl", "<cmd>Flog<cr>")
 map("n", "<leader>dp", "<cmd>diffput<cr>")
 map("n", "<leader>dg", "<cmd>diffget<cr>")
 
@@ -66,6 +66,8 @@ map("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 -- search
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
 map("n", "<leader>ff", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
+map("n", "<leader>fl", "<cmd>Telescope resume<cr>")
+map("n", "<leader>fq", "<cmd>Telescope quickfix<cr>")
 
 -- open things
 map("n", "<leader>of", "<cmd>Telescope find_files<cr>")
