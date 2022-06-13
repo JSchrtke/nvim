@@ -64,6 +64,13 @@ autocmd FocusGained,BufEnter,CursorHold * :silent! checktime
 tnoremap <C-w>n <C-\><C-n>
 
 " ### Install plugins ###
+lua << EOF
+require("packer").startup(function()
+    use "wbthomason/packer.nvim"
+    use 'nathom/filetype.nvim'
+end)
+EOF
+
 call plug#begin('~/.vim/plugged')
 
 " Performance
@@ -122,8 +129,6 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 " Debugging
@@ -216,12 +221,6 @@ cmp.setup({
 
     preselect = cmp.PreselectMode.None,
 
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
-    },
-
     completion = {
         completeopt = 'menu,menuone,noinsert',
     },
@@ -260,10 +259,6 @@ cmp.setup({
             priority = 1000
         },
         {
-            name = 'vsnip',
-            priority = 100
-        },
-        {
             name = 'path',
             priority = 10
         },
@@ -271,11 +266,6 @@ cmp.setup({
 })
 
 EOF
-
-" ### Configure vim-vsnip ###
-let g:vsnip_snippet_dir = expand('~/config/nvim/snippets/')
-imap <expr> <Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
-smap <expr> <Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'
 
 " ### Configure nvim diagnostics ###
 lua << EOF
@@ -712,124 +702,6 @@ else
     let g:neoterm_shell = "fish"
 endif
 
-" ### Configure statusline (lualine) ###
-lua << EOF
-local empty = require('lualine.component'):extend()
-function empty:draw(default_highlight)
-  self.status = ''
-  self.applied_separator = ''
-  self:apply_highlights(default_highlight)
-  self:apply_section_separators()
-  return self.status
-end
-
--- Put proper separators and gaps between components in sections
-local function process_sections(sections)
-  for name, section in pairs(sections) do
-    local left = name:sub(9, 10) < 'x'
-    for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
-      table.insert(section, pos * 2, { empty })
-    end
-    for id, comp in ipairs(section) do
-      if type(comp) ~= 'table' then
-        comp = { comp }
-        section[id] = comp
-      end
-      comp.separator = left and { right = '' } or { left = '' }
-    end
-  end
-  return sections
-end
-
-local function search_result()
-  if vim.v.hlsearch == 0 then
-    return ''
-  end
-  local last_search = vim.fn.getreg('/')
-  if not last_search or last_search == '' then
-    return ''
-  end
-  local searchcount = vim.fn.searchcount { maxcount = 9999 }
-  return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
-end
-
-local function modified()
-  if vim.bo.modified then
-    return '+'
-  elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-    return '-'
-  end
-  return ''
-end
-
--- Lua
-local gps = require("nvim-gps")
-gps.setup()
-
-local function location()
-    if gps.is_available() then
-        return gps.get_location()
-    else
-        return ""
-    end
-end
-
-require('lualine').setup {
-  options = {
-    component_separators = '',
-    section_separators = { left = '', right = '' },
-    globalstatus = true,
-  },
-  sections = process_sections {
-    lualine_a = { 'mode' },
-    lualine_b = {
-      { 'filename', file_status = false, path = 1 },
-      { modified },
-      'branch',
-      'diff',
-      {
-        'diagnostics',
-        source = { 'nvim' },
-        sections = { 'error' },
-      },
-      {
-        'diagnostics',
-        source = { 'nvim' },
-        sections = { 'warn' },
-      },
-      {
-        '%w',
-        cond = function()
-          return vim.wo.previewwindow
-        end,
-      },
-      {
-        '%r',
-        cond = function()
-          return vim.bo.readonly
-        end,
-      },
-      {
-        '%q',
-        cond = function()
-          return vim.bo.buftype == 'quickfix'
-        end,
-      },
-    },
-    lualine_c = {
-      { location },
-    },
-    lualine_x = {},
-    lualine_y = { search_result, 'filetype' },
-    lualine_z = { '%l:%c', '%p%%/%L' },
-  },
-  inactive_sections = {
-    lualine_c = { '%f %y %m' },
-    lualine_x = {},
-  },
-}
-EOF
-
 " ### Configure trouble ###
 lua << EOF
 require("trouble").setup {
@@ -844,7 +716,6 @@ EOF
 " ### Configure bufresize.nvim ###
 lua require("bufresize").setup()
 
-
 " ### Configure goto-preview.nvim ###
 lua << EOF
 require("goto-preview").setup {
@@ -855,88 +726,6 @@ EOF
 
 " ### Configure nvim-lastplace ###
 lua require("nvim-lastplace").setup{}
-
-" ### Configure lir.nvim ###
-lua << EOF
--- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
-local actions = require'lir.actions'
-local mark_actions = require 'lir.mark.actions'
-local clipboard_actions = require'lir.clipboard.actions'
-
-local lir = require("lir")
-lir.setup {
-    show_hidden_files = false,
-    devicons_enable = true,
-    mappings = {
-        ['l']     = actions.edit,
-        ['<CR>']     = actions.edit,
-        ['<C-s>'] = actions.split,
-        ['<C-v>'] = actions.vsplit,
-        ['<C-t>'] = actions.tabedit,
-
-        ['h']     = actions.up,
-        ['q']     = actions.quit,
-
-        ['ad']     = actions.mkdir,
-        ['af']     = actions.newfile,
-        ['r']     = actions.rename,
-        ['@']     = actions.cd,
-        ['yy']     = actions.yank_path,
-        ['.']     = actions.toggle_show_hidden,
-        ['dd']     = actions.delete,
-
-        ['o'] = function()
-            local ctx = lir.get_context()
-            local current = ctx:current()
-            if vim.fn.has("win32") == 1 then
-                vim.fn.system('start ' .. current.fullpath)
-            else
-                vim.fn.system('xdg-open ' .. current.fullpath)
-            end
-        end,
-
-        ['J'] = function()
-            mark_actions.toggle_mark()
-            vim.cmd('normal! j')
-        end,
-
-        ['C'] = clipboard_actions.copy,
-        ['X'] = clipboard_actions.cut,
-        ['P'] = clipboard_actions.paste,
-    },
-
-    float = {
-        winblend = 0,
-        curdir_window = {
-            enable = false,
-            highlight_dirname = false
-        },
-    },
-    hide_cursor = true,
-    on_init = function()
-        vim.api.nvim_buf_set_keymap(
-            0,
-            "x",
-            "J",
-            ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
-            { noremap = true, silent = true }
-        )
-
-        vim.api.nvim_echo({ { vim.fn.expand("%:p"), "Normal" } }, false, {})
-    end,
-}
-
-require'nvim-web-devicons'.set_icon({
-    lir_folder_icon = {
-        icon = "",
-        color = "#7ebae4",
-        name = "LirFolderNode"
-    }
-})
-EOF
 
 " ### Configure dressing.nvim ###
 lua << EOF
@@ -981,122 +770,18 @@ map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
 EOF
 
-" ### Configure aerial.nvim ###
-lua << EOF
-require("aerial").setup({
-    min_width = 20,
-    default_direction = "prefer_left",
-})
-EOF
-
 " ### Configure fidget.nvim ###
 lua require("fidget").setup()
-
-" ### Configure diffview.nvim ###
-lua require("diffview").setup()
 
 " ### Configure mini.nvim ###
 lua << EOF
 require('mini.pairs').setup({})
 EOF
 
-" ### Configure Colors ###
 lua << EOF
-
-local function ends_with(str, ending)
-   return ending == "" or str:sub(-#ending) == ending
-end
-
-local function split (inputstr, sep)
-    if sep == nil then
-        sep = "%s"
-    end
-    local t={}
-    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-        table.insert(t, str)
-    end
-    return t
-end
-
-local function windows_theme()
-    local theme = vim.fn.system("cmd.exe /C reg query HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v AppsUseLightTheme")
-    local is_light_theme = ends_with(split(theme)[4], "1")
-    if is_light_theme then
-        return "light"
-    else
-        return "dark"
-    end
-end
-
-local function linux_theme()
-    local current_theme = vim.fn.system("bash -c 'gsettings get org.gnome.desktop.interface gtk-theme'")
-    -- '%p' matches all punctuation chars, '%c' matches all control characters and '%s' matches all whitespace characters.
-    current_theme = current_theme:gsub("[%p%c%s]", "")
-    local is_light_theme = ends_with(current_theme, "light")
-    if is_light_theme then
-        return "light"
-    else
-        return "dark"
-    end
-end
-
-local function system_theme() 
-    if vim.fn.has("unix") == 1 then
-        return linux_theme()
-    else
-        return windows_theme()
-    end
-end
-
-function set_light_theme()
-    require("github-theme").setup({
-        theme_style = "light",
-        function_style = "bold",
-        dark_float = true,
-    })
-    vim.cmd("colorscheme github_light")
-end
-
-function set_dark_theme()
-    vim.o.bg = "dark"
-    local dark_theme = "melange"
-    vim.cmd("colorscheme "..dark_theme)
-end
-
-function set_highlights(theme_style)
-    if theme_style == "light" then
-        vim.cmd("highlight! DiffText guibg=#73bdff guifg=#24292e")
-        vim.cmd("highlight! Visual guibg=#BBDFFF")
-        vim.cmd("highlight! LineNr guifg=#6E7781 guibg=#ffffff")
-        vim.cmd("highlight! CursorLineNr gui=bold")
-        vim.cmd("highlight! TreesitterContext guibg=#e1e4e8")
-        vim.cmd("highlight! TreesitterContextLineNumber guibg=#e1e4e8")
-    else
-        vim.cmd("highlight! link TreesitterContext DiffText")
-        vim.cmd("highlight! link TreesitterContextLineNumber DiffText")
-        vim.cmd("highlight GitSignsAdd guifg=#50704F")
-        vim.cmd("highlight GitSignsChange guifg=#704F64")
-        vim.cmd("highlight GitSignsDelete guifg=#9E5C59")
-        vim.cmd("highlight! link LineNr Comment")
-        vim.cmd("highlight! LspReferenceRead guibg=#3a332e gui=bold")
-        vim.cmd("highlight! LspReferenceWrite guibg=#3a332e gui=bold")
-        vim.cmd("highlight! LspReferenceText guibg=#3a332e gui=bold")
-    end
-end
-
-function set_theme(theme_style)
-    if theme_style == "light" then
-        set_light_theme()
-    else
-        set_dark_theme()
-    end
-
-    set_highlights(theme_style)
-end
-
-set_theme(system_theme())
-
-vim.keymap.set('n', '<F12>', function() set_theme(system_theme()) end, {})
-
+vim.o.bg = "dark"
+vim.g.zenbones_darkness = "warm"
+vim.cmd("colorscheme zenbones")
 EOF
+
 endif
