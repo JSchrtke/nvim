@@ -12,6 +12,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
+vim.o.laststatus = 3
 
 -- keymaps
 vim.g.mapleader = " "
