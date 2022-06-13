@@ -130,5 +130,19 @@ require("yanky").setup({
 })
 
 -- Configure telescope.nvim
-require("telescope").setup({})
+require "telescope".setup({
+    defaults = {
+        borderchars = { "━", "┃", "━", "┃", "┏", "┓", "┛", "┗" },
+        layout_strategy = "vertical",
+        layout_config = {
+            height = vim.o.lines,
+            width = vim.o.columns,
+            prompt_position = "top",
+            preview_height = 0.4,
+            preview_cutoff = 0,
+            mirror = true,
+        },
+        sorting_strategy = "ascending",
+    },
+})
 EOF
