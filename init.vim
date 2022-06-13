@@ -13,6 +13,7 @@ vim.o.expandtab = true
 vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
 vim.o.laststatus = 3
+vim.o.mouse = "a"
 
 -- keymaps
 vim.g.mapleader = " "
