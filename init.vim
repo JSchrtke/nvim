@@ -548,6 +548,7 @@ wk.register({
         h = {"<cmd>lua t.help_tags()<CR>", "in help"},
         r = {"<cmd>lua t.lsp_references()<CR>", "references"},
         t = {"<cmd>lua t_ext.todo.todo()<CR>", "todos"},
+        l = {"<cmd>lua t.resume()<CR>", "last thing"},
     },
 
     -- window
@@ -590,8 +591,7 @@ wk.register({
     -- show
     s = {
         name = "+show",
-        E = {"<cmd>Tclose|Trouble workspace_diagnostics<CR>", "workspace errors"},
-        c = {"<cmd>Gitsigns preview_hunk<CR>", "change"},
+        E = {"<cmd>Tclose!|Trouble workspace_diagnostics<CR>", "workspace errors"},
         C = {"<cmd>Gitsigns setqflist<CR>", "all changes"},
         d = {"<cmd>Gvdiffsplit|wincmd l<CR>", "git diff"},
         e = {"<cmd>lua vim.diagnostic.open_float()<CR>", "line errors"},
@@ -600,9 +600,13 @@ wk.register({
         l = {"<cmd>Flog<CR>", "git log"},
         q = {"<cmd>copen<CR>", "quickfix list"},
         s = {"<cmd>tabnew|G<CR>", "git status"},
-        S = {"<cmd>AerialToggle!<CR>", "lsp symbols"},
-        r = {"<cmd>Tclose|Trouble lsp_references<CR>", "lsp references"},
+        r = {"<cmd>Tclose!|Trouble lsp_references<CR>", "lsp references"},
         b = {"<cmd>Gitsigns toggle_current_line_blame<CR>", "git blame"},
+        c = {
+            name = "+calls",
+            o = {"<cmd>TClose!lua vim.lsp.buf.outgoing_calls()<CR>", "outgoing"},
+            i = {"<cmd>TClose!lua vim.lsp.buf.incoming_calls()<CR>", "incoming"},
+        }
     },
 
     -- run
@@ -610,8 +614,9 @@ wk.register({
         name = "+run",
         R = {"<cmd>lua require('spectre').open()<CR><bar><cmd>wincmd T<CR>", "search & replace"},
         w = {"<cmd>lua require('spectre').open_visual({select_word=true})<CR><bar><cmd>wincmd T<CR>", "replace word"},
-        a = {"<cmd>lua t.lsp_code_actions(require('telescope.themes').get_cursor({}))<CR>", "code action"},
+        a = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "code action"},
         n = {"<cmd>lua vim.lsp.buf.rename()<CR>", "rename"},
+        q = {"<cmd>Tkill<CR>", "kill running process"}
     },
 
     -- terminal
