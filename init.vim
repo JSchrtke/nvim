@@ -91,12 +91,10 @@ Plug 'sindrets/winshift.nvim'
 Plug 'kwkarlwang/bufresize.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'rmagatti/goto-preview'
-Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/dressing.nvim'
 Plug 'stevearc/aerial.nvim'
 Plug 'j-hui/fidget.nvim'
-Plug 'echasnovski/mini.nvim', {'branch': 'stable'}
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
@@ -152,7 +150,6 @@ Plug 'ethanholz/nvim-lastplace'
 Plug 'gbprod/yanky.nvim'
 
 " Colors
-Plug 'savq/melange'
 Plug 'rktjmp/lush.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'mcchrish/zenbones.nvim'
