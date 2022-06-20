@@ -68,6 +68,7 @@ lua << EOF
 require("packer").startup(function()
     use "wbthomason/packer.nvim"
     use 'nathom/filetype.nvim'
+    use 'ellisonleao/gruvbox.nvim'
 end)
 EOF
 
@@ -775,10 +776,26 @@ lua << EOF
 require('mini.pairs').setup({})
 EOF
 
+" Configure colors
 lua << EOF
 vim.o.bg = "dark"
-vim.g.zenbones_darkness = "warm"
-vim.cmd("colorscheme zenbones")
+vim.g.dark_theme_set = 1
+vim.g.gruvbox_contrast_dark = "hard"
+vim.g.gruvbox_contrast_light = "hard"
+vim.cmd("colorscheme gruvbox")
+
+function toggle_theme()
+    if vim.g.dark_theme_set == 1 then
+        vim.o.bg = "light"
+        vim.g.dark_theme_set = 0
+    else
+        vim.o.bg = "dark"
+        vim.g.dark_theme_set = 1
+    end
+end
+
+vim.keymap.set("n", "<F12>", "<cmd>lua toggle_theme()<cr>")
+
 EOF
 
 endif
