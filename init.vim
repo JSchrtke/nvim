@@ -15,7 +15,7 @@ set diffopt+=algorithm:histogram
 set colorcolumn=100
 " always having the signcolumn shown avoids the entire buffer content moving whenever there are
 " signs to be displayed
-set signcolumn=yes:2
+set signcolumn=yes
 set t_Co=256
 set termguicolors
 set wrap
