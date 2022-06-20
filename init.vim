@@ -69,6 +69,8 @@ require("packer").startup(function()
     use "wbthomason/packer.nvim"
     use 'nathom/filetype.nvim'
     use 'ellisonleao/gruvbox.nvim'
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
 end)
 EOF
 
@@ -213,6 +215,11 @@ vim.lsp.protocol.CompletionItemKind = {
 
 local cmp = require 'cmp'
 cmp.setup({
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
     experimental = {
         ghost_text = true
     },
@@ -255,6 +262,10 @@ cmp.setup({
         {
             name = 'nvim_lsp_signature_help',
             priority = 1000
+        },
+        {
+            name = "luasnip",
+            priority = 100
         },
         {
             name = 'path',
@@ -771,10 +782,10 @@ EOF
 " ### Configure fidget.nvim ###
 lua require("fidget").setup()
 
-" ### Configure mini.nvim ###
-lua << EOF
-require('mini.pairs').setup({})
-EOF
+" Configure luasnip
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+" -1 for jumping backwards.
+inoremap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<cmd>lua require("luasnip").jump(-1)<Cr>' : '<Tab>'
 
 " Configure colors
 lua << EOF
