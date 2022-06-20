@@ -706,7 +706,7 @@ EOF
 if has ("win32")
     " https://github.com/kassio/neoterm/issues/171#issuecomment-344291532
     let g:neoterm_eof = "\r"
-    let g:neoterm_shell = "pwsh"
+    let g:neoterm_shell = "cmd"
 else
     let g:neoterm_shell = "fish"
 endif
