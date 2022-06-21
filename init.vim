@@ -792,6 +792,18 @@ imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-o
 " -1 for jumping backwards.
 inoremap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<cmd>lua require("luasnip").jump(-1)<Cr>' : '<Tab>'
 
+" Configure filetype.nvim
+lua << EOF
+require("filetype").setup({
+    overrides = {
+        extensions = {
+            pas = "delphi",
+            dpr = "delphi",
+        }
+    }
+})
+EOF
+
 " Configure colors
 lua << EOF
 vim.o.bg = "dark"
