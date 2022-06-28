@@ -702,7 +702,7 @@ EOF
 " ### Configure neoterm ###
 lua << EOF
 vim.g.neoterm_default_mod = "botright"
-vim.g.neoterm_autojump = 0
+vim.g.neoterm_autojump = 1
 vim.g.neoterm_automap_keys = false
 vim.g.neoterm_autoscroll = 1
 vim.g.neoterm_size = 10
@@ -711,7 +711,7 @@ EOF
 if has ("win32")
     " https://github.com/kassio/neoterm/issues/171#issuecomment-344291532
     let g:neoterm_eof = "\r"
-    let g:neoterm_shell = "cmd"
+    let g:neoterm_shell = "pwsh"
 else
     let g:neoterm_shell = "fish"
 endif
