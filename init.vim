@@ -76,6 +76,7 @@ require("packer").startup(function()
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-project.nvim'
     use 'nvim-telescope/telescope-rg.nvim'
+    use 'projekt0n/github-nvim-theme'
 end)
 EOF
 
@@ -806,11 +807,30 @@ EOF
 
 " Configure colors
 lua << EOF
+function set_github_theme(style)
+    if style == "dark" then
+        require("github-theme").setup({
+            theme_style = "dark_default",
+            function_style = "bold",
+            dark_float = true,
+        })
+        vim.cmd("highlight! link ColorColumn FoldColumn")
+    elseif style == "light" then
+        require("github-theme").setup({
+            theme_style = "light",
+            function_style = "bold",
+            dark_float = true,
+        })
+    else
+        vim.cmd('echoerr "invalid style '..style..'"')
+    end
+    vim.cmd("highlight! link TreesitterContext ColorColumn")
+    vim.cmd("highlight! link TreesitterContextLineNumber ColorColumn")
+end
+
 vim.o.bg = "dark"
 vim.g.dark_theme_set = 1
-vim.g.gruvbox_contrast_dark = "hard"
-vim.g.gruvbox_contrast_light = "hard"
-vim.cmd("colorscheme gruvbox")
+set_github_theme(vim.o.bg)
 
 function toggle_theme()
     if vim.g.dark_theme_set == 1 then
@@ -820,6 +840,8 @@ function toggle_theme()
         vim.o.bg = "dark"
         vim.g.dark_theme_set = 1
     end
+
+    set_github_theme(vim.o.bg)
 end
 
 vim.keymap.set("n", "<F12>", "<cmd>lua toggle_theme()<cr>")
