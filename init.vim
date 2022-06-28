@@ -71,6 +71,7 @@ require("packer").startup(function()
     use 'ellisonleao/gruvbox.nvim'
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
+    use 'nvim-telescope/telescope-file-browser.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-project.nvim'
@@ -406,11 +407,17 @@ require('telescope').setup {
                 ["<M-p>"] = layout.toggle_preview,
             },
         },
+    },
+    extensions = {
+        file_browser = {
+            hijack_netrw = true,
+        }
     }
 }
 
  -- telescope extensions
-require('telescope').load_extension('project')
+require("telescope").load_extension("project")
+require("telescope").load_extension("file_browser")
 
 EOF
 
