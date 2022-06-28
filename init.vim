@@ -71,6 +71,10 @@ require("packer").startup(function()
     use 'ellisonleao/gruvbox.nvim'
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
+    use 'nvim-lua/plenary.nvim'
+    use 'nvim-telescope/telescope.nvim'
+    use 'nvim-telescope/telescope-project.nvim'
+    use 'nvim-telescope/telescope-rg.nvim'
 end)
 EOF
 
@@ -100,11 +104,7 @@ Plug 'stevearc/aerial.nvim'
 Plug 'j-hui/fidget.nvim'
 
 " Search
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'windwp/nvim-spectre'
-Plug 'nvim-telescope/telescope-rg.nvim'
 
 " Editing/motions
 Plug 'numToStr/Comment.nvim'
@@ -117,7 +117,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'sindrets/diffview.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -153,14 +152,8 @@ Plug 'ethanholz/nvim-lastplace'
 Plug 'gbprod/yanky.nvim'
 
 " Colors
-Plug 'rktjmp/lush.nvim'
-Plug 'projekt0n/github-nvim-theme'
 Plug 'mcchrish/zenbones.nvim'
 Plug 'JSchrtke/kanagawa.nvim', { 'branch': 'light-mode' }
-
-" File management
-Plug 'tamago324/lir.nvim'
-Plug 'tamago324/lir-git-status.nvim'
 
 call plug#end()
 
