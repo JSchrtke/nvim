@@ -605,8 +605,8 @@ wk.register({
         b = {"<cmd>Gitsigns toggle_current_line_blame<CR>", "git blame"},
         c = {
             name = "+calls",
-            o = {"<cmd>TClose!|lua vim.lsp.buf.outgoing_calls()<CR>", "outgoing"},
-            i = {"<cmd>TClose!|lua vim.lsp.buf.incoming_calls()<CR>", "incoming"},
+            o = {"<cmd>Tclose!|lua vim.lsp.buf.outgoing_calls()<CR>", "outgoing"},
+            i = {"<cmd>Tclose!|lua vim.lsp.buf.incoming_calls()<CR>", "incoming"},
         }
     },
 
