@@ -76,7 +76,7 @@ require("packer").startup(function()
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-project.nvim'
     use 'nvim-telescope/telescope-rg.nvim'
-    use 'projekt0n/github-nvim-theme'
+    use 'nvim-lualine/lualine.nvim'
 end)
 EOF
 
@@ -763,7 +763,7 @@ require("yanky").setup({
     highlight = {
         on_put = true,
         on_yank = true,
-        timer = 200,
+        timer = 150,
     },
     preserve_cursor_position = {
         enabled = true,
