@@ -1087,7 +1087,7 @@ function set_github_theme(style)
     else
         vim.cmd('echoerr "invalid style '..style..'"')
     end
-    vim.cmd("highlight! link TreesitterContext ColorColumn")
+    vim.cmd("highlight! link TreesitterContext Visual")
     vim.cmd("highlight! link WinBar Visual")
     require("lualine").setup({options={theme="auto"}})
 end
