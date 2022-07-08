@@ -788,10 +788,8 @@ EOF
 " ### Configure fidget.nvim ###
 lua require("fidget").setup()
 
-" Configure luasnip
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-" -1 for jumping backwards.
-inoremap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<cmd>lua require("luasnip").jump(-1)<Cr>' : '<Tab>'
+" Configure snippets
+lua require("snippet")
 
 " Configure filetype.nvim
 lua << EOF
