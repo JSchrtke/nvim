@@ -82,6 +82,7 @@ require("packer").startup(function()
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/nvim-treesitter-context'
+    use { 'https://gitlab.com/yorickpeterse/nvim-grey.git', as = "nvim-grey" }
 end)
 EOF
 
@@ -1061,11 +1062,13 @@ function set_github_theme(style)
         })
         vim.cmd("highlight! link ColorColumn FoldColumn")
     elseif style == "light" then
-        require("github-theme").setup({
-            theme_style = "light",
-            function_style = "bold",
-            dark_float = true,
-        })
+        vim.cmd("colorscheme grey")
+        vim.cmd("highlight! GitSignsAdd guifg=#216609 guibg=#f2f2f2")
+        vim.cmd("highlight! GitSignsChange guifg=#BF8F00 guibg=#f2f2f2")
+        vim.cmd("highlight! GitSignsDelete guifg=#CC3E28 guibg=#f2f2f2")
+        vim.cmd("highlight! link TreesitterContext Visual")
+        vim.cmd("highlight! link TreesitterContextLineNumber Visual")
+        vim.cmd("highlight! TreesitterContextLineNumber guibg=#dddddd gui=bold")
     else
         vim.cmd('echoerr "invalid style '..style..'"')
     end
