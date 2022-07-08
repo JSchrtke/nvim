@@ -68,7 +68,6 @@ lua << EOF
 require("packer").startup(function()
     use "wbthomason/packer.nvim"
     use 'nathom/filetype.nvim'
-    use 'ellisonleao/gruvbox.nvim'
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
     use 'nvim-telescope/telescope-file-browser.nvim'
@@ -82,6 +81,8 @@ require("packer").startup(function()
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/nvim-treesitter-context'
+    use 'rktjmp/lush.nvim'
+    use 'JSchrtke/melange'
     use 'windwp/nvim-autopairs'
     use { 'https://gitlab.com/yorickpeterse/nvim-grey.git', as = "nvim-grey" }
 end)
@@ -1067,12 +1068,8 @@ EOF
 lua << EOF
 function set_github_theme(style)
     if style == "dark" then
-        require("github-theme").setup({
-            theme_style = "dark_default",
-            function_style = "bold",
-            dark_float = true,
-        })
-        vim.cmd("highlight! link ColorColumn FoldColumn")
+        package.loaded.melange = nil  -- Clear cache.
+        require("lush")(require("melange.hl_groups"))
     elseif style == "light" then
         vim.cmd("colorscheme grey")
         vim.cmd("highlight! GitSignsAdd guifg=#216609 guibg=#f2f2f2")
