@@ -85,6 +85,7 @@ require("packer").startup(function()
     use 'JSchrtke/melange'
     use 'windwp/nvim-autopairs'
     use { 'https://gitlab.com/yorickpeterse/nvim-grey.git', as = "nvim-grey" }
+    use 'lewis6991/spaceless.nvim'
 end)
 EOF
 
@@ -1062,6 +1063,11 @@ cmp.event:on(
     'confirm_done',
     cmp_autopairs.on_confirm_done()
 )
+EOF
+
+" Configure spaceless
+lua << EOF
+require("spaceless").setup()
 EOF
 
 " Configure colors
