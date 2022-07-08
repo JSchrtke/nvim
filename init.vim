@@ -907,17 +907,6 @@ local function modified()
 end
 
 -- Lua
-local gps = require("nvim-gps")
-gps.setup()
-
-local function location()
-    if gps.is_available() then
-        return gps.get_location()
-    else
-        return ""
-    end
-end
-
 require('lualine').setup {
   options = {
     component_separators = '',
@@ -962,17 +951,96 @@ require('lualine').setup {
       },
     },
     lualine_c = {
-      { location },
     },
     lualine_x = {},
     lualine_y = { search_result, 'filetype' },
     lualine_z = { '%l:%c', '%p%%/%L' },
   },
-  inactive_sections = {
-    lualine_c = { '%f %y %m' },
-    lualine_x = {},
-  },
+    inactive_sections = {
+        lualine_c = { '%f %y %m' },
+        lualine_x = {},
+    },
 }
+EOF
+
+" Configure winbar
+lua << EOF
+
+local sign_cache = {}
+local get_sign = function(severity, icon_only)
+if icon_only then
+    local defined = vim.fn.sign_getdefined("DiagnosticSign" .. severity)
+    if defined and defined[1] then
+        return " " .. defined[1].text
+    else
+        return " " .. severity[1]
+        end
+        end
+
+        local cached = sign_cache[severity]
+        if cached then
+            return cached
+            end
+
+            local defined = vim.fn.sign_getdefined("DiagnosticSign" .. severity)
+            local text, highlight
+            defined = defined and defined[1]
+            if defined and defined.text and defined.texthl then
+                -- for some reason it always comes padded with a space
+                if type(defined.text) == "string" and defined.text:sub(#defined.text) == " " then
+                    defined.text = defined.text:sub(1, -2)
+                    end
+                    text = " " .. defined.text
+                    highlight = defined.texthl
+                else
+                    text = " " .. severity:sub(1, 1)
+                    highlight = "Diagnostic" .. severity
+                    end
+                    cached = "%#" .. highlight .. "#" .. text .. "%* "
+                    sign_cache[severity] = cached
+                    return cached
+                    end
+
+                    _G.get_diag = function ()
+                    local d = vim.diagnostic.get(0)
+                    if #d == 0 then
+                        return ""
+                        end
+
+                        local min_severity = 100
+                        for _, diag in ipairs(d) do
+                            if diag.severity < min_severity then
+                                min_severity = diag.severity
+                                end
+                                end
+                                local severity = ""
+                                if min_severity == vim.diagnostic.severity.ERROR then
+                                    severity = "Error"
+                                elseif min_severity == vim.diagnostic.severity.WARN then
+                                    severity = "Warn"
+                                elseif min_severity == vim.diagnostic.severity.INFO then
+                                    severity = "Info"
+                                elseif min_severity == vim.diagnostic.severity.HINT then
+                                    severity = "Hint"
+                                else
+                                    return ""
+                                    end
+
+                                    return get_sign(severity)
+                                    end
+
+                                    local gps = require("nvim-gps")
+                                    gps.setup()
+
+_G.location = function()
+    if gps.is_available() then
+        return "> " .. gps.get_location()
+    else
+        return ""
+    end
+end
+
+vim.opt.winbar = "%f %{%v:lua.location()%}%=%{%v:lua.get_diag()%}"
 EOF
 
 " Configure harpoon
@@ -1001,8 +1069,8 @@ function set_github_theme(style)
     else
         vim.cmd('echoerr "invalid style '..style..'"')
     end
-    vim.cmd("highlight! link TreesitterContext ColorColumn")
-    vim.cmd("highlight! link TreesitterContextLineNumber ColorColumn")
+    vim.cmd("highlight! link WinBar Visual")
+    require("lualine").setup({options={theme="auto"}})
 end
 
 vim.o.bg = "dark"
