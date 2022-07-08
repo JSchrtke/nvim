@@ -269,7 +269,7 @@ cmp.setup({
         end,
     },
     experimental = {
-        ghost_text = true
+        ghost_text = false
     },
 
     preselect = cmp.PreselectMode.None,
