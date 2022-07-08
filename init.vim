@@ -102,7 +102,6 @@ Plug 'kwkarlwang/bufresize.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'rmagatti/goto-preview'
 Plug 'SmiteshP/nvim-gps'
-Plug 'stevearc/dressing.nvim'
 Plug 'stevearc/aerial.nvim'
 Plug 'j-hui/fidget.nvim'
 
@@ -752,16 +751,6 @@ EOF
 
 " ### Configure nvim-lastplace ###
 lua require("nvim-lastplace").setup{}
-
-" ### Configure dressing.nvim ###
-lua << EOF
-require("dressing").setup({
-    input = {
-        enabled = true,
-        relative = "cursor",
-    },
-})
-EOF
 
 " ### Configure Comment.nvim ###
 lua << EOF
