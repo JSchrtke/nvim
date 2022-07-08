@@ -82,6 +82,7 @@ require("packer").startup(function()
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/nvim-treesitter-context'
+    use 'windwp/nvim-autopairs'
     use { 'https://gitlab.com/yorickpeterse/nvim-grey.git', as = "nvim-grey" }
 end)
 EOF
@@ -1049,6 +1050,17 @@ lua << EOF
 require("harpoon").setup{
     enter_on_sendcmd = true,
 }
+EOF
+
+" Configure nvim-autopairs
+lua << EOF
+require("nvim-autopairs").setup({})
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require('cmp')
+cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+)
 EOF
 
 " Configure colors
