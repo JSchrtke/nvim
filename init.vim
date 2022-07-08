@@ -537,7 +537,7 @@ wk.register({
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files()<CR>", "file"},
-        e = {"<cmd>e .<CR>", "file explorer"},
+        e = {"<cmd>Telescope file_browser<CR>", "file explorer"},
         r = {"<cmd>lua t.oldfiles()<CR>", "recent"},
         b = {"<cmd>lua t.buffers()<CR>", "buffer"},
         gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
