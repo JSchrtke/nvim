@@ -78,6 +78,10 @@ require("packer").startup(function()
     use 'nvim-telescope/telescope-rg.nvim'
     use 'nvim-lualine/lualine.nvim'
     use 'JSchrtke/harpoon'
+    use 'nvim-treesitter/nvim-treesitter'
+    use 'nvim-treesitter/nvim-treesitter-refactor'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/nvim-treesitter-context'
 end)
 EOF
 
@@ -138,13 +142,10 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'mfussenegger/nvim-dap'
 
 " Syntax/Languages
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'rkennedy/vim-delphi'
 Plug 'dag/vim-fish'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'fladson/vim-kitty'
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
 " Editor behaviour
 Plug 'Pocco81/AutoSave.nvim'
@@ -162,7 +163,7 @@ call plug#end()
 " ### Configure impatient.nvim ###
 lua require('impatient').enable_profile()
 
-" ### Configure treesitter ###
+" Configure treesitter
 lua << EOF
 local ft_to_parser = require("nvim-treesitter.parsers").filetype_to_parsername
 ft_to_parser.delphi = "pascal"
@@ -172,9 +173,61 @@ require("nvim-treesitter.configs").setup{
         enable = true,
     }
 }
+EOF
 
-require("treesitter-context").setup{}
+" Configure treesitter-textobjects
+lua << EOF
+require('nvim-treesitter.configs').setup {
+    textobjects = {
+        select = {
+            enable = true,
 
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["am"] = "@function.outer",
+                ["im"] = "@function.inner",
+                ["ao"] = "@class.outer",
+                ["io"] = "@class.inner",
+                ["ac"] = "@conditional.outer",
+                ["ic"] = "@conditional.inner",
+                ["al"] = "@loop.outer",
+                ["il"] = "@loop.inner",
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                ["]f"] = "@function.outer",
+                ["]]"] = "@class.outer",
+                ["]l"] = "@loop.outer"
+            },
+            goto_next_end = {
+                ["]F"] = "@function.outer",
+                ["]["] = "@class.outer",
+                ["]L"] = "@loop.outer"
+            },
+            goto_previous_start = {
+                ["[f"] = "@function.outer",
+                ["[["] = "@class.outer",
+                ["[l"] = "@loop.outer"
+            },
+            goto_previous_end = {
+                ["[F"] = "@function.outer",
+                ["[]"] = "@class.outer",
+                ["[L"] = "@loop.outer"
+            },
+        },
+    },
+}
+EOF
+
+" Configure treesitter-context
+lua << EOF
+require("treesitter-context").setup()
 EOF
 
 " ### Configure nvim-cmp###
