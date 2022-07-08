@@ -3,9 +3,9 @@ function! GoRunWithArgs()
 endfunction
 lua << EOF
 require("which-key").register({
-  ["<leader>rt"] = {"<cmd>TroubleClose<CR>|<cmd>Topen|T go test .<cr>", "test project"},
-  ["<leader>rb"] = {"<cmd>Topen|T go build .<cr>", "build project"},
-  ["<leader>rp"] = {"<cmd>TroubleClose<CR>|<cmd>Topen|T go run .<cr>", "run project"},
+  ["<leader>rt"] = {"<cmd>lua require('harpoon.term').sendCommand(1, 'go test')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "test project"},
+  ["<leader>rb"] = {"<cmd>lua require('harpoon.term').sendCommand(1, 'go build .')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "build project"},
+  ["<leader>rp"] = {"<cmd>lua require('harpoon.term').sendCommand(1, 'go run .')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "run project"},
   ["<leader>rf"] = {"<cmd>!go fmt<cr>", "formatter"},
   ["<leader>ri"] = {"<cmd>Topen|T go install<cr>", "installer"},
   ["<leader>rP"] = {"<cmd>call GoRunWithArgs()<cr>", "project (with args)"},

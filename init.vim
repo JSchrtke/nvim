@@ -77,6 +77,7 @@ require("packer").startup(function()
     use 'nvim-telescope/telescope-project.nvim'
     use 'nvim-telescope/telescope-rg.nvim'
     use 'nvim-lualine/lualine.nvim'
+    use 'JSchrtke/harpoon'
 end)
 EOF
 
@@ -492,12 +493,19 @@ wk.register({
     ["gd"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "go to definition"},
     ["gt"] = {"next tab"},
     ["gT"] = {"previous tab"},
+    ["gH"] = {"<cmd>lua require('harpoon.mark').add_file()<CR>", "harpoon mark"},
+    ["gj"] = {"<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "harpoon 1"},
+    ["gk"] = {"<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "harpoon 2"},
+    ["gl"] = {"<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "harpoon 3"},
+    ["g;"] = {"<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "harpoon 4"},
     ["]e"] = {"<cmd>silent lua vim.lsp.diagnostic.goto_next()<cr>", "next error"},
     ["[e"] = {"<cmd>silent lua vim.lsp.diagnostic.goto_prev()<cr>", "previous error"},
     ["]q"] = {"<cmd>cnext<cr>", "next quickfix item"},
     ["[q"] = {"<cmd>cprevious<cr>", "previous quickfix item"},
     ["]t"] = {"<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>", "next trouble"},
     ["[t"] = {"<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<cr>", "previous trouble"},
+    ["]h"] = {"<cmd>lua require('harpoon.ui').nav_next()<cr>", "next trouble"},
+    ["[h"] = {"<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous trouble"},
 })
 
 -- Normal mode, <leader> prefix
@@ -607,7 +615,8 @@ wk.register({
             name = "+calls",
             o = {"<cmd>Tclose!|lua vim.lsp.buf.outgoing_calls()<CR>", "outgoing"},
             i = {"<cmd>Tclose!|lua vim.lsp.buf.incoming_calls()<CR>", "incoming"},
-        }
+        },
+        h = {"<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "harpoon"}
     },
 
     -- run
@@ -623,7 +632,9 @@ wk.register({
     -- terminal
     t = {
         name = "+terminal",
-        c = {"<cmd>Tclear<CR>", "clear"},
+        j = {"<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "harpoon term 1"},
+        k = {"<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "harpoon term 2"},
+        l = {"<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "harpoon term 3"},
     },
 
     -- diff
@@ -919,6 +930,13 @@ require('lualine').setup {
     lualine_c = { '%f %y %m' },
     lualine_x = {},
   },
+}
+EOF
+
+" Configure harpoon
+lua << EOF
+require("harpoon").setup{
+    enter_on_sendcmd = true,
 }
 EOF
 
