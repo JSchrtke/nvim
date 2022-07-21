@@ -75,14 +75,14 @@ require("which-key").register({
     -- },
     r = {
         name = "+run in terminal",
-        c = {"<cmd>Topen|T cargo check<cr>", "cargo check"},
-        C = {"<cmd>Topen|T cargo clippy<cr>", "cargo clean"},
-        b = {"<cmd>Topen|T cargo build<cr>", "cargo build"},
-        p = {"<cmd>Topen|T cargo run<cr>", "cargo run"},
+        c = {"<cmd>lua require('harpoon.term').sendCommand(1, 'cargo check')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "cargo check"},
+        C = {"<cmd>lua require('harpoon.term').sendCommand(1, 'cargo clippy')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "cargo clean"},
+        b = {"<cmd>lua require('harpoon.term').sendCommand(1, 'cargo build')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "cargo build"},
+        p = {"<cmd>lua require('harpoon.term').sendCommand(1, 'cargo run')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "cargo run"},
         P = {"<cmd>call CargoRunWithArgs('term')<cr>", "cargo run (with args)"},
         f = {"<cmd>call MakeFmt()<cr>", "cargo fmt"},
-        u = {"<cmd>Topen|T cargo update<cr>", "cargo update"},
-        t = {"<cmd>Topen|T cargo test<cr>", "cargo test"},
+        u = {"<cmd>lua require('harpoon.term').sendCommand(1, 'cargo update')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "cargo update"},
+        t = {"<cmd>lua require('harpoon.term').sendCommand(1, 'cargo test')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "cargo test"},
     },
 },  { prefix = "<leader>"})
 EOF

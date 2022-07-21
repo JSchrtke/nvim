@@ -70,7 +70,6 @@ require("packer").startup(function()
     use 'nathom/filetype.nvim'
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
-    use 'nvim-telescope/telescope-file-browser.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-project.nvim'
@@ -80,12 +79,17 @@ require("packer").startup(function()
     use 'nvim-treesitter/nvim-treesitter'
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'nvim-treesitter/nvim-treesitter-context'
     use 'rktjmp/lush.nvim'
     use 'JSchrtke/melange'
     use 'windwp/nvim-autopairs'
     use { 'https://gitlab.com/yorickpeterse/nvim-grey.git', as = "nvim-grey" }
     use 'lewis6991/spaceless.nvim'
+    use 'mfussenegger/nvim-dap'
+    use 'SmiteshP/nvim-navic'
+    use 'ishan9299/modus-theme-vim'
+    use 'rebelot/kanagawa.nvim'
+    use { 'gbprod/yanky.nvim', commit = "88b33221bdb7a4452d2754db565c104f22859db9" }
+    use 'elihunter173/dirbuf.nvim'
 end)
 EOF
 
@@ -109,7 +113,6 @@ Plug 'sindrets/winshift.nvim'
 Plug 'kwkarlwang/bufresize.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'rmagatti/goto-preview'
-Plug 'SmiteshP/nvim-gps'
 Plug 'stevearc/aerial.nvim'
 Plug 'j-hui/fidget.nvim'
 
@@ -141,10 +144,6 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
-" Debugging
-" TODO actually set this up
-Plug 'mfussenegger/nvim-dap'
-
 " Syntax/Languages
 Plug 'rkennedy/vim-delphi'
 Plug 'dag/vim-fish'
@@ -156,7 +155,6 @@ Plug 'Pocco81/AutoSave.nvim'
 Plug 'famiu/bufdelete.nvim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'ethanholz/nvim-lastplace'
-Plug 'gbprod/yanky.nvim'
 
 " Colors
 Plug 'mcchrish/zenbones.nvim'
@@ -191,8 +189,8 @@ require('nvim-treesitter.configs').setup {
 
             keymaps = {
                 -- You can use the capture groups defined in textobjects.scm
-                ["am"] = "@function.outer",
-                ["im"] = "@function.inner",
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
                 ["ao"] = "@class.outer",
                 ["io"] = "@class.inner",
                 ["ac"] = "@conditional.outer",
@@ -227,11 +225,6 @@ require('nvim-treesitter.configs').setup {
         },
     },
 }
-EOF
-
-" Configure treesitter-context
-lua << EOF
-require("treesitter-context").setup()
 EOF
 
 " ### Configure nvim-cmp###
@@ -353,9 +346,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
+local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
     local opts = { silent = true; }
     vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
+    navic.attach(client, bufnr)
     -- if client.resolved_capabilities['document_highlight'] then
     --     vim.cmd(string.format('au CursorHold  <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
     --     vim.cmd(string.format('au CursorHoldI <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
@@ -475,7 +470,6 @@ require('telescope').setup {
 
  -- telescope extensions
 require("telescope").load_extension("project")
-require("telescope").load_extension("file_browser")
 
 EOF
 
@@ -527,7 +521,7 @@ let g:indent_blankline_filetype_exclude = ['help', 'Trouble', 'markdown']
 let g:indent_blankline_buftype_exclude = ['terminal']
 let g:indent_blankline_bufname_exclude = ['README.md', '.*\.txt']
 let g:indent_blankline_show_first_indent_level = v:true
-let g:indent_blankline_disable_with_nolist = v:false
+let g:indent_blankline_disable_with_nolist = v:true
 let g:indentLine_char = '│'
 
 " ### Configure winresizer ###
@@ -550,12 +544,12 @@ wk.register({
     ["gt"] = {"next tab"},
     ["gT"] = {"previous tab"},
     ["gH"] = {"<cmd>lua require('harpoon.mark').add_file()<CR>", "harpoon mark"},
-    ["gj"] = {"<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "harpoon 1"},
-    ["gk"] = {"<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "harpoon 2"},
-    ["gl"] = {"<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "harpoon 3"},
-    ["g;"] = {"<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "harpoon 4"},
-    ["]e"] = {"<cmd>silent lua vim.lsp.diagnostic.goto_next()<cr>", "next error"},
-    ["[e"] = {"<cmd>silent lua vim.lsp.diagnostic.goto_prev()<cr>", "previous error"},
+    ["gh"] = {"<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "harpoon 1"},
+    ["gj"] = {"<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "harpoon 2"},
+    ["gk"] = {"<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "harpoon 3"},
+    ["gl"] = {"<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "harpoon 4"},
+    ["]e"] = {"<cmd>silent lua vim.diagnostic.goto_next()<cr>", "next error"},
+    ["[e"] = {"<cmd>silent lua vim.diagnostic.goto_prev()<cr>", "previous error"},
     ["]q"] = {"<cmd>cnext<cr>", "next quickfix item"},
     ["[q"] = {"<cmd>cprevious<cr>", "previous quickfix item"},
     ["]t"] = {"<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>", "next trouble"},
@@ -577,8 +571,6 @@ wk.register({
     ["8"] = "which_key_ignore",
     ["9"] = "which_key_ignore",
 
-    ["<cr>"] = {"<cmd>TroubleClose<CR>|<cmd>Ttoggle<CR>", "toggle terminal"},
-
     h = {"<cmd>wincmd h<CR>", "move left"},
     j = {"<cmd>wincmd j<CR>", "move down"},
     k = {"<cmd>wincmd k<CR>", "move up"},
@@ -589,11 +581,16 @@ wk.register({
         t = {"<cmd>tabnew<cr>", "new tab"},
     },
 
+    v = {
+        name = "+vim",
+        s = {"<cmd>so ~/config/nvim/init.vim<cr>", "source init.vim"}
+    },
+
     -- open
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files()<CR>", "file"},
-        e = {"<cmd>Telescope file_browser<CR>", "file explorer"},
+        e = {"<cmd>e .<CR>", "file explorer"},
         r = {"<cmd>lua t.oldfiles()<CR>", "recent"},
         b = {"<cmd>lua t.buffers()<CR>", "buffer"},
         gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
@@ -672,7 +669,11 @@ wk.register({
             o = {"<cmd>Tclose!|lua vim.lsp.buf.outgoing_calls()<CR>", "outgoing"},
             i = {"<cmd>Tclose!|lua vim.lsp.buf.incoming_calls()<CR>", "incoming"},
         },
-        h = {"<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "harpoon"}
+        h = {"<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "harpoon"},
+        t = {"<cmd>TroubleToggle<CR>", "trouble"}
+    },
+    i = {
+        name = "+lsp"
     },
 
     -- run
@@ -691,6 +692,7 @@ wk.register({
         j = {"<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "harpoon term 1"},
         k = {"<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "harpoon term 2"},
         l = {"<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "harpoon term 3"},
+        p = {"<cmd>lua require('harpoon.term').sendCommand(1, 'pwsh')<CR>", "term 1: pwsh"},
     },
 
     -- diff
@@ -969,82 +971,55 @@ EOF
 
 " Configure winbar
 lua << EOF
-
-local sign_cache = {}
-local get_sign = function(severity, icon_only)
-if icon_only then
-    local defined = vim.fn.sign_getdefined("DiagnosticSign" .. severity)
-    if defined and defined[1] then
-        return " " .. defined[1].text
-    else
-        return " " .. severity[1]
-        end
-        end
-
-        local cached = sign_cache[severity]
-        if cached then
-            return cached
-            end
-
-            local defined = vim.fn.sign_getdefined("DiagnosticSign" .. severity)
-            local text, highlight
-            defined = defined and defined[1]
-            if defined and defined.text and defined.texthl then
-                -- for some reason it always comes padded with a space
-                if type(defined.text) == "string" and defined.text:sub(#defined.text) == " " then
-                    defined.text = defined.text:sub(1, -2)
-                    end
-                    text = " " .. defined.text
-                    highlight = defined.texthl
-                else
-                    text = " " .. severity:sub(1, 1)
-                    highlight = "Diagnostic" .. severity
-                    end
-                    cached = "%#" .. highlight .. "#" .. text .. "%* "
-                    sign_cache[severity] = cached
-                    return cached
-                    end
-
-                    _G.get_diag = function ()
-                    local d = vim.diagnostic.get(0)
-                    if #d == 0 then
-                        return ""
-                        end
-
-                        local min_severity = 100
-                        for _, diag in ipairs(d) do
-                            if diag.severity < min_severity then
-                                min_severity = diag.severity
-                                end
-                                end
-                                local severity = ""
-                                if min_severity == vim.diagnostic.severity.ERROR then
-                                    severity = "Error"
-                                elseif min_severity == vim.diagnostic.severity.WARN then
-                                    severity = "Warn"
-                                elseif min_severity == vim.diagnostic.severity.INFO then
-                                    severity = "Info"
-                                elseif min_severity == vim.diagnostic.severity.HINT then
-                                    severity = "Hint"
-                                else
-                                    return ""
-                                    end
-
-                                    return get_sign(severity)
-                                    end
-
-                                    local gps = require("nvim-gps")
-                                    gps.setup()
+local navic = require("nvim-navic")
+navic.setup({
+    icons = {
+        File          = " ",
+        Module        = " ",
+        Namespace     = " ",
+        Package       = " ",
+        Class         = " ",
+        Method        = " ",
+        Property      = " ",
+        Field         = " ",
+        Constructor   = " ",
+        Enum          = "練",
+        Interface     = "練",
+        Function      = " ",
+        Variable      = " ",
+        Constant      = " ",
+        String        = " ",
+        Number        = " ",
+        Boolean       = "◩ ",
+        Array         = " ",
+        Object        = " ",
+        Key           = " ",
+        Null          = "ﳠ ",
+        EnumMember    = " ",
+        Struct        = " ",
+        Event         = " ",
+        Operator      = " ",
+        TypeParameter = " ",
+    },
+    separator = " > ",
+    highlights = true,
+    depth_limit = 0,
+    depth_limit_indicator = "..",
+})
 
 _G.location = function()
-    if gps.is_available() then
-        return "> " .. gps.get_location()
+    local location = ""
+    if navic.is_available() then
+        location = navic.get_location()
+    end
+    if location == "" then
+        return location
     else
-        return ""
+        return "> "..location
     end
 end
 
-vim.opt.winbar = "%f %{%v:lua.location()%}%=%{%v:lua.get_diag()%}"
+vim.opt.winbar = "%f %{%v:lua.location()%}"
 EOF
 
 " Configure harpoon
@@ -1070,31 +1045,62 @@ lua << EOF
 require("spaceless").setup()
 EOF
 
+" Configure dirbuf
+lua << EOF
+require("dirbuf").setup({})
+EOF
+
 " Configure colors
 lua << EOF
-function set_github_theme(style)
+function set_theme(style)
     if style == "dark" then
-        package.loaded.melange = nil  -- Clear cache.
-        require("lush")(require("melange.hl_groups"))
+        -- local colors = require("kanagawa.colors").setup()
+        -- require("kanagawa").setup({
+        --     colors = {
+        --         sumiInk0 = "#0d0d11",
+        --         sumiInk1 = "#17171e",
+        --     },
+        --     overrides = {
+        --         LineNr = { fg = "#a197ba", bg = colors.sumiInk2 },
+        --         SignColumn = { bg = colors.sumiInk2 },
+        --         CursorLineNr = { bg = colors.sumiInk2 },
+        --         GitSignsAdd = { fg = colors.autumnGreen, bg = colors.sumiInk2 },
+        --         GitSignsChange = { fg = colors.autumnYellow, bg = colors.sumiInk2 },
+        --         GitSignsDelete = { fg = colors.autumnRed, bg = colors.sumiInk2 },
+        --     },
+        --     globalStatus = true,
+        -- })
+        -- vim.cmd("colorscheme kanagawa")
+
+        vim.g.modus_dim_inactive_window = 0
+        vim.cmd("colorscheme modus-vivendi")
+        vim.cmd("highlight! CmpItemMenuDefault guifg=#ffffff")
+        vim.cmd("highlight! CmpItemAbbrDefault guifg=#ffffff")
+        vim.cmd("highlight! CmpItemAbbrMatchFuzzyDefault guifg=#e49aba")
+        vim.cmd("highlight! CmpItemAbbrMatchDefault guifg=#00bdba")
     elseif style == "light" then
-        vim.cmd("colorscheme grey")
-        vim.cmd("highlight! GitSignsAdd guifg=#216609 guibg=#f2f2f2")
-        vim.cmd("highlight! GitSignsChange guifg=#BF8F00 guibg=#f2f2f2")
-        vim.cmd("highlight! GitSignsDelete guifg=#CC3E28 guibg=#f2f2f2")
-        vim.cmd("highlight! link TreesitterContext Visual")
-        vim.cmd("highlight! link TreesitterContextLineNumber Visual")
-        vim.cmd("highlight! TreesitterContextLineNumber guibg=#dddddd gui=bold")
+        vim.cmd("colorscheme modus-operandi")
+        vim.cmd("highlight! CmpItemMenuDefault guifg=#000000")
+        vim.cmd("highlight! CmpItemAbbrDefault guifg=#000000")
+        vim.cmd("highlight! CmpItemAbbrMatchFuzzyDefault guifg=#802958")
+        vim.cmd("highlight! CmpItemAbbrMatchDefault guifg=#5317ac")
+        vim.cmd("highlight! ZenBg guifg=#ffffff guibg=#ffffff")
+        -- vim.cmd("colorscheme grey")
+        -- vim.cmd("highlight! GitSignsAdd guifg=#216609 guibg=#f2f2f2")
+        -- vim.cmd("highlight! GitSignsChange guifg=#BF8F00 guibg=#f2f2f2")
+        -- vim.cmd("highlight! GitSignsDelete guifg=#CC3E28 guibg=#f2f2f2")
     else
         vim.cmd('echoerr "invalid style '..style..'"')
     end
-    vim.cmd("highlight! link TreesitterContext Visual")
-    vim.cmd("highlight! link WinBar Visual")
+    vim.cmd("highlight! link WinBar ColorColumn")
+    vim.cmd("highlight! link DiffText Visual")
+    vim.g.modus_dim_inactive_window = 0
     require("lualine").setup({options={theme="auto"}})
 end
 
 vim.o.bg = "dark"
 vim.g.dark_theme_set = 1
-set_github_theme(vim.o.bg)
+set_theme(vim.o.bg)
 
 function toggle_theme()
     if vim.g.dark_theme_set == 1 then
@@ -1105,7 +1111,7 @@ function toggle_theme()
         vim.g.dark_theme_set = 1
     end
 
-    set_github_theme(vim.o.bg)
+    set_theme(vim.o.bg)
 end
 
 vim.keymap.set("n", "<F12>", "<cmd>lua toggle_theme()<cr>")
