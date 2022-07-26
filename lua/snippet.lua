@@ -125,7 +125,7 @@ ls.add_snippets("go", {
                         t("return err"),
                         t("panic(err)"),
                         fmt("return {}, err", {i(1, "value")}),
-                        fmt('t.Errorf("{}", {})', {i(1, "expected no error, but got %s"), i(2, "err.Error()")})
+                        fmt('t.Fatalf("{}", {})', {i(1, "expected no error, but got '%s'"), i(2, "err.Error()")})
                     }
                     return sn(nil, c(1, choices))
                 end)
