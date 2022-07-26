@@ -1054,30 +1054,23 @@ EOF
 lua << EOF
 function set_theme(style)
     if style == "dark" then
-        -- local colors = require("kanagawa.colors").setup()
-        -- require("kanagawa").setup({
-        --     colors = {
-        --         sumiInk0 = "#0d0d11",
-        --         sumiInk1 = "#17171e",
-        --     },
-        --     overrides = {
-        --         LineNr = { fg = "#a197ba", bg = colors.sumiInk2 },
-        --         SignColumn = { bg = colors.sumiInk2 },
-        --         CursorLineNr = { bg = colors.sumiInk2 },
-        --         GitSignsAdd = { fg = colors.autumnGreen, bg = colors.sumiInk2 },
-        --         GitSignsChange = { fg = colors.autumnYellow, bg = colors.sumiInk2 },
-        --         GitSignsDelete = { fg = colors.autumnRed, bg = colors.sumiInk2 },
-        --     },
-        --     globalStatus = true,
-        -- })
-        -- vim.cmd("colorscheme kanagawa")
-
-        vim.g.modus_dim_inactive_window = 0
-        vim.cmd("colorscheme modus-vivendi")
-        vim.cmd("highlight! CmpItemMenuDefault guifg=#ffffff")
-        vim.cmd("highlight! CmpItemAbbrDefault guifg=#ffffff")
-        vim.cmd("highlight! CmpItemAbbrMatchFuzzyDefault guifg=#e49aba")
-        vim.cmd("highlight! CmpItemAbbrMatchDefault guifg=#00bdba")
+        local colors = require("kanagawa.colors").setup()
+        require("kanagawa").setup({
+            colors = {
+                sumiInk0 = "#0d0d11",
+                sumiInk1 = "#17171e",
+            },
+            overrides = {
+                LineNr = { fg = "#a197ba", bg = colors.sumiInk2 },
+                SignColumn = { bg = colors.sumiInk2 },
+                CursorLineNr = { bg = colors.sumiInk2 },
+                GitSignsAdd = { fg = colors.autumnGreen, bg = colors.sumiInk2 },
+                GitSignsChange = { fg = colors.autumnYellow, bg = colors.sumiInk2 },
+                GitSignsDelete = { fg = colors.autumnRed, bg = colors.sumiInk2 },
+            },
+            globalStatus = true,
+        })
+        vim.cmd("colorscheme kanagawa")
     elseif style == "light" then
         vim.cmd("colorscheme modus-operandi")
         vim.cmd("highlight! CmpItemMenuDefault guifg=#000000")
