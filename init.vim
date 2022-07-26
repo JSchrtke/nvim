@@ -90,6 +90,8 @@ require("packer").startup(function()
     use 'rebelot/kanagawa.nvim'
     use { 'gbprod/yanky.nvim', commit = "88b33221bdb7a4452d2754db565c104f22859db9" }
     use 'elihunter173/dirbuf.nvim'
+    use 'leoluz/nvim-dap-go'
+    use 'rcarriga/nvim-dap-ui'
 end)
 EOF
 
@@ -1050,34 +1052,42 @@ lua << EOF
 require("dirbuf").setup({})
 EOF
 
+" Configure debugging
+lua << EOF
+require("dap-go").setup()
+require("dapui").setup()
+
+local map = vim.api.nvim_set_keymap
+
+map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", {})
+map("n", "<F29>", "<cmd>lua require('dap').terminate()<CR>", {})
+map("n", "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", {})
+map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", {})
+map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", {})
+EOF
+command! DapUi :lua require("dapui").toggle()
+
 " Configure colors
 lua << EOF
 function set_theme(style)
     if style == "dark" then
-        -- local colors = require("kanagawa.colors").setup()
-        -- require("kanagawa").setup({
-        --     colors = {
-        --         sumiInk0 = "#0d0d11",
-        --         sumiInk1 = "#17171e",
-        --     },
-        --     overrides = {
-        --         LineNr = { fg = "#a197ba", bg = colors.sumiInk2 },
-        --         SignColumn = { bg = colors.sumiInk2 },
-        --         CursorLineNr = { bg = colors.sumiInk2 },
-        --         GitSignsAdd = { fg = colors.autumnGreen, bg = colors.sumiInk2 },
-        --         GitSignsChange = { fg = colors.autumnYellow, bg = colors.sumiInk2 },
-        --         GitSignsDelete = { fg = colors.autumnRed, bg = colors.sumiInk2 },
-        --     },
-        --     globalStatus = true,
-        -- })
-        -- vim.cmd("colorscheme kanagawa")
-
-        vim.g.modus_dim_inactive_window = 0
-        vim.cmd("colorscheme modus-vivendi")
-        vim.cmd("highlight! CmpItemMenuDefault guifg=#ffffff")
-        vim.cmd("highlight! CmpItemAbbrDefault guifg=#ffffff")
-        vim.cmd("highlight! CmpItemAbbrMatchFuzzyDefault guifg=#e49aba")
-        vim.cmd("highlight! CmpItemAbbrMatchDefault guifg=#00bdba")
+        local colors = require("kanagawa.colors").setup()
+        require("kanagawa").setup({
+            colors = {
+                sumiInk0 = "#0d0d11",
+                sumiInk1 = "#17171e",
+            },
+            overrides = {
+                LineNr = { fg = "#a197ba", bg = colors.sumiInk2 },
+                SignColumn = { bg = colors.sumiInk2 },
+                CursorLineNr = { bg = colors.sumiInk2 },
+                GitSignsAdd = { fg = colors.autumnGreen, bg = colors.sumiInk2 },
+                GitSignsChange = { fg = colors.autumnYellow, bg = colors.sumiInk2 },
+                GitSignsDelete = { fg = colors.autumnRed, bg = colors.sumiInk2 },
+            },
+            globalStatus = true,
+        })
+        vim.cmd("colorscheme kanagawa")
     elseif style == "light" then
         vim.cmd("colorscheme modus-operandi")
         vim.cmd("highlight! CmpItemMenuDefault guifg=#000000")
