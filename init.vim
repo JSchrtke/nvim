@@ -90,6 +90,8 @@ require("packer").startup(function()
     use 'rebelot/kanagawa.nvim'
     use { 'gbprod/yanky.nvim', commit = "88b33221bdb7a4452d2754db565c104f22859db9" }
     use 'elihunter173/dirbuf.nvim'
+    use 'leoluz/nvim-dap-go'
+    use 'rcarriga/nvim-dap-ui'
 end)
 EOF
 
@@ -1049,6 +1051,21 @@ EOF
 lua << EOF
 require("dirbuf").setup({})
 EOF
+
+" Configure debugging
+lua << EOF
+require("dap-go").setup()
+require("dapui").setup()
+
+local map = vim.api.nvim_set_keymap
+
+map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", {})
+map("n", "<F29>", "<cmd>lua require('dap').terminate()<CR>", {})
+map("n", "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", {})
+map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", {})
+map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", {})
+EOF
+command! DapUi :lua require("dapui").toggle()
 
 " Configure colors
 lua << EOF
