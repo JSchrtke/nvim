@@ -1,5 +1,5 @@
 " neovide
-set guifont=JetBrainsMono\ NF:h13
+set guifont=Iosevka:h15
 let g:neovide_refresh_rate = 144
 let g:neovide_cursor_animation_length = 0.02
 let g:neovide_cursor_trail_length=2
@@ -9,6 +9,7 @@ let g:neovide_touch_drag_timeout=0.17
 let g:neovide_cursor_unfocused_outline_width=0.125
 let g:neovide_floating_opacity=1
 let g:neovide_fullscreen=v:false
+let g:neovide_scroll_animation_length = 0.15
 lua << EOF
     vim.g.terminal_color_0 = "#090618"
     vim.g.terminal_color_1 = "#c34043"

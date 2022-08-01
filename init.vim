@@ -5,10 +5,10 @@ filetype plugin on
 set number
 set relativenumber
 set updatetime=500
+set scrolloff=5
 set ignorecase
 set smartcase
 set clipboard=unnamedplus
-set mouse=a
 set showbreak=↪\
 set listchars=tab:-->,eol:↲,nbsp:␣,trail:⣿,space:•,extends:⟩,precedes:⟨
 set diffopt+=algorithm:histogram
@@ -63,6 +63,10 @@ autocmd FocusGained,BufEnter,CursorHold * :silent! checktime
 " easliy escape from terminal insert mode
 tnoremap <C-w>n <C-\><C-n>
 
+" Configure mouse
+set mouse=a
+nnoremenu PopUp.Close\ Window <cmd>q<cr>
+
 " ### Install plugins ###
 lua << EOF
 require("packer").startup(function()
@@ -81,17 +85,24 @@ require("packer").startup(function()
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'rktjmp/lush.nvim'
     use 'JSchrtke/melange'
-    use 'windwp/nvim-autopairs'
     use { 'https://gitlab.com/yorickpeterse/nvim-grey.git', as = "nvim-grey" }
     use 'lewis6991/spaceless.nvim'
     use 'mfussenegger/nvim-dap'
     use 'SmiteshP/nvim-navic'
     use 'ishan9299/modus-theme-vim'
     use 'rebelot/kanagawa.nvim'
-    use { 'gbprod/yanky.nvim', commit = "88b33221bdb7a4452d2754db565c104f22859db9" }
-    use 'elihunter173/dirbuf.nvim'
+    use 'gbprod/yanky.nvim'
+    -- use 'elihunter173/dirbuf.nvim'
     use 'leoluz/nvim-dap-go'
     use 'rcarriga/nvim-dap-ui'
+    use 'mbbill/undotree'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use 'antoinemadec/FixCursorHold.nvim'
+    use 'nvim-telescope/telescope-file-browser.nvim'
 end)
 EOF
 
@@ -139,13 +150,6 @@ Plug 'nvim-lua/lsp-status.nvim'
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'williamboman/nvim-lsp-installer'
 
-" Autocompletion
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-
 " Syntax/Languages
 Plug 'rkennedy/vim-delphi'
 Plug 'dag/vim-fish'
@@ -174,6 +178,9 @@ ft_to_parser.delphi = "pascal"
 
 require("nvim-treesitter.configs").setup{
     highlight = {
+        enable = true,
+    },
+    indent = {
         enable = true,
     }
 }
@@ -289,10 +296,23 @@ cmp.setup({
     mapping = {
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-q>"] = cmp.mapping.close(),
         ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-p>"] = cmp.mapping.select_prev_item(),
+        -- ["<C-n>"] = function()
+        --     if cmp.visible() then
+        --         cmp.select_next_item()
+        --     else
+        --         cmp.complete()
+        --     end
+        -- end,
+        -- ["<C-p>"] = function()
+        --     if cmp.visible() then
+        --         cmp.select_prev_item()
+        --     else
+        --         cmp.complete()
+        --     end
+        -- end,
         ["<c-y>"] = cmp.mapping(
             cmp.mapping.confirm {
                 behavior = cmp.ConfirmBehavior.Replace,
@@ -314,6 +334,10 @@ cmp.setup({
             name = "luasnip",
             priority = 100
         },
+        -- {
+        --     name = "buffer",
+        --     priority = 99,
+        -- },
         {
             name = 'path',
             priority = 10
@@ -344,7 +368,7 @@ lua << EOF
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        update_in_insert = true,
+        update_in_insert = false,
     }
 )
 
@@ -352,12 +376,8 @@ local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
     local opts = { silent = true; }
     vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     navic.attach(client, bufnr)
-    -- if client.resolved_capabilities['document_highlight'] then
-    --     vim.cmd(string.format('au CursorHold  <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
-    --     vim.cmd(string.format('au CursorHoldI <buffer=%d> lua vim.lsp.buf.document_highlight()', bufnr))
-    --     vim.cmd(string.format('au CursorMoved <buffer=%d> lua vim.lsp.buf.clear_references()', bufnr))
-    -- end
     require("aerial").on_attach(client, bufnr)
 end
 
@@ -472,6 +492,7 @@ require('telescope').setup {
 
  -- telescope extensions
 require("telescope").load_extension("project")
+require("telescope").load_extension("file_browser")
 
 EOF
 
@@ -592,7 +613,7 @@ wk.register({
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files()<CR>", "file"},
-        e = {"<cmd>e .<CR>", "file explorer"},
+        e = {"<cmd>Telescope file_browser<CR>", "file explorer"},
         r = {"<cmd>lua t.oldfiles()<CR>", "recent"},
         b = {"<cmd>lua t.buffers()<CR>", "buffer"},
         gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
@@ -672,7 +693,9 @@ wk.register({
             i = {"<cmd>Tclose!|lua vim.lsp.buf.incoming_calls()<CR>", "incoming"},
         },
         h = {"<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "harpoon"},
-        t = {"<cmd>TroubleToggle<CR>", "trouble"}
+        t = {"<cmd>TroubleToggle<CR>", "trouble"},
+        S = {"<cmd>Telescope git_stash<CR>", "git stashes"},
+        u = {"<cmd>UndotreeToggle<CR>", "undo tree"},
     },
     i = {
         name = "+lsp"
@@ -691,9 +714,10 @@ wk.register({
     -- terminal
     t = {
         name = "+terminal",
-        j = {"<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "harpoon term 1"},
-        k = {"<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "harpoon term 2"},
-        l = {"<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "harpoon term 3"},
+        h = {"<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>", "harpoon term 1"},
+        j = {"<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "harpoon term 2"},
+        k = {"<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "harpoon term 3"},
+        l = {"<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", "harpoon term 4"},
         p = {"<cmd>lua require('harpoon.term').sendCommand(1, 'pwsh')<CR>", "term 1: pwsh"},
     },
 
@@ -859,6 +883,7 @@ require("filetype").setup({
         extensions = {
             pas = "delphi",
             dpr = "delphi",
+            ems = "xml",
         }
     }
 })
@@ -976,32 +1001,32 @@ lua << EOF
 local navic = require("nvim-navic")
 navic.setup({
     icons = {
-        File          = " ",
-        Module        = " ",
-        Namespace     = " ",
-        Package       = " ",
-        Class         = " ",
-        Method        = " ",
-        Property      = " ",
-        Field         = " ",
-        Constructor   = " ",
-        Enum          = "練",
-        Interface     = "練",
-        Function      = " ",
-        Variable      = " ",
-        Constant      = " ",
-        String        = " ",
-        Number        = " ",
-        Boolean       = "◩ ",
-        Array         = " ",
-        Object        = " ",
-        Key           = " ",
-        Null          = "ﳠ ",
-        EnumMember    = " ",
-        Struct        = " ",
-        Event         = " ",
-        Operator      = " ",
-        TypeParameter = " ",
+        File = ' ',
+        Module = ' ',
+        Namespace = ' ',
+        Package = ' ',
+        Class = ' ',
+        Method = ' ',
+        Property = ' ',
+        Field = ' ',
+        Constructor = ' ',
+        Enum = ' ',
+        Interface = ' ',
+        Function = ' ',
+        Variable = ' ',
+        Constant = ' ',
+        String = ' ',
+        Number = ' ',
+        Boolean = ' ',
+        Array = ' ',
+        Object = ' ',
+        Key = ' ',
+        Null = ' ',
+        EnumMember = ' ',
+        Struct = ' ',
+        Event = ' ',
+        Operator = ' ',
+        TypeParameter = ' '
     },
     separator = " > ",
     highlights = true,
@@ -1031,26 +1056,15 @@ require("harpoon").setup{
 }
 EOF
 
-" Configure nvim-autopairs
-lua << EOF
-require("nvim-autopairs").setup({})
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
-cmp.event:on(
-    'confirm_done',
-    cmp_autopairs.on_confirm_done()
-)
-EOF
-
 " Configure spaceless
 lua << EOF
 require("spaceless").setup()
 EOF
 
-" Configure dirbuf
-lua << EOF
-require("dirbuf").setup({})
-EOF
+" " Configure dirbuf
+" lua << EOF
+" require("dirbuf").setup({})
+" EOF
 
 " Configure debugging
 lua << EOF
@@ -1060,7 +1074,7 @@ require("dapui").setup()
 local map = vim.api.nvim_set_keymap
 
 map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", {})
-map("n", "<F29>", "<cmd>lua require('dap').terminate()<CR>", {})
+map("n", "<C-F5>", "<cmd>lua require('dap').terminate()<CR>", {})
 map("n", "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", {})
 map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", {})
 map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", {})
