@@ -1,5 +1,5 @@
 " neovide
-set guifont=Iosevka:h15
+set guifont=JetBrainsMono\ NF:h14
 let g:neovide_refresh_rate = 144
 let g:neovide_cursor_animation_length = 0.02
 let g:neovide_cursor_trail_length=2

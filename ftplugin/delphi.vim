@@ -11,8 +11,8 @@ endfunction
 lua << EOF
 require("which-key").register({
     ["<leader>oi"] = {"<cmd>call OpenDelphiProjectInIde()<cr>", "open in rad studio"},
-    ["<leader>rp"] = {"<cmd>lua require('harpoon.term').sendCommand(1, 'build_and_run.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "project"},
-    ["<leader>rt"] = {"<cmd>lua require('harpoon.term').sendCommand(1, 'build_and_run_tests.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "tests"},
+    ["<leader>rp"] = {"<cmd>lua require('harpoon.term').sendCommand(1, '.\\\\run.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "project"},
+    ["<leader>rt"] = {"<cmd>lua require('harpoon.term').sendCommand(1, '.\\\\test.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "tests"},
     ["<leader>rf"] = {"<cmd>call FormatDelphi()<cr>", "formatter"},
 })
 EOF

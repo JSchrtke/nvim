@@ -84,7 +84,8 @@ require("packer").startup(function()
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'rktjmp/lush.nvim'
-    use 'JSchrtke/melange'
+    -- use 'JSchrtke/melange'
+    use 'savq/melange'
     use { 'https://gitlab.com/yorickpeterse/nvim-grey.git', as = "nvim-grey" }
     use 'lewis6991/spaceless.nvim'
     use 'mfussenegger/nvim-dap'
@@ -92,7 +93,7 @@ require("packer").startup(function()
     use 'ishan9299/modus-theme-vim'
     use 'rebelot/kanagawa.nvim'
     use 'gbprod/yanky.nvim'
-    -- use 'elihunter173/dirbuf.nvim'
+    use 'elihunter173/dirbuf.nvim'
     use 'leoluz/nvim-dap-go'
     use 'rcarriga/nvim-dap-ui'
     use 'mbbill/undotree'
@@ -102,7 +103,11 @@ require("packer").startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'antoinemadec/FixCursorHold.nvim'
-    use 'nvim-telescope/telescope-file-browser.nvim'
+    use 'phha/zenburn.nvim'
+    use 'tpope/vim-surround'
+    use 'ishan9299/nvim-solarized-lua'
+    use 'kyazdani42/blue-moon'
+    use 'tjdevries/colorbuddy.nvim'
 end)
 EOF
 
@@ -135,7 +140,6 @@ Plug 'windwp/nvim-spectre'
 " Editing/motions
 Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'junegunn/vim-easy-align'
 
@@ -154,7 +158,6 @@ Plug 'williamboman/nvim-lsp-installer'
 Plug 'rkennedy/vim-delphi'
 Plug 'dag/vim-fish'
 Plug 'simrat39/rust-tools.nvim'
-Plug 'fladson/vim-kitty'
 
 " Editor behaviour
 Plug 'Pocco81/AutoSave.nvim'
@@ -306,13 +309,13 @@ cmp.setup({
         --         cmp.complete()
         --     end
         -- end,
-        -- ["<C-p>"] = function()
-        --     if cmp.visible() then
-        --         cmp.select_prev_item()
-        --     else
-        --         cmp.complete()
-        --     end
-        -- end,
+        ["<C-p>"] = function()
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                cmp.complete()
+            end
+        end,
         ["<c-y>"] = cmp.mapping(
             cmp.mapping.confirm {
                 behavior = cmp.ConfirmBehavior.Replace,
@@ -492,7 +495,6 @@ require('telescope').setup {
 
  -- telescope extensions
 require("telescope").load_extension("project")
-require("telescope").load_extension("file_browser")
 
 EOF
 
@@ -613,7 +615,6 @@ wk.register({
     o = {
         name = "+open",
         f = {"<cmd>lua t.find_files()<CR>", "file"},
-        e = {"<cmd>Telescope file_browser<CR>", "file explorer"},
         r = {"<cmd>lua t.oldfiles()<CR>", "recent"},
         b = {"<cmd>lua t.buffers()<CR>", "buffer"},
         gb = {"<cmd>lua t.git_branches()<CR>", "git branch"},
@@ -1061,10 +1062,10 @@ lua << EOF
 require("spaceless").setup()
 EOF
 
-" " Configure dirbuf
-" lua << EOF
-" require("dirbuf").setup({})
-" EOF
+" Configure dirbuf
+lua << EOF
+require("dirbuf").setup({})
+EOF
 
 " Configure debugging
 lua << EOF
@@ -1103,23 +1104,17 @@ function set_theme(style)
         })
         vim.cmd("colorscheme kanagawa")
     elseif style == "light" then
-        vim.cmd("colorscheme modus-operandi")
-        vim.cmd("highlight! CmpItemMenuDefault guifg=#000000")
-        vim.cmd("highlight! CmpItemAbbrDefault guifg=#000000")
-        vim.cmd("highlight! CmpItemAbbrMatchFuzzyDefault guifg=#802958")
-        vim.cmd("highlight! CmpItemAbbrMatchDefault guifg=#5317ac")
-        vim.cmd("highlight! ZenBg guifg=#ffffff guibg=#ffffff")
-        -- vim.cmd("colorscheme grey")
-        -- vim.cmd("highlight! GitSignsAdd guifg=#216609 guibg=#f2f2f2")
-        -- vim.cmd("highlight! GitSignsChange guifg=#BF8F00 guibg=#f2f2f2")
-        -- vim.cmd("highlight! GitSignsDelete guifg=#CC3E28 guibg=#f2f2f2")
+        vim.cmd("colorscheme solarized")
+        require("lualine").setup({options={theme="solarized"}})
     else
         vim.cmd('echoerr "invalid style '..style..'"')
     end
+    vim.cmd("highlight! link ColorColumn StatusLine")
     vim.cmd("highlight! link WinBar ColorColumn")
     vim.cmd("highlight! link DiffText Visual")
+    vim.cmd("highlight! link YankyPut Search")
+    vim.cmd("highlight! link YankyYanked Search")
     vim.g.modus_dim_inactive_window = 0
-    require("lualine").setup({options={theme="auto"}})
 end
 
 vim.o.bg = "dark"
@@ -1138,7 +1133,7 @@ function toggle_theme()
     set_theme(vim.o.bg)
 end
 
-vim.keymap.set("n", "<F12>", "<cmd>lua toggle_theme()<cr>")
+vim.keymap.set("n", "<F10>", "<cmd>lua toggle_theme()<cr>")
 
 EOF
 
