@@ -4,3 +4,5 @@ require("mappings")
 
 require("telescope-config")
 require("treesitter-config")
+
+require("colors")
