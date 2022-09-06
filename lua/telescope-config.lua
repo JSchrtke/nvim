@@ -5,6 +5,7 @@ require("telescope").setup({
             width = 0.99,
             height = 0.99,
         },
+        sorting_strategy = "ascending",
     }
 })
 
