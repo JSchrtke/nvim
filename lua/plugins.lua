@@ -7,7 +7,7 @@ use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
 }
-use 'ThePrimeagen/harpoon'
+use 'JSchrtke/harpoon'
 use 'rkennedy/vim-delphi'
 use 'gbprod/yanky.nvim'
 end)
