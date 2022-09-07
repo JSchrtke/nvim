@@ -14,6 +14,9 @@ map('n', '<leader>wo', '<C-w>o', {})
 -- telescope
 map('n', '<leader>of', ':Telescope find_files<cr>', {})
 map('n', '<leader>ff', ':Telescope current_buffer_fuzzy_find<cr>', {})
+map('n', '<leader>fd', ':Telescope live_grep<cr>', {})
+map('n', '<leader>fw', ':Telescope grep_string<cr>', {})
+map('n', '<leader>fh', ':Telescope help_tags<cr>', {})
 
 -- harpoon
 map('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>', {})
