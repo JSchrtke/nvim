@@ -9,4 +9,5 @@ use {
 }
 use 'ThePrimeagen/harpoon'
 use 'rkennedy/vim-delphi'
+use 'gbprod/yanky.nvim'
 end)

@@ -25,3 +25,17 @@ map('n', 'gl', ':lua require("harpoon.ui").nav_file(4)<cr>', {})
 
 -- terminal mappings
 map('t', '<C-w>n', '<C-\\><C-n>', {})
+
+-- yanky.nvim
+map("n", "y", "<Plug>(YankyYank)", {})
+map("x", "y", "<Plug>(YankyYank)", {})
+map("n", "p", "<Plug>(YankyPutAfter)", {})
+map("n", "P", "<Plug>(YankyPutBefore)", {})
+map("x", "p", "<Plug>(YankyPutAfter)", {})
+map("x", "P", "<Plug>(YankyPutBefore)", {})
+map("n", "gp", "<Plug>(YankyGPutAfter)", {})
+map("n", "gP", "<Plug>(YankyGPutBefore)", {})
+map("x", "gp", "<Plug>(YankyGPutAfter)", {})
+map("x", "gP", "<Plug>(YankyGPutBefore)", {})
+map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
+map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
