@@ -5,3 +5,7 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.clipboard = 'unnamedplus'
+vim.o.swapfile = false
+vim.o.backup = false
+vim.g.undodir = '~/.vim/undodir'
+vim.o.undofile = true
