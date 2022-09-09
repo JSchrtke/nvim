@@ -10,9 +10,11 @@ map('n', '<leader>l', '<C-w>l', {})
 
 -- window management
 map('n', '<leader>wo', '<C-w>o', {})
+map('n', '<leader>qw', '<C-w>q', {})
 
 -- telescope
 map('n', '<leader>of', ':Telescope find_files<cr>', {})
+map('n', '<leader>ob', ':Telescope buffers<cr>', {})
 map('n', '<leader>ff', ':Telescope current_buffer_fuzzy_find<cr>', {})
 map('n', '<leader>fd', ':Telescope live_grep<cr>', {})
 map('n', '<leader>fw', ':Telescope grep_string<cr>', {})
@@ -25,6 +27,7 @@ map('n', 'gh', ':lua require("harpoon.ui").nav_file(1)<cr>', {})
 map('n', 'gj', ':lua require("harpoon.ui").nav_file(2)<cr>', {})
 map('n', 'gk', ':lua require("harpoon.ui").nav_file(3)<cr>', {})
 map('n', 'gl', ':lua require("harpoon.ui").nav_file(4)<cr>', {})
+map('n', '<leader>t', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
 
 -- terminal mappings
 map('t', '<C-w>n', '<C-\\><C-n>', {})
