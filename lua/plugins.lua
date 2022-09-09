@@ -10,4 +10,5 @@ use {
 use 'JSchrtke/harpoon'
 use 'rkennedy/vim-delphi'
 use 'gbprod/yanky.nvim'
+use 'tpope/vim-commentary'
 end)
