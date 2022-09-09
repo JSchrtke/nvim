@@ -10,5 +10,6 @@ use {
 use 'JSchrtke/harpoon'
 use 'rkennedy/vim-delphi'
 use 'gbprod/yanky.nvim'
+use 'ishan9299/nvim-solarized-lua'
 use 'tpope/vim-commentary'
 end)
