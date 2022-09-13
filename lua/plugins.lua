@@ -13,5 +13,6 @@ use 'gbprod/yanky.nvim'
 use 'ishan9299/nvim-solarized-lua'
 use 'tpope/vim-commentary'
 use 'lewis6991/gitsigns.nvim'
+use 'nvim-treesitter/nvim-treesitter-context'
 use 'ethanholz/nvim-lastplace'
 end)
