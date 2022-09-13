@@ -1,3 +1,4 @@
+local layout = require('telescope.actions.layout')
 require("telescope").setup({
     defaults = {
         layout_config = {
@@ -6,6 +7,14 @@ require("telescope").setup({
             height = 0.99,
         },
         sorting_strategy = "ascending",
+        mappings = {
+            i = {
+                ["<M-p>"] = layout.toggle_preview,
+            },
+            n = {
+                ["<M-p>"] = layout.toggle_preview,
+            },
+        },
     }
 })
 
