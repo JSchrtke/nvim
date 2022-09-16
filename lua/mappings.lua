@@ -45,3 +45,6 @@ map("x", "gp", "<Plug>(YankyGPutAfter)", {})
 map("x", "gP", "<Plug>(YankyGPutBefore)", {})
 map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
+
+-- spectre
+map("n", "R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})

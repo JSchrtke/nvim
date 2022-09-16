@@ -10,5 +10,6 @@ require("gitsigns-config")
 require("treesitter-context-config")
 require("nvim-lastplace-config")
 require("autosave-config")
+require("spectre-config")
 
 require("colors")

@@ -17,4 +17,5 @@ use 'nvim-treesitter/nvim-treesitter-context'
 use 'ethanholz/nvim-lastplace'
 use 'ishan9299/modus-theme-vim'
 use 'Pocco81/auto-save.nvim'
+use 'nvim-pack/nvim-spectre'
 end)
