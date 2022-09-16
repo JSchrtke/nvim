@@ -27,7 +27,7 @@ map('n', 'gh', ':lua require("harpoon.ui").nav_file(1)<cr>', {})
 map('n', 'gj', ':lua require("harpoon.ui").nav_file(2)<cr>', {})
 map('n', 'gk', ':lua require("harpoon.ui").nav_file(3)<cr>', {})
 map('n', 'gl', ':lua require("harpoon.ui").nav_file(4)<cr>', {})
-map('n', '<leader>t', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
+map('n', '<leader><leader>', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
 
 -- terminal mappings
 map('t', '<C-w>n', '<C-\\><C-n>', {})
