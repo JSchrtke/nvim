@@ -10,3 +10,4 @@ vim.o.backup = false
 vim.g.undodir = '~/.vim/undodir'
 vim.o.undofile = true
 vim.o.signcolumn = "yes"
+vim.o.termguicolors = true

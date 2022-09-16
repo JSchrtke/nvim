@@ -15,4 +15,5 @@ use 'tpope/vim-commentary'
 use 'lewis6991/gitsigns.nvim'
 use 'nvim-treesitter/nvim-treesitter-context'
 use 'ethanholz/nvim-lastplace'
+use 'ishan9299/modus-theme-vim'
 end)
