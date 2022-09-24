@@ -1,4 +1,4 @@
-require("packer").startup(function()
+require("packer").startup(function(use)
 use "wbthomason/packer.nvim"
 use "nvim-telescope/telescope.nvim"
 use "nvim-lua/plenary.nvim"
@@ -20,4 +20,8 @@ use 'Pocco81/auto-save.nvim'
 use 'tpope/vim-fugitive'
 use 'nvim-pack/nvim-spectre'
 use 'savq/melange'
+use "williamboman/mason.nvim"
+use "williamboman/mason-lspconfig.nvim"
+use "neovim/nvim-lspconfig"
+use "simrat39/rust-tools.nvim"
 end)
