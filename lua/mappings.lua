@@ -10,7 +10,11 @@ map('n', '<leader>l', '<C-w>l', {})
 
 -- window management
 map('n', '<leader>wo', '<C-w>o', {})
-map('n', '<leader>qw', '<C-w>q', {})
+map('n', '<leader>wq', '<C-w>q', {})
+map('n', '<leader>wh', '<C-w>v', {})
+map('n', '<leader>wj', '<C-w>s<C-w>j', {})
+map('n', '<leader>wk', '<C-w>s<C-w>k', {})
+map('n', '<leader>wl', '<C-w>v<C-w>l', {})
 
 -- telescope
 map('n', '<leader>of', ':Telescope find_files<cr>', {})
