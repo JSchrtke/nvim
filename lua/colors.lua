@@ -1,3 +1,3 @@
-vim.g.modus_dim_inactive_window = false
-vim.cmd("colorscheme modus-vivendi")
-vim.cmd("highlight! DiffText guifg=#2a2000 guibg=#b0ba9f")
+vim.cmd("colorscheme melange")
+vim.cmd("highlight! Normal guibg=#060504")
+vim.cmd("highlight! link LineNr Normal")
