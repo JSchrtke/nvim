@@ -12,3 +12,5 @@ vim.o.undofile = true
 vim.o.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.o.wrap = true
+
+vim.cmd("autocmd FocusGained,BufEnter,CursorHold * :silent! checktime")
