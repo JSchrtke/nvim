@@ -15,6 +15,10 @@ map('n', '<leader>wh', '<C-w>v', {})
 map('n', '<leader>wj', '<C-w>s<C-w>j', {})
 map('n', '<leader>wk', '<C-w>s<C-w>k', {})
 map('n', '<leader>wl', '<C-w>v<C-w>l', {})
+map('n', '<leader>H', '<C-w>H', {})
+map('n', '<leader>J', '<C-w>J', {})
+map('n', '<leader>K', '<C-w>K', {})
+map('n', '<leader>L', '<C-w>L', {})
 
 -- telescope
 map('n', '<leader>of', ':Telescope find_files<cr>', {})
