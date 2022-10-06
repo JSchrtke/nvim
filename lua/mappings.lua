@@ -55,8 +55,8 @@ map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
 
 -- gitsigns
-map("n", "]c", ":Gitsigns next_hunk<cr>", {})
-map("n", "[c", ":Gitsigns prev_hunk<cr>", {})
+map("n", "nc", ":Gitsigns next_hunk<cr>", {})
+map("n", "pc", ":Gitsigns prev_hunk<cr>", {})
 map("n", "<leader>sc", ":Gitsigns preview_hunk<cr>", {})
 
 -- spectre
