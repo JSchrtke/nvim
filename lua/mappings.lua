@@ -27,6 +27,8 @@ map('n', '<leader>ff', ':Telescope current_buffer_fuzzy_find<cr>', {})
 map('n', '<leader>fd', ':Telescope live_grep<cr>', {})
 map('n', '<leader>fw', ':Telescope grep_string<cr>', {})
 map('n', '<leader>fh', ':Telescope help_tags<cr>', {})
+map('n', '<leader>fo', ':Telescope oldfiles<cr>', {})
+map('n', '<leader><leader>', ':Telescope resume<cr>', {})
 
 -- harpoon
 map('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>', {})
@@ -35,7 +37,7 @@ map('n', 'gh', ':lua require("harpoon.ui").nav_file(1)<cr>', {})
 map('n', 'gj', ':lua require("harpoon.ui").nav_file(2)<cr>', {})
 map('n', 'gk', ':lua require("harpoon.ui").nav_file(3)<cr>', {})
 map('n', 'gl', ':lua require("harpoon.ui").nav_file(4)<cr>', {})
-map('n', '<leader><leader>', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
+map('n', '<leader>t', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
 
 -- terminal mappings
 map('t', '<C-w>n', '<C-\\><C-n>', {})
@@ -55,9 +57,9 @@ map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
 
 -- gitsigns
-map("n", "nc", ":Gitsigns next_hunk<cr>", {})
-map("n", "pc", ":Gitsigns prev_hunk<cr>", {})
+map("n", "<leader>nc", ":Gitsigns next_hunk<cr>", {})
+map("n", "<leader>pc", ":Gitsigns prev_hunk<cr>", {})
 map("n", "<leader>sc", ":Gitsigns preview_hunk<cr>", {})
 
 -- spectre
-map("n", "R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
+map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
