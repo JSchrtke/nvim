@@ -15,6 +15,11 @@ require("mason-lspconfig").setup_handlers({
                         }
                     },
                 },
+                tools = {
+                    inlay_hints = {
+                        auto = false,
+                    },
+                },
             })
         else
             require("lspconfig")[server_name].setup({})
