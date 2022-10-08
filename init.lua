@@ -13,5 +13,6 @@ require("autosave-config")
 require("spectre-config")
 require("lsp-conf")
 require("cmp-config")
+require("diagnostic-config")
 
 require("colors")
