@@ -1,6 +1,7 @@
 local cmp = require('cmp')
 
 cmp.setup({
+    preselect = cmp.PreselectMode.Item,
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
