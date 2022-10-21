@@ -7,13 +7,13 @@ map('n', '<leader>n', ':cnext<cr>', {})
 map('n', '<leader>p', ':cprev<cr>', {})
 
 -- telescope
-map('n', '<leader>o', ':Telescope find_files<cr>', {})
+map('n', '<leader>f', ':Telescope find_files<cr>', {})
 map('n', '<leader>b', ':Telescope buffers<cr>', {})
 map('n', '<leader>/', ':Telescope current_buffer_fuzzy_find<cr>', {})
 map('n', '<leader>g', ':Telescope live_grep<cr>', {})
 map('n', '<leader>w', ':Telescope grep_string<cr>', {})
 map('n', '<leader>?', ':Telescope help_tags<cr>', {})
-map('n', '<leader>O', ':Telescope oldfiles<cr>', {})
+map('n', '<leader>o', ':Telescope oldfiles<cr>', {})
 map('n', '<leader><leader>', ':Telescope resume<cr>', {})
 
 
