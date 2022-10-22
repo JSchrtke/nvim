@@ -25,6 +25,7 @@ map('n', '<leader>j', ':lua require("harpoon.ui").nav_file(2)<cr>', {})
 map('n', '<leader>k', ':lua require("harpoon.ui").nav_file(3)<cr>', {})
 map('n', '<leader>l', ':lua require("harpoon.ui").nav_file(4)<cr>', {})
 map('n', '<leader>t', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
+map('n', '<leader>rr', "<cmd>lua vim.ui.input({ prompt = '> '}, function(input) require('harpoon.term').sendCommand(1, input) end)<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
 
 -- terminal mappings
 map('t', '<C-w>n', '<C-\\><C-n>', {})
