@@ -24,8 +24,11 @@ map('n', '<leader>h', ':lua require("harpoon.ui").nav_file(1)<cr>', {})
 map('n', '<leader>j', ':lua require("harpoon.ui").nav_file(2)<cr>', {})
 map('n', '<leader>k', ':lua require("harpoon.ui").nav_file(3)<cr>', {})
 map('n', '<leader>l', ':lua require("harpoon.ui").nav_file(4)<cr>', {})
-map('n', '<leader>t', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
-map('n', '<leader>rr', "<cmd>lua vim.ui.input({ prompt = '> '}, function(input) require('harpoon.term').sendCommand(1, input) end)<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
+map('n', '<leader>y', ':lua require("harpoon.term").gotoTerminal(1)<cr>', {})
+map('n', '<leader>u', ':lua require("harpoon.term").gotoTerminal(2)<cr>', {})
+map('n', '<leader>ry', "<cmd>lua vim.ui.input({ prompt = '1 > '}, function(input) require('harpoon.term').sendCommand(1, input) end)<cr>", {})
+map('n', '<leader>ru', "<cmd>lua vim.ui.input({ prompt = '2 > '}, function(input) require('harpoon.term').sendCommand(2, input) end)<cr>", {})
+map('n', '<leader>ri', "<cmd>lua vim.ui.input({ prompt = '3 > '}, function(input) require('harpoon.term').sendCommand(3, input) end)<cr>", {})
 
 -- terminal mappings
 map('t', '<C-w>n', '<C-\\><C-n>', {})

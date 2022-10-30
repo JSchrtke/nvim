@@ -9,19 +9,19 @@ local map = vim.api.nvim_set_keymap
 map(
     'n',
     '<leader>rp',
-    "<cmd>lua require('harpoon.term').sendCommand(1, 'go run .')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>",
+    "<cmd>lua require('harpoon.term').sendCommand(2, '')<cr><cmd>lua require('harpoon.term').sendCommand(2, 'go run .')<cr><cmd>lua require('harpoon.term').gotoTerminal(2)<cr>",
     {}
 )
 map(
     'n',
     '<leader>rt',
-    "<cmd>lua require('harpoon.term').sendCommand(1, 'go test')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>",
+    "<cmd>lua require('harpoon.term').sendCommand(3, 'go test')<cr><cmd>lua require('harpoon.term').gotoTerminal(3)<cr>",
     {}
 )
 map(
     'n',
     '<leader>rf',
-    "<cmd>lua require('harpoon.term').sendCommand(1, 'go fmt')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>",
+    ":!go fmt<cr>",
     {}
 )
 EOF
