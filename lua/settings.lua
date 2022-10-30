@@ -13,5 +13,6 @@ vim.o.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.o.wrap = true
 vim.o.listchars="tab:-->,eol:↲,nbsp:␣,space:•,trail:•,extends:⟩,precedes:⟨"
+vim.o.cursorline = true
 
 vim.cmd("autocmd FocusGained,BufEnter,CursorHold * :silent! checktime")
