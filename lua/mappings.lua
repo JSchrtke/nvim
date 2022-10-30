@@ -59,3 +59,6 @@ map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<C
 map("n", "<leader>sd", ":lua vim.diagnostic.open_float()<CR>", {})
 map("n", "<leader>d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "<leader>D", ":lua vim.diagnostic.goto_prev()<CR>", {})
+
+-- lsp
+map("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", {})
