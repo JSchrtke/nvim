@@ -14,5 +14,6 @@ require("spectre-config")
 require("lsp-conf")
 require("cmp-config")
 require("diagnostic-config")
+require("lualine_config")
 
 require("colors")
