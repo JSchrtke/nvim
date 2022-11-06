@@ -57,7 +57,7 @@ map("n", "<leader>C", ":Gitsigns prev_hunk<cr>", {})
 map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
 
 -- diagnostic
-map("n", "<leader>sd", ":lua vim.diagnostic.open_float()<CR>", {})
+map("n", "<leader>sd", ":lua require('lsp_lines').toggle()<CR>", {})
 map("n", "<leader>d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "<leader>D", ":lua vim.diagnostic.goto_prev()<CR>", {})
 
