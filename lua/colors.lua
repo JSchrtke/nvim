@@ -1,5 +1,4 @@
 vim.cmd("colorscheme melange")
-vim.cmd("highlight! Normal guibg=#12100e")
 vim.cmd("highlight! link LineNr StatusLine")
 vim.cmd("highlight! GitSignsAdd guibg=#352f2a")
 vim.cmd("highlight! GitSignsChange guibg=#352f2a")
