@@ -29,6 +29,6 @@ use 'hrsh7th/nvim-cmp'
 use 'hrsh7th/cmp-buffer'
 use 'hrsh7th/vim-vsnip'
 use 'nvim-lualine/lualine.nvim'
-use 'https://git.sr.ht/~whynothugo/lsp_lines.nvim/'
 use 'smjonas/live-command.nvim'
+use {'https://git.sr.ht/~whynothugo/lsp_lines.nvim', as = 'lsp_lines'}
 end)
