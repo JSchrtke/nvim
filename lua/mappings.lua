@@ -2,6 +2,9 @@ vim.g.mapleader = ' '
 
 local map = vim.api.nvim_set_keymap
 
+-- navigation
+map('n', '<leader><leader>', '<C-6>', {})
+
 -- quickfix list
 map('n', '<leader>n', ':cnext<cr>', {})
 map('n', '<leader>p', ':cprev<cr>', {})
@@ -14,12 +17,12 @@ map('n', '<leader>g', ':Telescope live_grep<cr>', {})
 map('n', '<leader>w', ':Telescope grep_string<cr>', {})
 map('n', '<leader>?', ':Telescope help_tags<cr>', {})
 map('n', '<leader>o', ':Telescope oldfiles<cr>', {})
-map('n', '<leader><leader>', ':Telescope resume<cr>', {})
+map('n', '<leader>t', ':Telescope resume<cr>', {})
 
 
 -- harpoon
 map('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>', {})
-map('n', '<leader>M', ':lua require("harpoon.ui").toggle_quick_menu()<cr>', {})
+map('n', '<leader>sm', ':lua require("harpoon.ui").toggle_quick_menu()<cr>', {})
 map('n', '<leader>h', ':lua require("harpoon.ui").nav_file(1)<cr>', {})
 map('n', '<leader>j', ':lua require("harpoon.ui").nav_file(2)<cr>', {})
 map('n', '<leader>k', ':lua require("harpoon.ui").nav_file(3)<cr>', {})
