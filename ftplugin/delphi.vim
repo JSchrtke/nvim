@@ -9,5 +9,5 @@ local map = vim.api.nvim_set_keymap
 map('n', '<leader>rp', "<cmd>lua require('harpoon.term').sendCommand(1, '.\\\\run.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
 map('n', '<leader>rt', "<cmd>lua require('harpoon.term').sendCommand(1, '.\\\\test.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
 map('n', '<leader>rb', "<cmd>lua require('harpoon.term').sendCommand(1, '.\\\\build.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
-map('n', '<leader>rf', "<cmd>lua require('harpoon.term').sendCommand(1, '.\\\\fmt.bat')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
+map('n', '<leader>rf', ":!fmt.bat<cr>", {})
 EOF
