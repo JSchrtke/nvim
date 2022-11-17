@@ -16,5 +16,6 @@ require("cmp-config")
 require("diagnostic-config")
 require("lualine_config")
 require("lsp-lines-config")
+require("live_command_config")
 
 require("colors")
