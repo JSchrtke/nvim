@@ -1,6 +1,9 @@
 local cmp = require('cmp')
 
 cmp.setup({
+    view = {
+        entries = "native"
+    },
     preselect = cmp.PreselectMode.Item,
     snippet = {
         -- REQUIRED - you must specify a snippet engine
