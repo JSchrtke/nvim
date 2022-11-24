@@ -16,5 +16,6 @@ vim.o.listchars="tab:-->,eol:↲,nbsp:␣,space:•,trail:•,extends:⟩,preced
 vim.o.cursorline = true
 vim.o.laststatus = 3
 vim.opt.winbar = "%f"
+vim.o.scrolloff = 3
 
 vim.cmd("autocmd FocusGained,BufEnter,CursorHold * :silent! checktime")
