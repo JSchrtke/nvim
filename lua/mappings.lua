@@ -6,8 +6,8 @@ local map = vim.api.nvim_set_keymap
 map('n', '<leader><leader>', '<C-6>', {})
 
 -- quickfix list
-map('n', '<leader>n', ':cnext<cr>', {})
-map('n', '<leader>p', ':cprev<cr>', {})
+map('n', '<C-n>', ':cnext<cr>', {})
+map('n', '<C-p>', ':cprev<cr>', {})
 
 -- telescope
 map('n', '<leader>f', ':Telescope find_files<cr>', {})
@@ -48,8 +48,8 @@ map("n", "gp", "<Plug>(YankyGPutAfter)", {})
 map("n", "gP", "<Plug>(YankyGPutBefore)", {})
 map("x", "gp", "<Plug>(YankyGPutAfter)", {})
 map("x", "gP", "<Plug>(YankyGPutBefore)", {})
-map("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
-map("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
+map("n", "<leader>n", "<Plug>(YankyCycleForward)", {})
+map("n", "<leader>p", "<Plug>(YankyCycleBackward)", {})
 
 -- gitsigns
 map("n", "<leader>sc", ":Gitsigns preview_hunk<cr>", {})
@@ -65,4 +65,7 @@ map("n", "<leader>d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "<leader>D", ":lua vim.diagnostic.goto_prev()<CR>", {})
 
 -- lsp
-map("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", {})
+map("n", "R", ":lua vim.lsp.buf.rename()<CR>", {})
+
+-- glance
+map("n", "sr", ":Glance references<CR>", {})
