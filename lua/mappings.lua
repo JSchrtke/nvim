@@ -65,4 +65,7 @@ map("n", "<leader>d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "<leader>D", ":lua vim.diagnostic.goto_prev()<CR>", {})
 
 -- lsp
-map("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", {})
+map("n", "R", ":lua vim.lsp.buf.rename()<CR>", {})
+
+-- glance
+map("n", "sr", ":Glance references<CR>", {})

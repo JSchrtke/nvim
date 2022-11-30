@@ -32,4 +32,5 @@ use 'smjonas/live-command.nvim'
 use {'https://git.sr.ht/~whynothugo/lsp_lines.nvim', as = 'lsp_lines'}
 use "rebelot/kanagawa.nvim"
 use 'reubenlillie/mine-shaft'
+use 'DNLHC/glance.nvim'
 end)
