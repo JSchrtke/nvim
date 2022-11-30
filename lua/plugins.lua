@@ -2,10 +2,7 @@ require("packer").startup(function(use)
 use "wbthomason/packer.nvim"
 use "nvim-telescope/telescope.nvim"
 use "nvim-lua/plenary.nvim"
-use {
-    'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-}
+use 'nvim-treesitter/nvim-treesitter'
 use 'JSchrtke/harpoon'
 use 'rkennedy/vim-delphi'
 use 'gbprod/yanky.nvim'
