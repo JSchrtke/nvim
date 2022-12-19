@@ -2,7 +2,11 @@ require("packer").startup(function(use)
 use "wbthomason/packer.nvim"
 use "nvim-telescope/telescope.nvim"
 use "nvim-lua/plenary.nvim"
-use 'nvim-treesitter/nvim-treesitter'
+use "rebelot/kanagawa.nvim"
+use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+}
 use 'JSchrtke/harpoon'
 use 'rkennedy/vim-delphi'
 use 'gbprod/yanky.nvim'
@@ -27,8 +31,7 @@ use 'hrsh7th/vim-vsnip'
 use 'nvim-lualine/lualine.nvim'
 use 'smjonas/live-command.nvim'
 use {'https://git.sr.ht/~whynothugo/lsp_lines.nvim', as = 'lsp_lines'}
-use "rebelot/kanagawa.nvim"
-use 'reubenlillie/mine-shaft'
+use { 'reubenlillie/mine-shaft', commit = "750575" }
 use 'DNLHC/glance.nvim'
 use 'saecki/crates.nvim'
 end)
