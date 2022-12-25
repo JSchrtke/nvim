@@ -19,9 +19,13 @@ require("mason-lspconfig").setup_handlers({
                         }
                     },
                     on_attach = function(_, bufnr)
-                        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
+                        -- rust specific mappings
+                        vim.keymap.set("n", "<leader>k", ":RustOpenExternalDocs<CR>", { buffer = bufnr })
                         vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+                        -- the rest
+                        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
                         vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+                        vim.keymap.set("n", "gr", vim.lsp.buf.rename, {})
                     end,
                 },
                 tools = {
@@ -36,6 +40,7 @@ require("mason-lspconfig").setup_handlers({
                     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
                     vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+                    vim.keymap.set("n", "gr", vim.lsp.buf.rename, {})
                 end,
             })
         end

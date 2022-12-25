@@ -61,11 +61,8 @@ map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<C
 
 -- diagnostic
 map("n", "<leader>sd", ":lua require('lsp-lines-config').toggle()<CR>", {})
-map("n", "<leader>d", ":lua vim.diagnostic.goto_next()<CR>", {})
-map("n", "<leader>D", ":lua vim.diagnostic.goto_prev()<CR>", {})
-
--- lsp
-map("n", "R", ":lua vim.lsp.buf.rename()<CR>", {})
+map("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", {})
+map("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", {})
 
 -- glance
 map("n", "sr", ":Glance references<CR>", {})
