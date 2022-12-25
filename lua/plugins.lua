@@ -34,4 +34,5 @@ use {'https://git.sr.ht/~whynothugo/lsp_lines.nvim', as = 'lsp_lines'}
 use { 'reubenlillie/mine-shaft', commit = "750575" }
 use 'DNLHC/glance.nvim'
 use 'saecki/crates.nvim'
+use 'tpope/vim-surround'
 end)
