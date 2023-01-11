@@ -18,7 +18,7 @@ map('n', '<leader>w', ':Telescope grep_string<cr>', {})
 map('n', '<leader>?', ':Telescope help_tags<cr>', {})
 map('n', '<leader>o', ':Telescope oldfiles<cr>', {})
 map('n', '<leader>t', ':Telescope resume<cr>', {})
-
+map('n', '<leader>S', ':Telescope lsp_document_symbols<cr>', {})
 
 -- harpoon
 map('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>', {})
@@ -52,17 +52,21 @@ map("n", "<leader>n", "<Plug>(YankyCycleForward)", {})
 map("n", "<leader>p", "<Plug>(YankyCycleBackward)", {})
 
 -- gitsigns
-map("n", "<leader>sc", ":Gitsigns preview_hunk<cr>", {})
-map("n", "<leader>c", ":Gitsigns next_hunk<cr>", {})
-map("n", "<leader>C", ":Gitsigns prev_hunk<cr>", {})
+map("n", "sc", ":Gitsigns preview_hunk_inline<cr>", {})
+map("n", "]c", ":Gitsigns next_hunk<cr>", {})
+map("n", "[c", ":Gitsigns prev_hunk<cr>", {})
+map("n", "dc", ":Gitsigns reset_hunk<cr>", {})
 
 -- spectre
 map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
 
 -- diagnostic
-map("n", "<leader>sd", ":lua require('lsp-lines-config').toggle()<CR>", {})
+map("n", "sd", ":lua require('lsp-lines-config').toggle()<CR>", {})
 map("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", {})
 
 -- glance
 map("n", "sr", ":Glance references<CR>", {})
+
+-- dirbuf
+map("n", "<leader>e", ":Dirbuf <CR>", {})
