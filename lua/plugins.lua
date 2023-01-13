@@ -35,4 +35,8 @@ use { 'reubenlillie/mine-shaft', commit = "750575" }
 use 'DNLHC/glance.nvim'
 use 'saecki/crates.nvim'
 use 'tpope/vim-surround'
+use 'elihunter173/dirbuf.nvim'
+use 'projekt0n/github-nvim-theme'
+use 'norcalli/nvim-colorizer.lua'
+use 'folke/zen-mode.nvim'
 end)
