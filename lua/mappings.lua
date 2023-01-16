@@ -70,3 +70,6 @@ map("n", "sr", ":Glance references<CR>", {})
 
 -- dirbuf
 map("n", "<leader>e", ":Dirbuf <CR>", {})
+
+-- zenmode
+map("n", "<C-w>z", ":ZenMode <CR>", {})
