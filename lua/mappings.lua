@@ -10,15 +10,16 @@ map('n', '<C-n>', ':cnext<cr>', {})
 map('n', '<C-p>', ':cprev<cr>', {})
 
 -- telescope
-map('n', '<leader>f', ':Telescope find_files<cr>', {})
-map('n', '<leader>b', ':Telescope buffers<cr>', {})
-map('n', '<leader>/', ':Telescope current_buffer_fuzzy_find<cr>', {})
-map('n', '<leader>g', ':Telescope live_grep<cr>', {})
-map('n', '<leader>w', ':Telescope grep_string<cr>', {})
-map('n', '<leader>?', ':Telescope help_tags<cr>', {})
-map('n', '<leader>o', ':Telescope oldfiles<cr>', {})
-map('n', '<leader>t', ':Telescope resume<cr>', {})
-map('n', '<leader>S', ':Telescope lsp_document_symbols<cr>', {})
+map('n', '<leader>of', ':Telescope find_files<cr>', {})
+map('n', '<leader>ob', ':Telescope buffers<cr>', {})
+map('n', '<leader>or', ':Telescope oldfiles<cr>', {})
+
+map('n', '<leader>ff', ':Telescope current_buffer_fuzzy_find<cr>', {})
+map('n', '<leader>fd', ':Telescope live_grep<cr>', {})
+map('n', '<leader>fw', ':Telescope grep_string<cr>', {})
+map('n', '<leader>fh', ':Telescope help_tags<cr>', {})
+map('n', '<leader>fl', ':Telescope resume<cr>', {})
+map('n', '<leader>fs', ':Telescope dynamic_workspace_symbols<cr>', {})
 
 -- harpoon
 map('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>', {})
