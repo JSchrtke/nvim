@@ -39,4 +39,5 @@ use 'elihunter173/dirbuf.nvim'
 use 'projekt0n/github-nvim-theme'
 use 'norcalli/nvim-colorizer.lua'
 use 'folke/zen-mode.nvim'
+use { 'L3MON4D3/LuaSnip', tag = "v1.1.0" }
 end)
