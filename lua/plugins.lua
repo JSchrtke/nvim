@@ -41,4 +41,5 @@ use 'norcalli/nvim-colorizer.lua'
 use 'folke/zen-mode.nvim'
 use { 'L3MON4D3/LuaSnip', tag = "v1.1.0" }
 use 'nvim-treesitter/nvim-treesitter-context'
+use 'SmiteshP/nvim-navic'
 end)

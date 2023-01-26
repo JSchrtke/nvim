@@ -15,7 +15,21 @@ vim.o.wrap = true
 vim.o.listchars="tab:-->,eol:↲,nbsp:␣,space:•,trail:•,extends:⟩,precedes:⟨"
 vim.o.cursorline = true
 vim.o.laststatus = 3
-vim.opt.winbar = "%f"
+
+function Winbar()
+    local navic = require("nvim-navic")
+    local winbar = "%f"
+    local location = ""
+    if navic.is_available() then
+	    location = navic.get_location()
+    end
+    if location ~= "" then
+        winbar = winbar .. " > " .. location
+    end
+
+    return winbar
+end
+vim.opt.winbar = "%{%v:lua.Winbar()%}"
 vim.o.scrolloff = 3
 
 vim.cmd("autocmd FocusGained,BufEnter,CursorHold * :silent! checktime")
