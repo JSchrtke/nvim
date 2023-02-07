@@ -18,7 +18,7 @@ map('n', '<leader>w', ':Telescope grep_string<cr>', {})
 map('n', '<leader>?', ':Telescope help_tags<cr>', {})
 map('n', '<leader>o', ':Telescope oldfiles<cr>', {})
 map('n', '<leader>t', ':Telescope resume<cr>', {})
-map('n', '<leader>S', ':Telescope lsp_document_symbols<cr>', {})
+map('n', 'ss', ':Telescope lsp_document_symbols<cr>', {})
 
 -- harpoon
 map('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>', {})
@@ -33,6 +33,11 @@ map('n', '<C-k>', ':lua require("harpoon.term").gotoTerminal(3)<cr>', {})
 map('n', '<leader>rh', "<cmd>lua vim.ui.input({ prompt = '1 > '}, function(input) require('harpoon.term').sendCommand(1, input) end)<cr>", {})
 map('n', '<leader>rj', "<cmd>lua vim.ui.input({ prompt = '2 > '}, function(input) require('harpoon.term').sendCommand(2, input) end)<cr>", {})
 map('n', '<leader>rk', "<cmd>lua vim.ui.input({ prompt = '3 > '}, function(input) require('harpoon.term').sendCommand(3, input) end)<cr>", {})
+
+-- run things
+map('n', '<leader>rp', "<cmd>lua require('harpoon.term').sendCommand(1, './run.sh')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
+map('n', '<leader>rt', "<cmd>lua require('harpoon.term').sendCommand(1, './test.sh')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
+map('n', '<leader>rf', ":!./fmt.sh<cr>", {})
 
 -- terminal mappings
 map('t', '<C-w>n', '<C-\\><C-n>', {})
@@ -51,11 +56,12 @@ map("x", "gP", "<Plug>(YankyGPutBefore)", {})
 map("n", "<leader>n", "<Plug>(YankyCycleForward)", {})
 map("n", "<leader>p", "<Plug>(YankyCycleBackward)", {})
 
--- gitsigns
+-- git
 map("n", "sc", ":Gitsigns preview_hunk_inline<cr>", {})
 map("n", "]c", ":Gitsigns next_hunk<cr>", {})
 map("n", "[c", ":Gitsigns prev_hunk<cr>", {})
 map("n", "dc", ":Gitsigns reset_hunk<cr>", {})
+map("n", "sl", ":GcLog<cr>", {})
 
 -- spectre
 map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
