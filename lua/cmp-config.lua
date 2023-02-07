@@ -19,8 +19,10 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'luasnip' },
         { name = 'crates' },
     }, {
         { name = 'buffer' },
-    })
+    }),
+    experimental = { ghost_text = true }
 })
