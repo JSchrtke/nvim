@@ -34,7 +34,7 @@ require'treesitter-context'.setup{
         },
         rust = {
             'impl_item',
-
+            'match_expresson',
         },
         terraform = {
             'block',
@@ -89,4 +89,5 @@ require'treesitter-context'.setup{
     separator = nil,
 }
 
+vim.cmd("highlight! link TreesitterContext WinBar")
 vim.cmd("highlight! link TreesitterContextLineNumber TreesitterContext")
