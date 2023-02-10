@@ -1,8 +1,7 @@
 -- vim.cmd("colorscheme melange")
 
-vim.cmd("colorscheme kanagawa")
-vim.cmd("highlight! link WinBar NormalFloat")
--- vim.cmd("highlight! Normal guibg=#131318")
+vim.cmd("colorscheme melange")
+vim.cmd("highlight! Normal guibg=#1A1714")
 -- vim.cmd("highlight! NormalFloat guibg=#09090C")
 -- vim.cmd("highlight! CursorLine guibg=#1f1f28")
 -- vim.cmd("highlight! DiagnosticError gui=bold guibg=#43242B guifg=#e82424")
