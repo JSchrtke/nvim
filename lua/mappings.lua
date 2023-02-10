@@ -72,7 +72,7 @@ map("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", {})
 
 -- glance
-map("n", "sr", ":Glance references<CR>", {})
+map("n", "sr", ":lua vim.lsp.buf.references()<CR>", {})
 
 -- dirbuf
 map("n", "<leader>e", ":Dirbuf <CR>", {})
