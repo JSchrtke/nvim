@@ -46,4 +46,5 @@ use 'tpope/vim-repeat'
 use 'shortcuts/no-neck-pain.nvim'
 use 'lukas-reineke/indent-blankline.nvim'
 use 'lukas-reineke/virt-column.nvim'
+use 'sindrets/diffview.nvim'
 end)
