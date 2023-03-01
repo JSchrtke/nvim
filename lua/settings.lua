@@ -15,6 +15,7 @@ vim.o.wrap = true
 vim.o.listchars="tab:-->,eol:↲,nbsp:␣,space:•,trail:•,extends:⟩,precedes:⟨"
 vim.o.cursorline = true
 vim.o.laststatus = 3
+vim.o.colorcolumn = "100"
 
 function Winbar()
     local navic = require("nvim-navic")
