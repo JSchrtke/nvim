@@ -44,4 +44,5 @@ use 'nvim-treesitter/nvim-treesitter-context'
 use 'SmiteshP/nvim-navic'
 use 'tpope/vim-repeat'
 use 'shortcuts/no-neck-pain.nvim'
+use 'lukas-reineke/indent-blankline.nvim'
 end)
