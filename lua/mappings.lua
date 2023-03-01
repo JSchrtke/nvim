@@ -77,5 +77,4 @@ map("n", "sr", ":lua vim.lsp.buf.references()<CR>", {})
 -- dirbuf
 map("n", "<leader>e", ":Dirbuf <CR>", {})
 
--- zenmode
-map("n", "<C-w>z", ":ZenMode <CR>", {})
+map("n", "<C-w>z", ":NoNeckPain <CR>", {})
