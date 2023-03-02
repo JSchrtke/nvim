@@ -32,16 +32,34 @@
 -- vim.cmd("highlight! link TreesitterContextLineNumber TreesitterContext")
 
 require('github-theme').setup({
-    theme_style = "light_default",
+    theme_style = "dimmed",
     dark_float = "true",
     keyword_style = "NONE",
 })
-vim.cmd("highlight! @variable guifg=#24292F")
-vim.cmd("highlight! @variable.javascript guifg=#24292F")
--- vim.cmd("highlight! @operator guifg=#24292F")
-vim.cmd("highlight! link @punctuation.delimiter @operator")
-vim.cmd("highlight! @punctuation.bracket guifg=#24292F")
-vim.cmd("highlight! @type guifg=#953800")
-vim.cmd("highlight! link @type.qualifier @keyword")
-vim.cmd("highlight! link @constant.builtin @type")
+vim.cmd("highlight! @variable guifg=#ADBAC7")
+vim.cmd("highlight! @variable.javascript guifg=#ADBAC7")
+vim.cmd("highlight! @type guifg=#F69D50")
 vim.cmd("highlight! link @namespace @type")
+vim.cmd("highlight! link @function.macro function")
+-- vim.cmd("highlight! link @punctuation.delimiter @variable")
+-- vim.cmd("highlight! link @punctuation.special @variable")
+-- vim.cmd("highlight! link @punctuation.bracket @variable")
+-- vim.cmd("highlight! DiffText gui=bold guifg=#341a00 guibg=#e3b341")
+-- vim.cmd("highlight! link TreesitterContext WinBar")
+-- vim.cmd("highlight! link TreesitterContextLineNumber TreesitterContext")
+
+
+-- require('github-theme').setup({
+--     theme_style = "light_default",
+--     dark_float = "true",
+--     keyword_style = "NONE",
+-- })
+-- vim.cmd("highlight! @variable guifg=#24292F")
+-- vim.cmd("highlight! @variable.javascript guifg=#24292F")
+-- -- vim.cmd("highlight! @operator guifg=#24292F")
+-- vim.cmd("highlight! link @punctuation.delimiter @operator")
+-- vim.cmd("highlight! @punctuation.bracket guifg=#24292F")
+-- vim.cmd("highlight! @type guifg=#953800")
+-- vim.cmd("highlight! link @type.qualifier @keyword")
+-- vim.cmd("highlight! link @constant.builtin @type")
+-- vim.cmd("highlight! link @namespace @type")
