@@ -2,7 +2,7 @@ require("no-neck-pain").setup({
     -- Prints useful logs about triggered events, and reasons actions are executed.
     debug = false,
     -- When `true`, enables the plugin when you start Neovim.
-    enableOnVimEnter = false,
+    enableOnVimEnter = true,
     -- When `true`, enables the plugin when you enter a new Tab.
     -- note: it does not trigger if it's an existing tab, to prevent unwanted interfer with user's decisions.
     enableOnTabEnter = false,
