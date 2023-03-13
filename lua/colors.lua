@@ -1,3 +1,6 @@
+vim.g.modus_dim_inactive_window = false
+vim.cmd("colorscheme modus-operandi")
+
 -- vim.cmd("colorscheme melange")
 -- vim.cmd("highlight! Normal guibg=#1A1714")
 -- vim.cmd("highlight! WinBar gui=bold guibg=#3A332E")
@@ -31,16 +34,16 @@
 -- vim.cmd("highlight! link TreesitterContext WinBar")
 -- vim.cmd("highlight! link TreesitterContextLineNumber TreesitterContext")
 
-require('github-theme').setup({
-    theme_style = "dimmed",
-    dark_float = "true",
-    keyword_style = "NONE",
-})
-vim.cmd("highlight! @variable guifg=#ADBAC7")
-vim.cmd("highlight! @variable.javascript guifg=#ADBAC7")
-vim.cmd("highlight! @type guifg=#F69D50")
-vim.cmd("highlight! link @namespace @type")
-vim.cmd("highlight! link @function.macro function")
+-- require('github-theme').setup({
+--     theme_style = "dimmed",
+--     dark_float = "true",
+--     keyword_style = "NONE",
+-- })
+-- vim.cmd("highlight! @variable guifg=#ADBAC7")
+-- vim.cmd("highlight! @variable.javascript guifg=#ADBAC7")
+-- vim.cmd("highlight! @type guifg=#F69D50")
+-- vim.cmd("highlight! link @namespace @type")
+-- vim.cmd("highlight! link @function.macro function")
 -- vim.cmd("highlight! link @punctuation.delimiter @variable")
 -- vim.cmd("highlight! link @punctuation.special @variable")
 -- vim.cmd("highlight! link @punctuation.bracket @variable")
