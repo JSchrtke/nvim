@@ -35,16 +35,31 @@ use { 'reubenlillie/mine-shaft', commit = "750575" }
 use 'DNLHC/glance.nvim'
 use 'saecki/crates.nvim'
 use 'tpope/vim-surround'
-use 'elihunter173/dirbuf.nvim'
 use 'projekt0n/github-nvim-theme'
 use 'norcalli/nvim-colorizer.lua'
-use 'folke/zen-mode.nvim'
 use { 'L3MON4D3/LuaSnip', tag = "v1.1.0" }
 use 'nvim-treesitter/nvim-treesitter-context'
 use 'SmiteshP/nvim-navic'
 use 'tpope/vim-repeat'
-use 'shortcuts/no-neck-pain.nvim'
 use 'lukas-reineke/indent-blankline.nvim'
 use 'lukas-reineke/virt-column.nvim'
 use 'sindrets/diffview.nvim'
+use 'j-hui/fidget.nvim'
+use 'smithbm2316/centerpad.nvim'
+use 'folke/neodev.nvim'
+use {
+  "folke/zen-mode.nvim",
+  config = function()
+    require("zen-mode").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  end
+}
+use '~/develop/lua/nvim-plugin-spike'
+use {
+  'stevearc/oil.nvim',
+}
+use 'RRethy/nvim-treesitter-textsubjects'
 end)

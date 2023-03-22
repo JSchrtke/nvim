@@ -18,12 +18,12 @@ map('n', '<leader>w', ':Telescope grep_string<cr>', {})
 map('n', 'g?', ':Telescope help_tags<cr>', {})
 map('n', '<leader>o', ':Telescope oldfiles<cr>', {})
 map('n', '<leader>t', ':Telescope resume<cr>', {})
-map('n', 'ss', ':Telescope lsp_document_symbols<cr>', {})
+map('n', 'ss', ':Telescope lsp_dynamic_workspace_symbols<cr>', {})
 map('n', '<leader>q', ':Telescope quickfix<cr>', {})
 
 -- harpoon
 map('n', '<leader>m', ':lua require("harpoon.mark").add_file()<cr>', {})
-map('n', '<leader>sm', ':lua require("harpoon.ui").toggle_quick_menu()<cr>', {})
+map('n', 'sm', ':lua require("harpoon.ui").toggle_quick_menu()<cr>', {})
 map('n', '<leader>h', ':lua require("harpoon.ui").nav_file(1)<cr>', {})
 map('n', '<leader>j', ':lua require("harpoon.ui").nav_file(2)<cr>', {})
 map('n', '<leader>k', ':lua require("harpoon.ui").nav_file(3)<cr>', {})
@@ -76,7 +76,7 @@ map("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", {})
 -- glance
 map("n", "sr", ":lua vim.lsp.buf.references()<CR>", {})
 
--- dirbuf
-map("n", "<leader>e", ":Dirbuf <CR>", {})
+-- dir browser
+vim.keymap.set("n", "<leader>e", require("oil").open, { desc = "Open parent directory" })
 
-map("n", "<C-w>z", ":NoNeckPain <CR>", {})
+-- map("n", "<C-w>z", ":NoNeckPain <CR>", {})
