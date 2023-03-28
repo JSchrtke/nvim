@@ -18,7 +18,7 @@ map('n', '<leader>w', ':Telescope grep_string<cr>', {})
 map('n', 'g?', ':Telescope help_tags<cr>', {})
 map('n', '<leader>o', ':Telescope oldfiles<cr>', {})
 map('n', '<leader>t', ':Telescope resume<cr>', {})
-map('n', 'ss', ':Telescope lsp_dynamic_workspace_symbols<cr>', {})
+map('n', 'ss', ':Telescope lsp_document_symbols<cr>', {})
 map('n', '<leader>q', ':Telescope quickfix<cr>', {})
 
 -- harpoon
@@ -78,5 +78,3 @@ map("n", "sr", ":lua vim.lsp.buf.references()<CR>", {})
 
 -- dir browser
 vim.keymap.set("n", "<leader>e", require("oil").open, { desc = "Open parent directory" })
-
--- map("n", "<C-w>z", ":NoNeckPain <CR>", {})
