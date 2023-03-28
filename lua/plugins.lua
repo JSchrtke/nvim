@@ -61,5 +61,4 @@ use '~/develop/lua/nvim-plugin-spike'
 use {
   'stevearc/oil.nvim',
 }
-use 'RRethy/nvim-treesitter-textsubjects'
 end)
