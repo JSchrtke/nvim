@@ -69,7 +69,7 @@ map("n", "sl", ":GcLog<cr>", {})
 map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
 
 -- diagnostic
-map("n", "sd", ":lua require('lsp-lines-config').toggle()<CR>", {})
+vim.api.nvim_set_keymap("n", "sd", ":lua vim.diagnostic.setqflist()<CR>", {})
 map("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", {})
 
