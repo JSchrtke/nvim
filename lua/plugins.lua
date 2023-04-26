@@ -57,8 +57,8 @@ use {
     }
   end
 }
-use '~/develop/lua/nvim-plugin-spike'
 use {
   'stevearc/oil.nvim',
 }
+use 'jose-elias-alvarez/null-ls.nvim'
 end)
