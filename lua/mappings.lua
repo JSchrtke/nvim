@@ -69,9 +69,13 @@ map("n", "sl", ":GcLog<cr>", {})
 map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
 
 -- diagnostic
-vim.api.nvim_set_keymap("n", "sd", ":lua vim.diagnostic.setqflist()<CR>", {})
+vim.api.nvim_set_keymap("n", "sd", ":lua vim.diagnostic.open_float()<CR>", {})
+vim.api.nvim_set_keymap("n", "sad", ":lua vim.diagnostic.setqflist({ title = 'Diagnostics' })<CR>", {})
+vim.api.nvim_set_keymap("n", "se", ":lua vim.diagnostic.setqflist({ title = 'Errors', severity = vim.diagnostic.severity.ERROR })<CR>", {})
 map("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", {})
 map("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", {})
+map("n", "]e", ":lua vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", {})
+map("n", "[e", ":lua vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", {})
 
 -- glance
 map("n", "sr", ":lua vim.lsp.buf.references()<CR>", {})
