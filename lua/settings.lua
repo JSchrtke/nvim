@@ -19,17 +19,18 @@ vim.o.colorcolumn = "80,100"
 vim.o.updatetime = 1000
 
 function Winbar()
-    local navic = require("nvim-navic")
-    local winbar = "%f"
-    local location = ""
-    if navic.is_available() then
-	    location = navic.get_location()
-    end
-    if location ~= "" then
-        winbar = winbar .. " > " .. location
-    end
+    -- local navic = require("nvim-navic")
+    -- local winbar = "%f"
+    -- local location = ""
+    -- if navic.is_available() then
+	    -- location = navic.get_location()
+    -- end
+    -- if location ~= "" then
+    --     winbar = winbar .. " > " .. location
+    -- end
 
-    return winbar
+    -- return winbar
+    return "%f"
 end
 vim.opt.winbar = "%{%v:lua.Winbar()%}"
 vim.o.scrolloff = 3
