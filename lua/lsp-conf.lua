@@ -16,6 +16,7 @@ require("mason-lspconfig").setup_handlers({
                         }
                     },
                     on_attach = function(client, bufnr)
+                        client.server_capabilities.semanticTokensProvider = nil
                         -- rust specific mappings
                         vim.keymap.set("n", "<leader>K", ":RustOpenExternalDocs<CR>", { buffer = bufnr })
                         -- the rest
@@ -37,6 +38,7 @@ require("mason-lspconfig").setup_handlers({
         else
             require("lspconfig")[server_name].setup({
                 on_attach = function(client, bufnr)
+                    client.server_capabilities.semanticTokensProvider = nil
                     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
                     vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
