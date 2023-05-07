@@ -64,6 +64,7 @@ map("n", "]c", ":Gitsigns next_hunk<cr>", {})
 map("n", "[c", ":Gitsigns prev_hunk<cr>", {})
 map("n", "dc", ":Gitsigns reset_hunk<cr>", {})
 map("n", "sl", ":GcLog<cr>", {})
+map("n", "co", ":Telescope git_branches<cr>", {})
 
 -- spectre
 map("n", "<leader>R", ":lua require('spectre').open_visual({select_word=true})<CR>", {})
