@@ -45,7 +45,9 @@ require("mason-lspconfig").setup_handlers({
                     vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr })
                     vim.keymap.set("n", "gr", vim.lsp.buf.rename, {})
                     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
-                    require("nvim-navic").attach(client, bufnr)
+                    if client.server_capabilities.documentSymbol ~= nil then
+                        require("nvim-navic").attach(client, bufnr)
+                    end
                 end,
             })
         end
