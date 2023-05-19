@@ -27,5 +27,4 @@ require("virt_column_config")
 require("diffview_config")
 require("fidget").setup({})
 require("null_ls_config")
-
-require("oil").setup()
+require("oil_config")
