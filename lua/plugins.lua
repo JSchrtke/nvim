@@ -61,4 +61,5 @@ use {
   'stevearc/oil.nvim',
 }
 use 'jose-elias-alvarez/null-ls.nvim'
+use 'shaunsingh/solarized.nvim'
 end)
