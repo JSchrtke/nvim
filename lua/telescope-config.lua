@@ -2,11 +2,12 @@ local actions = require('telescope.actions')
 local layout = require('telescope.actions.layout')
 require("telescope").setup({
     defaults = {
-        layout_config = {
-            prompt_position = "top",
-            width = 0.99,
-            height = 0.99,
-        },
+        layout_strategy = 'vertical',
+        -- layout_config = {
+        --     prompt_position = "top",
+        --     width = 0.99,
+        --     height = 0.99,
+        -- },
         sorting_strategy = "ascending",
         mappings = {
             i = {
