@@ -44,7 +44,7 @@ require("packer").startup(function(use)
     use 'lukas-reineke/indent-blankline.nvim'
     use 'lukas-reineke/virt-column.nvim'
     use 'sindrets/diffview.nvim'
-    use 'j-hui/fidget.nvim'
+    use { 'j-hui/fidget.nvim', tag="legacy" }
     use 'smithbm2316/centerpad.nvim'
     use 'folke/neodev.nvim'
     use {
