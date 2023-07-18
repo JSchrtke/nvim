@@ -86,3 +86,6 @@ map("n", "sr", ":lua vim.lsp.buf.references()<CR>", {})
 
 -- dir browser
 vim.keymap.set("n", "<leader>e", require("oil").open, { desc = "Open parent directory" })
+
+-- zen mode
+vim.keymap.set("n", "<C-w>z", ":ZenMode<CR>", { desc = "toggle zen mode" })
