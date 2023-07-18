@@ -41,6 +41,7 @@ map('n', '<leader>rk', "<cmd>lua vim.ui.input({ prompt = '3 > '}, function(input
 -- run things
 map('n', '<leader>rp', "<cmd>lua require('harpoon.term').sendCommand(1, './run.sh')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
 map('n', '<leader>rt', "<cmd>lua require('harpoon.term').sendCommand(1, './test.sh')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
+map('n', '<leader>rb', "<cmd>lua require('harpoon.term').sendCommand(1, './build.sh')<cr><cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", {})
 map('n', '<leader>rf', ":lua vim.lsp.buf.format()<cr>", {})
 
 -- terminal mappings
