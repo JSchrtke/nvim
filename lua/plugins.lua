@@ -62,4 +62,6 @@ require("packer").startup(function(use)
     }
     use 'jose-elias-alvarez/null-ls.nvim'
     use 'shaunsingh/solarized.nvim'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use 'hrsh7th/cmp-path'
 end)
