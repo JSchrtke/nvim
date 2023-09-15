@@ -44,7 +44,7 @@ require("packer").startup(function(use)
     use 'lukas-reineke/indent-blankline.nvim'
     use 'lukas-reineke/virt-column.nvim'
     use 'sindrets/diffview.nvim'
-    use { 'j-hui/fidget.nvim', tag="legacy" }
+    use { 'j-hui/fidget.nvim', tag = "legacy" }
     use 'smithbm2316/centerpad.nvim'
     use 'folke/neodev.nvim'
     use {
@@ -64,4 +64,23 @@ require("packer").startup(function(use)
     use 'shaunsingh/solarized.nvim'
     use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'hrsh7th/cmp-path'
+    use "nvim-telescope/telescope-live-grep-args.nvim"
+    use 'folke/trouble.nvim'
+    use 'rbong/vim-flog'
+    use 'camgunz/amber'
+    use {
+        "mcchrish/zenbones.nvim",
+        requires = "rktjmp/lush.nvim"
+    }
+    use 'doums/darcula'
+    use 'wincent/ferret'
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
+    }
 end)
