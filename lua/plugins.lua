@@ -83,4 +83,5 @@ require("packer").startup(function(use)
             "MunifTanjim/nui.nvim",
         }
     }
+    use 'https://github.com/ramojus/mellifluous.nvim'
 end)
