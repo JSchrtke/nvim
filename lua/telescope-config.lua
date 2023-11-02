@@ -8,6 +8,7 @@ require("telescope").setup({
         --     width = 0.99,
         --     height = 0.99,
         -- },
+        preview = false,
         sorting_strategy = "ascending",
         mappings = {
             i = {
