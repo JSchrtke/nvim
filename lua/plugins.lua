@@ -84,4 +84,5 @@ require("packer").startup(function(use)
         }
     }
     use 'https://github.com/ramojus/mellifluous.nvim'
+    use 'stevearc/dressing.nvim'
 end)
