@@ -31,7 +31,6 @@ require("packer").startup(function(use)
     use 'nvim-lualine/lualine.nvim'
     use 'smjonas/live-command.nvim'
     use { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', as = 'lsp_lines' }
-    use { 'reubenlillie/mine-shaft', commit = "750575" }
     use 'DNLHC/glance.nvim'
     use 'saecki/crates.nvim'
     use 'tpope/vim-surround'
@@ -45,7 +44,6 @@ require("packer").startup(function(use)
     use 'lukas-reineke/virt-column.nvim'
     use 'sindrets/diffview.nvim'
     use { 'j-hui/fidget.nvim', tag = "legacy" }
-    use 'smithbm2316/centerpad.nvim'
     use 'folke/neodev.nvim'
     use {
         "folke/zen-mode.nvim",
