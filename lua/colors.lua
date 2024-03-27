@@ -1,1 +1,1 @@
-vim.cmd("colorscheme melange");
+vim.cmd("colorscheme zenburn");
