@@ -4,6 +4,7 @@ local map = vim.api.nvim_set_keymap
 
 -- navigation
 map('n', '<leader><leader>', '<C-6>', {})
+map('n', 'cd', ':Telescope zoxide list<CR>', {})
 
 -- quickfix list
 map('n', '<C-n>', ':cnext<cr>', {})

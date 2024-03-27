@@ -49,9 +49,6 @@ require("packer").startup(function(use)
         "folke/zen-mode.nvim",
         config = function()
             require("zen-mode").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
             }
         end
     }
@@ -77,7 +74,7 @@ require("packer").startup(function(use)
         branch = "v3.x",
         requires = {
             "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
         }
     }
@@ -85,4 +82,5 @@ require("packer").startup(function(use)
     use 'stevearc/dressing.nvim'
     use 'phha/zenburn.nvim'
     use 'p00f/alabaster.nvim'
+    use 'jvgrootveld/telescope-zoxide'
 end)
