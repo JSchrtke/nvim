@@ -15,13 +15,13 @@ map(
 map(
     'n',
     '<leader>rt',
-    "<cmd>lua require('harpoon.term').sendCommand(3, 'go test')<cr><cmd>lua require('harpoon.term').gotoTerminal(3)<cr>",
+    "<cmd>lua require('harpoon.term').sendCommand(3, 'go test ./...')<cr><cmd>lua require('harpoon.term').gotoTerminal(3)<cr>",
     {}
 )
 map(
     'n',
     '<leader>rf',
-    ":!go fmt<cr>",
+    ":!go fmt ./...<cr>",
     {}
 )
 EOF
