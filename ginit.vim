@@ -1,5 +1,5 @@
 " neovide
-set guifont=Iosevka\ Term:h14:#e-subpixelantialias:#h-none
+set guifont=Iosevka:h20:#e-subpixelantialias:#h-none
 let g:neovide_refresh_rate = 144
 let g:neovide_cursor_animation_length = 0.02
 let g:neovide_cursor_trail_length=2

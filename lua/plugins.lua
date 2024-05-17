@@ -16,7 +16,7 @@ require("packer").startup(function(use)
     use 'lewis6991/gitsigns.nvim'
     use 'ethanholz/nvim-lastplace'
     use 'ishan9299/modus-theme-vim'
-    use 'Pocco81/auto-save.nvim'
+    -- use 'Pocco81/auto-save.nvim'
     use 'tpope/vim-fugitive'
     use 'nvim-pack/nvim-spectre'
     use 'savq/melange'
@@ -83,4 +83,12 @@ require("packer").startup(function(use)
     use 'phha/zenburn.nvim'
     use 'p00f/alabaster.nvim'
     use 'jvgrootveld/telescope-zoxide'
+    use 'klen/nvim-test'
+    use({
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      after = "nvim-treesitter",
+      requires = "nvim-treesitter/nvim-treesitter",
+    })
+    use 'ellisonleao/gruvbox.nvim'
+    use 'p00f/alabaster.nvim'
 end)
