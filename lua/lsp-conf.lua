@@ -20,10 +20,8 @@ require("mason-lspconfig").setup_handlers({
                         -- rust specific mappings
                         vim.keymap.set("n", "<leader>K", ":RustOpenExternalDocs<CR>", { buffer = bufnr })
                         -- the rest
-                        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-                        vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
                         vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-                        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr })
+                        vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { buffer = bufnr })
                         vim.keymap.set("n", "gr", vim.lsp.buf.rename, {})
                         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
                         require("nvim-navic").attach(client, bufnr)
@@ -40,10 +38,9 @@ require("mason-lspconfig").setup_handlers({
                 root_dir = require("lspconfig.util").root_pattern('angular.json', 'project.json'),
                 on_attach = function(client, bufnr)
                     client.server_capabilities.semanticTokensProvider = nil
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
                     vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-                    vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr })
+                    vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { buffer = bufnr })
                     vim.keymap.set("n", "gr", vim.lsp.buf.rename, {})
                     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
                     if client.server_capabilities.documentSymbol ~= nil then
@@ -55,10 +52,9 @@ require("mason-lspconfig").setup_handlers({
             require("lspconfig")[server_name].setup({
                 on_attach = function(client, bufnr)
                     client.server_capabilities.semanticTokensProvider = nil
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
                     vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action, { buffer = bufnr })
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-                    vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr })
+                    vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { buffer = bufnr })
                     vim.keymap.set("n", "gr", vim.lsp.buf.rename, {})
                     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
                     if client.server_capabilities.documentSymbol ~= nil then
