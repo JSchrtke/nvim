@@ -22,17 +22,6 @@ vim.o.updatetime = 1000
 vim.opt.formatoptions:remove("o")
 
 function Winbar()
-    -- local navic = require("nvim-navic")
-    -- local winbar = "%f"
-    -- local location = ""
-    -- if navic.is_available() then
-    -- location = navic.get_location()
-    -- end
-    -- if location ~= "" then
-    --     winbar = winbar .. " > " .. location
-    -- end
-
-    -- return winbar
     return "%f"
 end
 
