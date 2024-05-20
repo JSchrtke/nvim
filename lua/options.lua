@@ -12,18 +12,19 @@ vim.o.undofile = true
 vim.o.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.o.wrap = true
-vim.o.listchars="tab:-->,eol:↲,nbsp:␣,space:•,trail:•,extends:⟩,precedes:⟨"
+vim.o.listchars = "tab:-->,eol:↲,nbsp:␣,space:•,trail:•,extends:⟩,precedes:⟨"
 vim.o.cursorline = true
 vim.o.laststatus = 3
 vim.o.colorcolumn = "80,100"
 vim.o.updatetime = 1000
+vim.opt.formatoptions:remove("o")
 
 function Winbar()
     -- local navic = require("nvim-navic")
     -- local winbar = "%f"
     -- local location = ""
     -- if navic.is_available() then
-	    -- location = navic.get_location()
+    -- location = navic.get_location()
     -- end
     -- if location ~= "" then
     --     winbar = winbar .. " > " .. location
@@ -32,6 +33,7 @@ function Winbar()
     -- return winbar
     return "%f"
 end
+
 vim.opt.winbar = "%{%v:lua.Winbar()%}"
 vim.o.scrolloff = 3
 
