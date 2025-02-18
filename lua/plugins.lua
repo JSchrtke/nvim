@@ -66,4 +66,16 @@ require("packer").startup(function(use)
         after = "nvim-treesitter",
         requires = "nvim-treesitter/nvim-treesitter",
     })
+    use 'nvim-pack/nvim-spectre'
+    use 'adalessa/laravel.nvim'
+    use "tpope/vim-dotenv"
+    use "MunifTanjim/nui.nvim"
+    use "nvimtools/none-ls.nvim"
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
+    use 'theHamsta/nvim-dap-virtual-text'
+    use 'nvim-neotest/nvim-nio'
+    use 'leoluz/nvim-dap-go'
+    use 'rebelot/kanagawa.nvim'
+    use 'luckasRanarison/tailwind-tools.nvim'
 end)

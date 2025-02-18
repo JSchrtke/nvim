@@ -22,3 +22,8 @@ require("diffview_config")
 require("fidget").setup({})
 require("null_ls_config")
 require("oil_config")
+require("none")
+require("laravel_config")
+require("dap_config")
+require("nvim-test").setup()
+require("tailwind_tools_setup");

@@ -9,7 +9,7 @@ local map = vim.api.nvim_set_keymap
 map(
     'n',
     '<leader>rp',
-    "<cmd>lua require('harpoon.term').sendCommand(2, '')<cr><cmd>lua require('harpoon.term').sendCommand(2, 'go run ./...')<cr><cmd>lua require('harpoon.term').gotoTerminal(2)<cr>",
+    "<cmd>lua require('harpoon.term').sendCommand(2, '')<cr><cmd>lua require('harpoon.term').sendCommand(2, './run.sh')<cr><cmd>lua require('harpoon.term').gotoTerminal(2)<cr>",
     {}
 )
 map(

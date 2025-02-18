@@ -1,3 +1,3 @@
-set colorcolumn=120
-setlocal textwidth=120
+set colorcolumn=80,160,240
+setlocal textwidth=80
 setlocal shiftwidth=2 tabstop=2 expandtab

@@ -73,6 +73,7 @@ map("n", "co", ":Telescope git_branches<cr>", {})
 
 -- diagnostic
 vim.api.nvim_set_keymap("n", "sd", ":lua vim.diagnostic.open_float()<CR>", {})
+vim.api.nvim_set_keymap("n", "sD", ":lua require('lsp-lines-config').toggle()<CR>", {})
 vim.api.nvim_set_keymap("n", "sad", ":lua vim.diagnostic.setqflist({ title = 'Diagnostics' })<CR>", {})
 vim.api.nvim_set_keymap("n", "se", ":lua vim.diagnostic.setqflist({ title = 'Errors', severity = vim.diagnostic.severity.ERROR })<CR>", {})
 map("n", "]e", ":lua vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", {})

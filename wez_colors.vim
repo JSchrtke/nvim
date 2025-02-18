@@ -1,13 +1,3 @@
-set nu rnu hls is scs
-set nowrap
-set listchars=tab:«•»,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-set mouse=a
-set textwidth=120
-set shiftwidth=4 tabstop=4 expandtab
-set colorcolumn=120
-set ignorecase
-set smartcase
-
 " Wez's VIM colors for Dark background
 " vim:ts=2:sw=2:et:
 
@@ -68,19 +58,6 @@ hi Comment      term=bold cterm=italic ctermfg=LightCyan ctermbg=black
 hi Constant     term=underline cterm=NONE ctermfg=DarkMagenta ctermbg=NONE
                 \ gui=NONE guifg=#ff55ff guibg=NONE
 
-" Magenta
-hi String     term=underline cterm=NONE ctermfg=DarkMagenta ctermbg=NONE
-                \ gui=NONE guifg=#ff55ff guibg=NONE
-
-hi Character       term=underline cterm=NONE ctermfg=DarkMagenta ctermbg=NONE
-                       \ gui=NONE guifg=#ff55ff guibg=NONE
-
-hi Number          term=underline cterm=NONE ctermfg=DarkMagenta ctermbg=NONE
-                       \ gui=NONE guifg=#ff55ff guibg=NONE
-
-hi Boolean         term=underline cterm=NONE ctermfg=DarkMagenta ctermbg=NONE
-                            \ gui=NONE guifg=#ff55ff guibg=NONE
-
 " Red-ish; Orange in gui for better contrast
 " Special chars are things like \n in a quoted string
 hi Special      term=bold cterm=None ctermfg=DarkRed ctermbg=NONE
@@ -139,6 +116,11 @@ hi PmenuSbar    cterm=NONE ctermfg=5 ctermbg=0 gui=NONE
 hi PmenuThumb   cterm=NONE ctermfg=1 ctermbg=6 gui=NONE
                 \ guifg=black guibg=NONE
 
+" hi link String          Constant
+hi! link Constant String
+hi link Character       Constant
+hi link Number          Constant
+hi link Boolean         Constant
 hi link Float           Number
 hi link Function        Identifier
 hi link Conditional     Statement
