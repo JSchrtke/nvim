@@ -67,7 +67,6 @@ require("packer").startup(function(use)
         requires = "nvim-treesitter/nvim-treesitter",
     })
     use 'nvim-pack/nvim-spectre'
-    use 'adalessa/laravel.nvim'
     use "tpope/vim-dotenv"
     use "MunifTanjim/nui.nvim"
     use "nvimtools/none-ls.nvim"
